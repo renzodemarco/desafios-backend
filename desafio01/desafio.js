@@ -1,7 +1,8 @@
 class ProductManager {
 
-    constructor() {
+    constructor(path) {
         this.products = [];
+        this.path = path;
     }
 
     getProducts() {
@@ -10,6 +11,10 @@ class ProductManager {
 
     addProduct(title, description, price, code, stock, thumbnail) {
 
+        const addId = this.products.length === 0 ? 1 : this.products[this.products.length - 1].id + 1
+
+        const codeExists = (prod) => prod.code === product.code
+
         const product = {
             title,
             description,
@@ -17,12 +22,12 @@ class ProductManager {
             thumbnail, 
             code,
             stock,
-            id: this.products.length === 0 ? 1 : this.products[this.products.length - 1].id + 1
+            id: addId
         }
 
-        if (!title || !description || !price || !code || !stock || !thumbnail) return "Incomplete information"
+        if (this.products.some(prod => codeExists(prod))) return "Code already exists"
 
-        if (this.products.some(prod => prod.code === product.code)) return "Code already exists"
+        if (!title || !description || !price || !code || !stock || !thumbnail) return "Incomplete information"
 
         this.products.push(product)
 
@@ -39,23 +44,21 @@ class ProductManager {
 }
 
 
-// creo una instancia de la clase ProductManager
 const Productos = new ProductManager
 
-// llamo a los productos, lo que devuelve un array vacío
+console.log('Llamo a los productos, lo que devuelve un array vacío:')
 console.log(Productos.getProducts());
 
-// agrego un producto de prueba
 Productos.addProduct("Producto prueba", "Este es un producto prueba", 200, "abc123", 25, "Sin imagen");
 
-// llamo a los productos nuevamente, lo que me devuelve un array que contiene al producto de prueba
+console.log('LLamo a los productos después de haber agregado uno:')
 console.log(Productos.getProducts());
 
-// intento agregar un producto con la misma info que el anterior, lo que me devuelve error ya que el code es el mismo
-console.log(Productos.addProduct("Producto prueba", "Este es un producto prueba", 200, "abc123", 25, "Sin imagen"));
+console.log('Intento agregar un producto con un code ya usado:') 
+console.log(Productos.addProduct("Producto prueba", "Este es un producto prueba", 200, "abc123", 25, "Sin imagen"))
 
-// obtengo el producto con el id 1
+console.log('Obtengo el producto con id 1:')
 console.log(Productos.getProductById(1));
 
-// intento obtener el producto con el id 2, como no existe, devuelve error
+console.log('Intento obtener el producto con id 2:')
 console.log(Productos.getProductById(2));

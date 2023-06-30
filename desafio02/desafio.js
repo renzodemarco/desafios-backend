@@ -4,11 +4,12 @@ class ProductManager {
 
     constructor() {
         this.path = './products.json';
+        this.products = this.getProducts();
     }
 
     async getProducts() {
         try {
-            const file = await fs.readFile(this.path, 'utf-8')
+            const file = await this.readFile(this.path)
             const products = JSON.parse(file)
             return products;
         }
@@ -20,6 +21,11 @@ class ProductManager {
 
     async writeProducts(products) {
         fs.writeFile(this.path, JSON.stringify(products))
+        this.products = products
+    }
+
+    async readFile(path) {
+        return await fs.readFile(path, 'utf-8')
     }
 
     checkInfo(prod) {

@@ -1,13 +1,21 @@
 {
-  "name": "04-curso-programacion-backend",
+  "name": "desafios",
   "version": "1.0.0",
   "description": "",
-  "main": "clase02-TicketManager.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renzodemarco/desafios-backend.git"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renzodemarco/desafios-backend/issues"
+  },
+  "homepage": "https://github.com/renzodemarco/desafios-backend#readme"
 }

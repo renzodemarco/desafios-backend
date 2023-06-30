@@ -149,12 +149,12 @@ await Productos.addProduct({
     thumbnail: "Sin imagen"})
 
 await Productos.addProduct({
-        title:"Producto prueba 2", 
-        description: "Este es otro producto prueba", 
-        price: 180, 
-        code: "abc124", 
-        stock: 10, 
-        thumbnail: "Sin imagen"})
+    title:"Producto prueba 2", 
+    description: "Este es otro producto prueba", 
+    price: 180, 
+    code: "abc124", 
+    stock: 10, 
+    thumbnail: "Sin imagen"})
 
 console.log("Muestro en consola el listado de productos")
 

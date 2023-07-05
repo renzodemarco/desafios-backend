@@ -20,7 +20,7 @@ export default class ProductManager {
     }
 
     async writeProducts(products) {
-        fs.writeFile(this.path, JSON.stringify(products, null, 2))
+        await fs.writeFile(this.path, JSON.stringify(products, null, 2))
         this.products = products
     }
 

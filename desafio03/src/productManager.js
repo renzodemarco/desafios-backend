@@ -1,6 +1,6 @@
-import fs from 'fs/promises'
+import {promises as fs} from 'fs'
 
-class ProductManager {
+export default class ProductManager {
 
     constructor() {
         this.path = './products.json';
@@ -130,66 +130,4 @@ class ProductManager {
 
         else console.log("Not found")
     }
-
 }
-
-
-const Productos = new ProductManager
-
-console.log("Al principio no existe archivo json")
-
-console.log("Agrego dos productos, lo que hace que se cree un archivo json conteniendolos")
-
-await Productos.addProduct({
-    title:"Producto prueba",
-    description: "Este es un producto prueba", 
-    price: 150, 
-    code: "abc123", 
-    stock: 25, 
-    thumbnail: "Sin imagen"})
-
-await Productos.addProduct({
-    title:"Producto prueba 2", 
-    description: "Este es otro producto prueba", 
-    price: 180, 
-    code: "abc124", 
-    stock: 10, 
-    thumbnail: "Sin imagen"})
-
-console.log("Muestro en consola el listado de productos")
-
-console.log(await Productos.getProducts());
-
-console.log("Intento agregar un producto con código repetido")
-
-await Productos.addProduct({
-    title:"Producto prueba 3", 
-    description: "Este es un producto con código repetido", 
-    price: 120, 
-    code: "abc123", 
-    stock: 25, 
-    thumbnail: "Sin imagen"})
-
-console.log("Actualizo el producto con id 1")
-
-await Productos.updateProduct(1, {title: "Titulo actualizado", description: "Descripción actualizada"})
-
-console.log("Muestro en consola el producto actualizado")
-
-console.log(await Productos.getProductById(1))
-
-console.log("Intento mostrar en consola un producto cuyo id no existe")
-
-console.log(await Productos.getProductById(3))
-
-console.log("Elimino el producto con id 2")
-
-await Productos.deleteProduct(2)
-
-console.log("Muestro nuevamente el listado de productos")
-
-console.log(await Productos.getProducts());
-
-console.log("Intento eliminar un producto cuyo id no existe")
-
-await Productos.deleteProduct(3);

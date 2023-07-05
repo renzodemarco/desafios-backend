@@ -1,0 +1,10 @@
+// Desde acá hago las llamadas al servidor utilizando la extensión REST Client
+
+### Ruta que devuelve todos los productos
+GET http://localhost:8080/products
+
+### Ruta que devuelve un máximo de 3 productos 
+GET http://localhost:8080/products?limit=3
+
+### Ruta que devuelve un producto por ID
+GET http://localhost:8080/products/5

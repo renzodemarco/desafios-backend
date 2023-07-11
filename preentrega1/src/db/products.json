@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 150,
+    "code": "abc123",
+    "stock": 25,
+    "thumbnail": [],
+    "id": 1,
+    "category": "Rock",
+    "status": true
+  },
+  {
+    "title": "Producto prueba 2",
+    "description": "Este es otro producto prueba",
+    "price": 180,
+    "code": "abc124",
+    "stock": 10,
+    "thumbnails": [],
+    "id": 2,
+    "category": "Rock",
+    "status": true
+  },
+  {
+    "title": "Otro producto",
+    "description": "Es otro producto más",
+    "price": 110,
+    "code": "abc125",
+    "stock": 2,
+    "thumbnails": [],
+    "id": 3,
+    "category": "Pop",
+    "status": true
+  },
+  {
+    "title": "Producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 50,
+    "code": "abc126",
+    "stock": 23,
+    "thumbnails": [],
+    "id": 4,
+    "category": "Jazz",
+    "status": true
+  },
+  {
+    "title": "Producto prueba",
+    "description": "Este es un producto prueba",
+    "price": 480,
+    "code": "abc127",
+    "stock": 1,
+    "thumbnails": [],
+    "id": 5,
+    "category": "Rap",
+    "status": true
+  }
+]

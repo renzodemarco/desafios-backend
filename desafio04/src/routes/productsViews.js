@@ -1,7 +1,7 @@
 import { Router } from "express";
 import ProductManager from "../productManager.js";
 
-const manager = new ProductManager('preentrega1/src/db/products.json')
+const manager = new ProductManager('desafio04/src/db/products.json')
 
 const productsViewsRouter = Router();
 
@@ -19,5 +19,20 @@ productsViewsRouter.get('/', async (req, res) => {
         res.status(502).send({error: true, msg: e.message})
     }
 })
+
+productsViewsRouter.get('/realtimeproducts', async (req, res) => {
+    try {
+        res.render('realTimeProducts')
+        const io = req.io;
+        const products = await manager.getProducts()
+        io.on('connection', ()=> {
+            io.emit('actualizacion', products)
+        })
+    }
+    catch(e) {
+        res.status(502).send({error: true, msg: e.message})
+    }
+})
+
 
 export default productsViewsRouter

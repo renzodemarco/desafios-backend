@@ -1,0 +1,34 @@
+// Desde acá hago las llamadas al servidor utilizando la extensión REST Client
+
+### Ruta para agregar un producto
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "Producto prueba POST",
+    "description": "Este es un producto prueba para POST",
+    "price": 120,
+    "code": "abc128",
+    "stock": 23,
+    "category": "Pop",
+    "status": true
+}
+
+### Ruta para actualizar el producto 3
+PUT http://localhost:8080/api/products/3
+Content-Type: application/json
+
+{
+    "title": "Producto actualizado",
+    "description": "Este es un producto al cual se le aumentó el precio",
+    "price": 170
+}
+
+### Ruta para eliminar el producto 6
+DELETE http://localhost:8080/api/products/6
+
+
+### MONGO DB
+
+### Ruta para get products
+GET http://localhost:8080/mongo/products

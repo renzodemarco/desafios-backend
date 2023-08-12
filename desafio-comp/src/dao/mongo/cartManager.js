@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import CartModel from "../models/carts.model.js";
-import productManager from './productManager.js'
 
 const connection = await mongoose.connect('mongodb+srv://renzodemarco:coderhouse@rencluster.iuxqmho.mongodb.net/ecommerce?retryWrites=true&w=majority')
 
@@ -38,11 +37,29 @@ export default class CartManager {
         }
     }
 
-    async addProductToCart(cartId, prodCode) {
+    async addProductToCart(prodCode, cartId) {
         try {
-        }
-        catch (e) {
+            const cart = await CartModel.findOne({ id: cartId });
+
+            if (!cart) {
+                return "Cart not found"
+            }
+
+            const existingProduct = cart.products.find(prod => prod.product === prodCode);
+
+            if (existingProduct) {
+                existingProduct.quantity ++;
+            } else {
+                cart.products.push({ product: prodCode, quantity: 1 });
+            }
+
+            await cart.save();
+            
+            return {cart: cartId, newProduct: prodCode}
+        } 
+        catch(e) {
             return { error: true, msg: e.message }
         }
     }
+    
 }

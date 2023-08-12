@@ -3,17 +3,39 @@ import ProductModel from '../models/products.model.js'
 
 const connection = await mongoose.connect('mongodb+srv://renzodemarco:coderhouse@rencluster.iuxqmho.mongodb.net/ecommerce?retryWrites=true&w=majority')
 
-export default class productManager {
+export default class ProductManager {
 
     constructor() { }
 
-    async getProducts(limit) {
+    async getProducts({limit, page, sort, query}) {
         try {
-            if (limit) {
-                return await ProductModel.find().limit().lean()
+            let sortBy;
+            if (sort == 'asc') {
+                sortBy = {price: 1}
             }
-                return await ProductModel.find().lean()
+            else if (sort == 'desc') {
+                sortBy = {price: -1}
+            }
+            else sortBy = {}
+
+            let queryBy = 
+                query.length > 0 ? {
+                    category: {$in: query}
+                } : {}
+
+            const products = await ProductModel.paginate(
+                queryBy,
+                {
+                    limit: limit,
+                    page: page,
+                    lean: true,
+                    sort: sortBy
+                }
+            )
+            
+            return products
         }
+
         catch(e) {
             return {error: true, msg: e.message}
         }

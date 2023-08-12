@@ -1,12 +1,4 @@
-<script defer src='/socket.io/socket.io.js'></script>
-<script defer src='/js/socket.js'></script>
-
-<h1>Lista de productos:</h1>
-
-<div class="listContainer" id="listContainer"></div>
-
-<style>
-    * {
+* {
     margin: 0;
     padding: 0;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,8 +13,6 @@ body {
 
 h1 {
     margin: .2em;
-    font-size: 2em;
-    font-weight: bold;
 }
 
 li {
@@ -44,4 +34,3 @@ ul {
     justify-content: space-around;
     align-items: stretch;
 }
-</style>

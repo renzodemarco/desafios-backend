@@ -9,8 +9,9 @@ const cartSchema = new mongoose.Schema({
     products: [{
         product: String,
         quantity: Number
-    }]
-})
+    }],
+},
+{ _id: false })
 
 const CartModel = mongoose.model('carts', cartSchema)
 

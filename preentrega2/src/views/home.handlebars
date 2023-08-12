@@ -1,0 +1,87 @@
+<h1>Lista de productos:</h1>
+<div class="listContainer">
+{{#each products}}
+    <div class="productContainer">
+        <ul>
+            <li><h2>{{this.title}} ({{this.year}})</h2></li>
+            <li><b>Artista: </b>{{this.description}}</li>
+            <li><b>Precio: </b>${{this.price}}</li>
+            <li><b>Categoría: </b>{{this.category}}</li>
+            <li><b>Stock: </b>{{this.stock}}</li>
+            <li><b>Code: </b>{{this.code}}</li>
+        </ul>
+        <button>Agregar al carrito</button>
+    </div>
+{{/each}}
+
+</div>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: rgb(182, 191, 207);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+ul {
+    margin: .2rem
+}
+
+li {
+    list-style-type: none;
+    text-align: center;
+}
+
+.productContainer {
+    margin: .6rem;
+    padding: .6rem;
+    width: 26rem;
+    background-color: rgb(120, 131, 177);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border: solid 1px #000;
+    margin: .2rem;
+    padding: .4rem .7rem;
+    background-color: rgb(31, 35, 49);
+    color: #fff;
+}
+
+button:hover {
+    background-color: rgb(76, 83, 114);
+}
+
+button:active {
+    background-color: rgb(31, 35, 49);
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+</style>

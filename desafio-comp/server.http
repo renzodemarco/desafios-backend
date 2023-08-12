@@ -32,3 +32,17 @@ DELETE http://localhost:8080/api/products/6
 
 ### Ruta para get products
 GET http://localhost:8080/mongo/products
+
+### Ruta para agregar un producto
+POST http://localhost:8080/mongo/products
+Content-Type: application/json
+
+{
+    "title": "Producto prueba MONGO",
+    "description": "Este es un producto prueba para MONGO",
+    "price": 160,
+    "code": "abc130",
+    "stock": 23,
+    "category": "Pop",
+    "status": true
+}

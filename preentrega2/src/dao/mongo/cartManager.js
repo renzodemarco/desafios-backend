@@ -168,7 +168,7 @@ export default class CartManager {
 
 const manager = new CartManager()
 
-console.log(await manager.addProductToCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a126a'))
+// console.log(await manager.addProductToCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a126a'))
 
 // console.log(await manager.deleteProductFromCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a1263'))
 

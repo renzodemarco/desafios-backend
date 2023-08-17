@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['rock', 'pop', 'jazz', 'latin', 'metal', 'electro', 'other'],
+        enum: ['rock', 'pop', 'jazz', 'latin', 'metal', 'electro', 'rap'],
         required: true
     },
     status: {

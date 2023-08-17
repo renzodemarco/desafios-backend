@@ -1,0 +1,95 @@
+// RUTAS PARA LOS PRODUCTS:
+
+### Ruta que devuelve un objeto con la información de paginate
+GET http://localhost:8080/api/products
+
+### Ruta que devuelve un máximo de 5 productos por página
+GET http://localhost:8080/api/products?limit=5
+
+### Ruta para obtener un product por su id
+GET http://localhost:8080/api/products/64d7bf86678402946f7a125f
+
+### Ruta para agregar un producto
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "title": "DAMN.",
+    "description": "Kendrick Lamar",
+    "year": 2017,
+    "price": 175,
+    "code": "abc141",
+    "stock": 11,
+    "category": "rap",
+    "status": true
+}
+
+### Ruta para actualizar el disco "Nevermind" de Nirvana, aumentando su precio
+PUT http://localhost:8080/api/products/64d7bf86678402946f7a1269
+Content-Type: application/json
+
+{
+    "price": 150
+}
+
+### Ruta para eliminar el disco "Kind of Blue" de Miles Davis
+DELETE http://localhost:8080/api/products/64da3fbfa0b43cff518a83fb
+
+
+// RUTAS PARA LOS CARRITOS:
+
+### Ruta para mostrar una lista con todos los carritos
+GET http://localhost:8080/api/carts/
+
+### Ruta para mostrar un carrito por id
+GET http://localhost:8080/api/carts/64d7d02b706458d74832ead9
+
+### Ruta para crear un carrito
+POST http://localhost:8080/api/carts/
+
+### Ruta para agregar el disco "The Wall" de Pink Floyd al carrito anterior
+POST http://localhost:8080/api/carts/64d7d02b706458d74832ead9/products/64d7bf86678402946f7a1261
+
+### Ruta para eliminar el disco "The Wall" de Pink Floyd del carrito anterior
+DELETE http://localhost:8080/api/carts/64d7d02b706458d74832ead9/products/64d7bf86678402946f7a1261
+
+### Ruta para modificar la cantidad de discos "Dark Side of The Moon" de Pink Floyd al carrito anterior
+PUT http://localhost:8080/api/carts/64d7d02b706458d74832ead9/products/64d7bf86678402946f7a126a
+Content-Type: application/json 
+
+{
+    "quantity": 10
+}
+
+### Ruta para actualizar el carrito con el id 64da43dfb8eefcefd4b98668
+PUT http://localhost:8080/api/carts/64da43dfb8eefcefd4b98668
+Content-Type: application/json
+
+[
+    {
+        "product": {
+            "_id": "64d7bf86678402946f7a126a",
+            "title": "The Dark Side of the Moon",
+            "description": "Pink Floyd",
+            "year": 1973,
+            "price": 175,
+            "code": "abc134",
+            "stock": 25,
+            "category": "rock"
+        },
+        "quantity": 4
+    }
+]
+
+### Ruta para eliminar todos los productos del carrito con el id 64da43dfb8eefcefd4b98668
+DELETE http://localhost:8080/api/carts/64da43dfb8eefcefd4b98668
+
+
+// VISTAS:
+
+// Vista de products al cual se le puede agregar query params (el de nombre "query" recibe un array que filtra solo por categorías musicales)
+http://localhost:8080/products 
+
+// Vista de carts:
+http://localhost:8080/carts/64d7d02b706458d74832ead9
+http://localhost:8080/carts/64d80832180ab4d2aa14f9f2

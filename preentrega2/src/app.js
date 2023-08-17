@@ -1,8 +1,10 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './dirname.js'
-import cartRouter from './routes/carts.js';
 import productsRouter from './routes/products.js'
+import cartRouter from './routes/carts.js';
+import productsViewsRouter from './routes/productsViews.js';
+import cartViewsRouter from './routes/cartViews.js';
 import { Server as HTTPServer } from "http";
 import { Server as SocketIO } from "socket.io";
 
@@ -28,9 +30,9 @@ app.use('/api/products', productsRouter)
 
 app.use('/api/carts', cartRouter)
 
-// app.use('/products', productsViewsRouter)
+app.use('/products', productsViewsRouter)
 
-// app.use('/carts', cartViewsRouter)
+app.use('/carts', cartViewsRouter)
 
 app.use(express.static(`${__dirname}/public`))
 

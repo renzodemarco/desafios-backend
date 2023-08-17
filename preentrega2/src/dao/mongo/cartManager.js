@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import CartModel from "../models/carts.model.js";
+import ProductModel from "../models/products.model.js";
 
 const connection = await mongoose.connect('mongodb+srv://renzodemarco:coderhouse@rencluster.iuxqmho.mongodb.net/ecommerce?retryWrites=true&w=majority')
 
@@ -19,7 +20,7 @@ export default class CartManager {
 
     async getCartById(_id) {
         try {
-            const cart = CartModel.find({ _id })
+            const cart = CartModel.findOne({ _id }).lean()
             return cart
         }
         catch (e) {
@@ -37,12 +38,18 @@ export default class CartManager {
         }
     }
 
-    async addProductToCart(cartId, prodId) {   // NO FUNCIONA EL POPULATE
+    async addProductToCart(cartId, prodId) { 
         try {
             const cart = await CartModel.findOne({_id: cartId})
 
             if (!cart) {
                 return { error: true, msg: "Cart not found" }
+            }
+
+            const product = await ProductModel.findOne({_id: prodId})
+
+            if (!product) {
+                return { error: true, msg: "Product not found" }
             }
 
             const existingProduct = cart.products.find(prod => prod.product._id.toString() === prodId);
@@ -131,7 +138,7 @@ export default class CartManager {
 
             cart.save()
 
-            return {cart: cartId, updated: true}
+            return {updated: true, cart}
         }
 
         catch(e) {
@@ -168,8 +175,11 @@ export default class CartManager {
 
 const manager = new CartManager()
 
-// console.log(await manager.addProductToCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a126a'))
 
-// console.log(await manager.deleteProductFromCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a1263'))
+// ! CUANDO CORRO ESTE CODIGO FUNCIONA PERO NO CUANDO LO HAGO DESDE MI REST API
 
-// console.log(await manager.updateProdQuantity('64d7d02b706458d74832ead9','64d7bf86678402946f7a1263', 200))
+// * PARA ELIMINAR "THE WALL":
+// console.log(await manager.deleteProductFromCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a1261'))
+
+// * PARA MODIFICAR QUANTITY DE "THE DARK SIDE OF THE MOON":
+// console.log(await manager.updateProdQuantity('64d7d02b706458d74832ead9', '64d7bf86678402946f7a126a', 120))

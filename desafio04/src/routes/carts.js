@@ -18,8 +18,7 @@ cartRouter.get('/:cid', async (req, res) => {
 
 cartRouter.post('/', async (req, res) => {
     try {
-        const {products} = req.body;
-        const cart = await manager.addCart(products)
+        const cart = await manager.addCart()
         res.send(cart)
     }
     catch(e) {

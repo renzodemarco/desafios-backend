@@ -47,7 +47,7 @@ export default class CartManager {
             }
 
             const product = await ProductModel.findOne({_id: prodId})
-
+            
             if (!product) {
                 return { error: true, msg: "Product not found" }
             }

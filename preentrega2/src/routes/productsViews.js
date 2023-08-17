@@ -10,8 +10,8 @@ productsViewsRouter.get('/', async (req, res) => {
         const { limit = 10, page = 1, sort, query = [] } = req.query;
         const products = await manager.getProducts({limit: Number(limit), page: Number(page), sort, query});
         const { docs, ...data} = products
-        data.nextLink = data.hasNextPage ? `http://localhost:8080/products?page${data.nextPage}` : null
-        data.prevLink = data.hasPrevPage ? `http://localhost:8080/products?page${data.prevPage}` : null
+        data.nextLink = data.hasNextPage ? `http://localhost:8080/api/products?limit=${limit}&page=${data.nextPage}` : null
+        data.prevLink = data.hasPrevPage ? `http://localhost:8080/api/products?limit=${limit}&page=${data.prevPage}` : null
         res.render('products', { products: docs })
     }
     catch(e) {

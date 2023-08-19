@@ -3,7 +3,7 @@
     <h1>Registrar nuevo usuario</h1>
 
     {{#if error}}
-        <p style="color: #a11">Ha habido un error en su intento de registro, por favor intente de nuevo</p>
+        <p class="error">Ha habido un error en su intento de registro, por favor intente de nuevo</p>
     {{/if}}
 
     <form method="post">
@@ -23,7 +23,7 @@
         <input class='blue-button' type="submit" id="submit" value="Registrarse" disabled>   
     </form>
 
-    <p style="color: #a11" id="msg"></p>
+    <p class="error" id="msg"></p>
     <button class='grey-button' onclick="redirect('http://localhost:8080/login')">Ya estoy registrado</button>
 
 </div>
@@ -49,6 +49,6 @@
         }
     }
 
-    password.addEventListener('change', handlePasswords)
-    password2.addEventListener('change', handlePasswords)
+    password.addEventListener('keyup', handlePasswords)
+    password2.addEventListener('keyup', handlePasswords)
 </script>

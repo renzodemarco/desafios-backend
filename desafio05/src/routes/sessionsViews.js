@@ -17,7 +17,6 @@ sessionRouter.get('/', (req, res) => {
 
 sessionRouter.get('/login', isLogged, (req, res) => {
     const {retry} = req.query
-    console.log(req.session)
     res.render('login', {retry})
 })
 

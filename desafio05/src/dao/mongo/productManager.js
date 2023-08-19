@@ -43,8 +43,8 @@ export default class ProductManager {
 
     async addProduct(product) {
         try {
-            const newProd = await ProductModel.insertMany([product])
-            return newProd
+            await ProductModel.insertMany([product])
+            return product
         }
 
         catch (e) {
@@ -54,7 +54,7 @@ export default class ProductManager {
 
     async getProductById(id) {
         try {
-            const product = await ProductModel.find({_id: id}).lean()
+            const product = await ProductModel.find({_id: id})
             return product
         }
         catch(e) {
@@ -64,7 +64,7 @@ export default class ProductManager {
 
     async updateProduct(id, prod) {
         try {
-            const updatedProduct = await ProductModel.findOneAndUpdate({_id: id}, prod, {new: true}).lean()
+            const updatedProduct = await ProductModel.findOneAndUpdate({_id: id}, prod, {new: true})
             return updatedProduct
         }
         catch (e) {
@@ -74,7 +74,7 @@ export default class ProductManager {
 
     async deleteProduct(id) {
         try {
-            const deletedProduct = await ProductModel.findOneAndDelete({_id: id}).lean()
+            const deletedProduct = await ProductModel.findOneAndDelete({_id: id})
             return deletedProduct
         }
         catch (e) {

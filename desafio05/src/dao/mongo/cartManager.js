@@ -43,13 +43,13 @@ export default class CartManager {
             const cart = await CartModel.findOne({_id: cartId})
 
             if (!cart) {
-                throw new Error({ error: true, msg: "Cart not found" })
+                throw new Error( { error: true, msg: "Cart not found" })
             }
 
             const product = await ProductModel.findOne({_id: prodId})
             
             if (!product) {
-                throw new Error({ error: true, msg: "Product not found" })
+                return { error: true, msg: "Product not found" }
             }
 
             const existingProduct = cart.products.find(prod => prod.product._id.toString() === prodId);
@@ -170,3 +170,16 @@ export default class CartManager {
         }
     }
 }
+
+
+
+const manager = new CartManager()
+
+
+// ! CUANDO CORRO ESTE CODIGO FUNCIONA PERO NO CUANDO LO HAGO DESDE MI REST API
+
+// * PARA ELIMINAR "THE WALL":
+// console.log(await manager.deleteProductFromCart('64d7d02b706458d74832ead9','64d7bf86678402946f7a1261'))
+
+// * PARA MODIFICAR QUANTITY DE "THE DARK SIDE OF THE MOON":
+// console.log(await manager.updateProdQuantity('64d7d02b706458d74832ead9', '64d7bf86678402946f7a126a', 120))

@@ -1,0 +1,27 @@
+<div class="container">
+
+    <h1>Iniciar sesión</h1>
+
+    {{#if retry}}
+        <p style="color: #a11">Usuario o contraseña incorrectos, por favor intente de nuevo</p>
+    {{/if}}
+
+
+    <form method="post">
+            <label for="name">Usuario:</label>
+        <input type="text" name="username" id="username">
+            <label for="name">Contraseña:</label>
+        <input type="password" name="password" id="password">
+
+        <input class='blue-button' type="submit" value="Ingresar">
+    </form>
+
+    <button class='grey-button' onclick="redirect('http://localhost:8080/register')">Crear nuevo usuario</button>
+
+</div>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

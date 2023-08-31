@@ -11,6 +11,9 @@ import cartRouter from './routes/carts.js';
 import productsViewsRouter from './routes/productsViews.js';
 import cartViewsRouter from './routes/cartViews.js';
 import sessionRouter from './routes/sessionsViews.js';
+import passport from 'passport';
+import initLocalStrategy from './config/passport.config.js'
+import authRouter from './routes/auth.js';
 
 const app = express();
 
@@ -42,6 +45,10 @@ app.use(session({
     })
 }))
 
+initLocalStrategy()
+app.use(passport.initialize())
+app.use(passport.session()) 
+
 app.use('/api/products', productsRouter)
 
 app.use('/api/carts', cartRouter)
@@ -51,6 +58,8 @@ app.use('/products', productsViewsRouter)
 app.use('/carts', cartViewsRouter)
 
 app.use('/', sessionRouter)
+
+app.use('/auth', authRouter)
 
 
 httpServer.listen(8080, () => {

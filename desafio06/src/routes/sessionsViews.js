@@ -1,14 +1,11 @@
-import {Router} from 'express'
+import { Router } from 'express'
+import { isLogged} from '../utils/auth.middlewares.js'
 import UserManager from '../dao/mongo/userManager.js'
+import passport from 'passport'
 
 const sessionRouter = Router()
 
 const manager = new UserManager()
-
-const isLogged = (req, res, next) => {
-    if (req.session.user) return res.redirect('/products');
-    next()
-}
 
 sessionRouter.get('/', (req, res) => {
     if (req.session.user) return res.redirect('/products');
@@ -20,14 +17,14 @@ sessionRouter.get('/login', isLogged, (req, res) => {
     res.render('login', {retry})
 })
 
-sessionRouter.post('/login', async (req, res) => {
-    const {username, password} = req.body;
-    const user = await manager.validarUser(username, password)
-    if (!user) return res.redirect('/login?retry=true')
-    delete user.password;
-    delete user.salt;
-    req.session.user = user;
-    res.redirect('/products')
+sessionRouter.post('/login',
+    passport.authenticate('login',
+        {
+            successRedirect: '/products',
+            failureRedirect: '/login?retry=true',
+            failureFlash: true
+        }),
+async (req, res) => {
 })
 
 sessionRouter.get('/register', isLogged, (req, res) => {
@@ -35,17 +32,21 @@ sessionRouter.get('/register', isLogged, (req, res) => {
     res.render('register', {error})
 })
 
-sessionRouter.post('/register', async (req, res) => {
-    const {name, surname, email, username, password} = req.body
-    const user = await manager.crearUser({name, surname, email, username, password})
-    if (user.error) return res.redirect('/register?error=true')
-    res.redirect('/products')
+sessionRouter.post('/register', 
+    passport.authenticate('register', 
+        {
+            successRedirect: '/login',
+            failureRedirect: '/register?error=true',
+            failureFlash: true
+        }),
+    async (req, res) => {
 })
 
-sessionRouter.get('/logout', (req, res) => {
-    if (!req.session.user) res.redirect('/login')
-    req.session.destroy()
-    res.redirect('/')
+sessionRouter.get('/logout', (req, res, next) => {
+    req.logout(err => {
+        if (err) return next(err)
+        res.redirect('/')
+    });
 })
 
 export default sessionRouter

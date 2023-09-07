@@ -16,7 +16,7 @@ form.addEventListener('submit', async (event) => {
 
     const responseData = await response.json()
 
-    if (responseData.error) return alert("There's been a problem with your session login")
+    if (responseData.error) return alert(responseData.msg)
 
     localStorage.setItem('accessToken', responseData.accessToken)
 })

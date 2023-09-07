@@ -1,11 +1,7 @@
 import { Router } from 'express'
-import { isLogged} from '../utils/auth.middlewares.js'
-import UserManager from '../dao/mongo/userManager.js'
-import passport from 'passport'
+import { isLogged } from '../utils/auth.middlewares.js'
 
 const sessionRouter = Router()
-
-const manager = new UserManager()
 
 sessionRouter.get('/', (req, res) => {
     if (req.session.user) return res.redirect('/products');
@@ -17,26 +13,9 @@ sessionRouter.get('/login', isLogged, (req, res) => {
     res.render('login', {retry})
 })
 
-sessionRouter.post('/login',
-    passport.authenticate('login',
-        {
-            successRedirect: '/products',
-            failureRedirect: '/login?retry=true'
-        }), (req, res) => {
-})
-
 sessionRouter.get('/register', isLogged, (req, res) => {
     const {error} = req.query
     res.render('register', {error})
-})
-
-sessionRouter.post('/register', 
-    passport.authenticate('register', 
-        {
-            successRedirect: '/login',
-            failureRedirect: '/register?error=true'
-        }),
-    async (req, res) => {
 })
 
 sessionRouter.get('/logout', (req, res, next) => {

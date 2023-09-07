@@ -1,0 +1,11 @@
+### Prueba register
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+    "first_name": "Renzo",
+    "last_name": "Alumno",
+    "age": 22,
+    "email": "renzito@gmail.com",
+    "password": "1234"
+}

@@ -2,6 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 import UserManager from '../dao/mongo/userManager.js'
 import GithubStrategy from 'passport-github2'
+import mongoose, { mongo } from 'mongoose';
 
 const manager = new UserManager()
 
@@ -38,13 +39,13 @@ const initLocalStrategy = () => {
             passReqToCallback: true
         },
         async (req, username, password, done) => {
-            try {
+            try {    
                 const user = await manager.validarUser(username, password)
                 return done(null, user)
             }
             catch(error) {
-                return done(error.message, false)
-            }      
+                return done(error.message)
+            } 
         }
     ))
 

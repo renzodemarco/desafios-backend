@@ -1,0 +1,16 @@
+<h1>Carrito de compras:</h1>
+
+<div class="listContainer">
+{{#each products}}
+    <div class="productContainer">
+        <ul>
+            <li><h2>{{this.product.title}} ({{this.product.year}})</h2></li>
+            <li><b>Precio unitario: </b>${{this.product.price}}</li>
+            <li><b>Cantidad: </b> {{this.quantity}}</li>
+            <li><h3>Precio total: <b> ${{this.totalPrice}} </b></h3></li>
+        </ul>
+        <button>Eliminar del carrito</button>
+    </div>
+{{/each}}
+
+</div>

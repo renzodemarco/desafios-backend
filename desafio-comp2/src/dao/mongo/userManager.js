@@ -14,13 +14,13 @@ export default class UserManager {
         return users
     }
 
-    async getUserById(_id) {
-        const user = await UserModel.findOne({_id})
+    async getUserByEmail(email) {
+        const user = await UserModel.findOne({email})
         return user
     }
 
-    async getUserByUsername(username) {
-        const user = await UserModel.findOne({username})
+    async getUserById(_id) {
+        const user = await UserModel.findOne({_id})
         return user
     }
 
@@ -35,16 +35,16 @@ export default class UserManager {
         return newUser
     }
 
-    async validarUser(username, password) {
+    async validarUser(email, password) {
 
-        const user = await UserModel.findOne({username})
+        const user = await UserModel.findOne({email})
 
-        if (!user) throw new Error('Username does not exist')
+        if (!user) throw new Error('User does not exist')
     
         const isEqual = await bcrypt.compare(password, user.password)
 
         if (isEqual) return user.toObject() 
 
-        else throw new Error('Incorrect username or password')
+        else throw new Error('Incorrect email or password')
     }
 }

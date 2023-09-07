@@ -1,0 +1,32 @@
+<div class="container">
+
+    <h1>Iniciar sesión</h1>
+
+    {{#if retry}}
+        <p class="error">Usuario o contraseña incorrectos, por favor intente de nuevo</p>
+    {{/if}}
+
+
+    <form method="post" id="loginForm">
+            <label for="email">Correo electrónico:</label>
+        <input type="text" name="email" id="email">
+            <label for="name">Contraseña:</label>
+        <input type="password" name="password" id="password">
+
+        <input class='blue-button' type="submit" value="Ingresar">
+    </form>
+
+    <button class="github-button" onclick="redirect('http://localhost:8080/auth/github')">
+        Ingresar con GitHub 
+        <img class="github-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN0Uu0auB-_30X62d-vUYM-jhN4TkqPqgv6A&usqp=CAU" alt="github icon">
+    </button>
+
+    <button class='grey-button' onclick="redirect('http://localhost:8080/register')">Crear nuevo usuario</button>
+
+</div>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

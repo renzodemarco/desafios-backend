@@ -1,22 +1,30 @@
 import { Router } from 'express'
-import { isLogged } from '../utils/auth.middlewares.js'
+import passport from 'passport'
 
 const sessionRouter = Router()
 
 sessionRouter.get('/', (req, res) => {
-    if (req.session.user) return res.redirect('/products');
     res.redirect('/login')
 })
 
-sessionRouter.get('/login', isLogged, (req, res) => {
+sessionRouter.get('/login', (req, res) => {
     const {retry} = req.query
-    console.log(req.user)
     res.render('login', {retry})
 })
 
-sessionRouter.get('/register', isLogged, (req, res) => {
+sessionRouter.get('/register', (req, res) => {
     const {error} = req.query
     res.render('register', {error})
+})
+
+sessionRouter.post('/register', 
+    passport.authenticate('register', 
+        {
+            successRedirect: '/login',
+            failureRedirect: '/register?error=true',
+            session: false
+        }),
+    async (req, res) => {
 })
 
 sessionRouter.get('/logout', (req, res, next) => {

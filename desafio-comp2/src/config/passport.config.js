@@ -11,15 +11,20 @@ const manager = new UserManager()
 const initPassportStrategy = () => { 
 
 // * JWT
-    passport.use('jwt', new jwt.Strategy({
-        jwtFromRequest: jwt.ExtractJwt.fromExtractors([cookieExtractor]),  // Acá coloco de dónde voy a extraer el token, vienen varias de estas estrategias incluidas en passport-jwt pero en este caso importé el cookieExtractor para acceder al token desde las cookies
-            secretOrKey: SECRET
+    passport.use('current', new jwt.Strategy({
+        jwtFromRequest: jwt.ExtractJwt.fromExtractors([cookieExtractor]),
+        secretOrKey: SECRET
     },
     async (payload, done)=> {
-        const user = await manager.getUserById(payload.sub)
-        if (!user) return done('Incorrect user or password')
-
-        return done(null, user)
+        try {
+            const user = await manager.getUserById(payload.sub)
+            if (!user) return done('Incorrect user or password')
+    
+            return done(null, user)
+        }
+        catch(error) {
+            return done(error)
+        }
     }))
 
 // * Register local

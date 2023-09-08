@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import UserManager from '../dao/mongo/userManager.js'
 import { generateToken } from '../utils/jwt.js'
+import passportCall from '../utils/passport.call.js'
 
 const apiRouter = Router()
 
@@ -26,6 +27,10 @@ apiRouter.post('/login', async (req, res) => {
     catch(e) {
         res.send({error: true, msg: e.message})
     }
+})
+
+apiRouter.get('/current', passportCall('current'), (req, res) => {
+    res.send(req.user)
 })
 
 

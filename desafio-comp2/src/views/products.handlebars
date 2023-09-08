@@ -5,7 +5,7 @@
     <img class="role-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPVP8sfxKqe-qYCizNILsRDraLUh-QX0Fbaw&usqp=CAU">
     {{/if}}
 <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
-<button class="grey-button" onclick="redirect('http://localhost:8080/logout')" >Cerrar sesión</button>
+<button class="grey-button" onclick="localStorage.removeItem('accessToken'); redirect('http://localhost:8080/logout')" >Cerrar sesión</button>
 </div>
 
 <div class="listContainer">

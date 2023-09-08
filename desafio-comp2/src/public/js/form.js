@@ -18,5 +18,7 @@ form.addEventListener('submit', async (event) => {
 
     if (responseData.error) return alert(responseData.msg)
 
-    localStorage.setItem('accessToken', responseData.accessToken)
+    const redirect = url => window.location.href = url
+
+    redirect('http://localhost:8080/products')
 })

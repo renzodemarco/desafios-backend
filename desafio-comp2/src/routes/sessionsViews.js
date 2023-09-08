@@ -10,6 +10,7 @@ sessionRouter.get('/', (req, res) => {
 
 sessionRouter.get('/login', isLogged, (req, res) => {
     const {retry} = req.query
+    console.log(req.user)
     res.render('login', {retry})
 })
 
@@ -21,8 +22,11 @@ sessionRouter.get('/register', isLogged, (req, res) => {
 sessionRouter.get('/logout', (req, res, next) => {
     req.logout(err => {
         if (err) return next(err)
+        res.clearCookie('accessToken')
         res.redirect('/')
     });
 })
+
+
 
 export default sessionRouter

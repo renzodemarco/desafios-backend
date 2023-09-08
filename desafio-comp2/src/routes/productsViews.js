@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { userAuth } from '../utils/auth.middlewares.js'
 import ProductManager from "../dao/mongo/productManager.js";
+import passportCall from "../utils/passport.call.js";
 
 const manager = new ProductManager()
 
 const productsViewsRouter = Router();
 
-productsViewsRouter.get('/', userAuth, async (req, res) => {
+productsViewsRouter.get('/', passportCall('current'), async (req, res) => {
     try {
         const { limit = 10, page = 1, sort, query = [] } = req.query;
         const products = await manager.getProducts({limit: Number(limit), page: Number(page), sort, query});

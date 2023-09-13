@@ -17,8 +17,11 @@ const initPassportStrategy = () => {
     },
     async (payload, done)=> {
         try {
+            if (payload.email === 'admincoder@coder.com') {
+                return done(null, { first_name: 'Admin', last_name: 'Coder', role: 'admin' })
+            }
             const user = await manager.getUserById(payload.sub)
-            if (!user) return done('Incorrect user or password')
+            if (!user) return done('Incorrect email or password (JWT)')
     
             return done(null, user)
         }
@@ -61,7 +64,7 @@ const initPassportStrategy = () => {
             usernameField: 'email'
         },
         async (req, email, password, done) => {
-            try {    
+            try {
                 const user = await manager.validarUser(email, password)
                 return done(null, user)
             }
@@ -80,7 +83,6 @@ const initPassportStrategy = () => {
         },
         async (accessToken, refreshToken, profile, done) => {
             const email = profile._json.email
-            console.log(profile)
             
             const user = await manager.getUserByEmail(email)
 

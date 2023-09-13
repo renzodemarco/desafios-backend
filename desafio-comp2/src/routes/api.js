@@ -18,7 +18,6 @@ apiRouter.post('/login', async (req, res) => {
         }
 
         else {
-            console.log("Esto es un else")
             const user = await manager.validarUser(email, password)
             if (!user) return res.send({ error: true, msg:'Incorrect email or password' })
             token = generateToken({

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
-import UserModel from '../models/user.model.js';
+import UserModel from '../../models/user.model.js';
 import ENV_CONFIG from '../../config/env.config.js'
 
 

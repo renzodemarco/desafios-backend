@@ -1,8 +1,8 @@
-import ProductManager from "../dao/mongo/product.dao";
+import ProductManager from "../dao/mongo/product.dao.js";
 
 const manager = new ProductManager()
 
-export const getProducts = async () => {
+export const getProducts = async options => {
     const products = await manager.getProducts(options)
 
     if (!products) throw new Error('Could not get products')
@@ -19,19 +19,19 @@ export const getProductById = async id => {
 }
 
 export const createProduct = async product => {
-    const product = await manager.getProductById(product)
+    const newProduct = await manager.createProduct(product)
 
-    if (!product) throw new Error('Product not found')
+    if (!newProduct) throw new Error('Product not found')
 
-    return product
+    return newProduct
 }
 
 export const updateProduct = async (id, product) => {
-    const product = manager.updateProduct(id, product)
+    const updatedProduct = manager.updateProduct(id, product)
 
-    if (!product) throw new Error('Product not found')
+    if (!updatedProduct) throw new Error('Product not found')
 
-    return product
+    return updatedProduct
 }
 
 export const deleteProduct = async id => {

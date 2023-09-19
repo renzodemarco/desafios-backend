@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ProductModel from '../models/products.model.js'
+import ProductModel from '../../models/products.model.js'
 
 const connection = await mongoose.connect('mongodb+srv://renzodemarco:coderhouse@rencluster.iuxqmho.mongodb.net/ecommerce?retryWrites=true&w=majority')
 

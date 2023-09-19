@@ -32,7 +32,6 @@ productsRouter.get('/:pid', async (req, res) => {
 productsRouter.post('/', async (req, res) => {
     try {
         const data = req.body;
-        console.log(data)
         const product = await manager.addProduct(data)
         res.send(product)
     }

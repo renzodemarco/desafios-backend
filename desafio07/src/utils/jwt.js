@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import ENV_CONFIG from '../config/env.config'
+import ENV_CONFIG from '../config/env.config.js'
 
 export const SECRET = ENV_CONFIG.JWT_SECRET
 

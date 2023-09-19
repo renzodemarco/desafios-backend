@@ -4,8 +4,8 @@ import __dirname from './dirname.js'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
 import mongoStore from 'connect-mongo'
-import productsRouter from './routes/products.js'
-import cartRouter from './routes/carts.js';
+import productsRouter from './routes/product.routes.js'
+import cartRouter from './routes/cart.routes.js';
 import productsViewsRouter from './routes/productsViews.js';
 import cartViewsRouter from './routes/cartViews.js';
 import sessionRouter from './routes/sessionsViews.js';

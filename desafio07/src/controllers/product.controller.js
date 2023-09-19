@@ -6,9 +6,11 @@ export const GETProducts = async (req, res) => {
         const options = {
             limit: Number(limit), 
             page: Number(page), 
-            sort, query
+            sort, 
+            query
         }
-        return await productServices.getProducts(options)
+        const products = await productServices.getProducts(options)
+        return res.send(products)
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})
@@ -16,22 +18,43 @@ export const GETProducts = async (req, res) => {
 }
 export const GETProductById = async (req, res) => {
     try {
-        const {id} = req.params
-        await manager.getProductById(id)
+        const product = await productServices.getProductById(req.params.pid)
+        return res.send(product)
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})
     }
 }
 
-export const POSTProduct = async product => {
-    return await manager.getProductById(product)
+export const POSTProduct = async (req, res) => {
+    try {
+        const data = req.body;
+        const product = await productServices.createProduct(data)
+        res.send(product)
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
 }
 
-export const PUTProduct = async (id, product) => {
-    return await manager.updateProduct(id, product)
+export const PUTProduct = async (req, res) => {
+    try {
+        const {pid} = req.params
+        const data = req.body
+        const product = await productServices.updateProduct(pid, data)
+        return res.send(product)
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
 }
 
-export const DELETEProduct = async id => {
-    return await manager.deleteProduct(id)
+export const DELETEProduct = async (req, res) => {
+    try {
+        const product = await productServices.deleteProduct(req.params.pid)
+        return res.send(product)
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
 }

@@ -6,6 +6,11 @@
         <p class="error">Usuario o contraseña incorrectos, por favor intente de nuevo</p>
     {{/if}}
 
+    
+    {{#if register}}
+        <p class="msg">Usuario correctamente registrado, por favor ingrese</p>
+    {{/if}}
+
 
     <form method="post" id="loginForm">
             <label for="email">Correo electrónico:</label>

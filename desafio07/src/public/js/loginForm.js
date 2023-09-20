@@ -2,7 +2,7 @@ const loginForm = document.getElementById("loginForm")
 
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault()
-    const dataArray = new FormData(loginFormorm)
+    const dataArray = new FormData(loginForm)
     const dataObj = {}
     dataArray.forEach((value, key) => dataObj[key] = value)
 

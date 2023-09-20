@@ -6,7 +6,7 @@ const userRouter = Router()
 
 userRouter.get('/', userController.GETUsers)
 .get('/current', passportCall('current'), userController.GETCurrentUser)
-.post('/register', passportCall('register'))
+.post('/register', passportCall('register'), userController.POSTPassportUser)
 .post('/login', userController.POSTUserValidation)
 
 export default userRouter

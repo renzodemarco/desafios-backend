@@ -5,6 +5,7 @@ registerForm.addEventListener('submit', async (event) => {
     const dataArray = new FormData(registerForm)
     const dataObj = {}
     dataArray.forEach((value, key) => dataObj[key] = value)
+    console.log(dataArray)
 
     const response = await fetch('/api/sessions/register', {
         method: 'POST',
@@ -14,11 +15,13 @@ registerForm.addEventListener('submit', async (event) => {
         }
     })
 
+    console.log(response)
+
     const responseData = await response.json()
 
     if (responseData.error) return alert(responseData.msg)
 
     const redirect = url => window.location.href = url
 
-    redirect('http://localhost:8080/')
+    redirect('http://localhost:8080/login?register=true')
 })

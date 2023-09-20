@@ -46,7 +46,17 @@ export const POSTUser = async (req, res) => {
     try {
         const {first_name, last_name, email, age, password} = req.body
         const user = await userServices.createUser({first_name, last_name, email, age, password})
-        res.send(user)
+        if (!user) return res.redirect('/register?error=true')
+        return res.redirect('/login')
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
+}
+
+export const POSTPassportUser = async (req, res) => {
+    try {
+        if (req.user) res.send({error: false})
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})

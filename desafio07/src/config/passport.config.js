@@ -5,7 +5,7 @@ import GithubStrategy from 'passport-github2'
 import jwt from 'passport-jwt'
 import cookieExtractor from '../utils/cookie.extractor.js'
 import { SECRET } from '../utils/jwt.js'
-import ENV_CONFIG from 'dotenv'
+import config from './env.config.js'
 
 const manager = new UserManager()
 
@@ -41,7 +41,7 @@ const initPassportStrategy = () => {
             const {first_name, last_name, age} = req.body
 
             try {
-                const user = await manager.crearUser({
+                const user = await manager.createUser({
                     first_name, 
                     last_name, 
                     email, 
@@ -66,7 +66,7 @@ const initPassportStrategy = () => {
         },
         async (req, email, password, done) => {
             try {
-                const user = await manager.validarUser(email, password)
+                const user = await manager.validateUser(email, password)
                 return done(null, user)
             }
             catch(error) {
@@ -79,7 +79,7 @@ const initPassportStrategy = () => {
     passport.use('github', new GithubStrategy(
         {
             clientID: 'Iv1.f5767c1d761e2b30',
-            clientSecret: ENV_CONFIG.GITHUB_KEY,
+            clientSecret: config.GITHUB_KEY,
             callbackURL: "http://localhost:8080/auth/github/callback"
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -89,7 +89,7 @@ const initPassportStrategy = () => {
 
             if (user) return done(null, user)
 
-            const newUser = await manager.crearUser({
+            const newUser = await manager.createUser({
                 first_name: profile._json.name, 
                 last_name: '',
                 email,

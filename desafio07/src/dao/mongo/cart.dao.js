@@ -14,7 +14,7 @@ export default class CartManager {
     }
 
     async getCartById(_id) {
-        return await CartModel.findOne({ _id })
+        return await CartModel.findOne({ _id }).lean()
     }
 
     async createCart() {

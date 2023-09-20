@@ -6,7 +6,7 @@
         <p class="error">Ha habido un error en su intento de registro, por favor intente de nuevo</p>
     {{/if}}
 
-    <form method="post">
+    <form method="post" id="registerForm">
             <label for="first_name">Nombre:</label>
         <input type="text" name="first_name" id="first_name">
             <label for="last_name">Apellido:</label>
@@ -27,6 +27,8 @@
     <button class='grey-button' onclick="redirect('http://localhost:8080/login')">Ya estoy registrado</button>
 
 </div>
+
+<script src="./js/registerForm.js"></script>
 
 <script>
     function redirect(url) {

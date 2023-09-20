@@ -1,10 +1,10 @@
-const form = document.getElementById("loginForm")
+const loginForm = document.getElementById("loginForm")
 
-form.addEventListener('submit', async (event) => {
+loginForm.addEventListener('submit', async (event) => {
     event.preventDefault()
-    const dataArray = new FormData(form)
+    const dataArray = new FormData(loginFormorm)
     const dataObj = {}
-    dataArray.forEach((value, key)=> dataObj[key] = value) 
+    dataArray.forEach((value, key) => dataObj[key] = value)
 
     const response = await fetch('/api/sessions/login', {
         method: 'POST',

@@ -1,13 +1,11 @@
 import passport from 'passport'
 import local from 'passport-local'
-import UserManager from '../dao/mongo/user.dao.js'
+import * as userServices from '../services/user.services.js'
 import GithubStrategy from 'passport-github2'
 import jwt from 'passport-jwt'
 import cookieExtractor from '../utils/cookie.extractor.js'
 import { SECRET } from '../utils/jwt.js'
 import config from './env.config.js'
-
-const manager = new UserManager()
 
 const initPassportStrategy = () => { 
 
@@ -21,7 +19,7 @@ const initPassportStrategy = () => {
             if (payload.email === 'admincoder@coder.com') {
                 return done(null, { first_name: 'Admin', last_name: 'Coder', role: 'admin' })
             }
-            const user = await manager.getUserById(payload.sub)
+            const user = await userServices.getUserById(payload.sub)
             if (!user) return done('Incorrect email or password (JWT)')
     
             return done(null, user)
@@ -41,7 +39,7 @@ const initPassportStrategy = () => {
             const {first_name, last_name, age} = req.body
 
             try {
-                const user = await manager.createUser({
+                const user = await userServices.createUser({
                     first_name, 
                     last_name, 
                     email, 
@@ -66,7 +64,7 @@ const initPassportStrategy = () => {
         },
         async (req, email, password, done) => {
             try {
-                const user = await manager.validateUser(email, password)
+                const user = await userServices.validateUser(email, password)
                 return done(null, user)
             }
             catch(error) {
@@ -85,11 +83,11 @@ const initPassportStrategy = () => {
         async (accessToken, refreshToken, profile, done) => {
             const email = profile._json.email
             
-            const user = await manager.getUserByEmail(email)
+            const user = await userServices.getUserByEmail(email)
 
             if (user) return done(null, user)
 
-            const newUser = await manager.createUser({
+            const newUser = await userServices.createUser({
                 first_name: profile._json.name, 
                 last_name: '',
                 email,
@@ -108,7 +106,7 @@ const initPassportStrategy = () => {
 // * Deserialize
     passport.deserializeUser(async (_id, done) => {
         try {
-            const user = await manager.getUserById(_id)
+            const user = await userServices.getUserById(_id)
             done(null, user)
         }
         catch(error) {

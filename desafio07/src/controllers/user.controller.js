@@ -57,6 +57,7 @@ export const POSTUser = async (req, res) => {
 export const POSTPassportUser = async (req, res) => {
     try {
         if (req.user) res.send({error: false})
+        else throw new Error('There has been an error in the register')
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})

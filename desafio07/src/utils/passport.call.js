@@ -2,8 +2,8 @@ import passport from 'passport'
 
 const passportCall = strategy => {
     return async (req, res, next) => {
-        passport.authenticate(strategy, (err, user, info) => {
-            if (err) return next(err)
+        passport.authenticate(strategy, (error, user, info) => {
+            if (error) return next(error)
             if (!user) return next()
             req.user = user
             next()

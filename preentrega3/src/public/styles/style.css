@@ -1,0 +1,166 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: rgb(182, 191, 207);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.3rem;
+    font-weight: normal;
+}
+
+ul {
+    margin: 1rem .2rem .2rem;
+    font-size: .9rem
+}
+
+li {
+    list-style-type: none;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: .1rem 0 .4rem
+}
+
+.productContainer {
+    margin: .6rem;
+    padding: .6rem;
+    width: 24rem;
+    background-color: rgb(120, 131, 177);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 26rem;
+    margin: 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(120, 131, 177);
+}
+
+.blue-button {
+    border: solid 1px #000;
+    width: 10rem;
+    margin: .8rem;
+    padding: .4rem .7rem;
+    background-color: rgb(31, 35, 49);
+    color: #fff;
+}
+
+.blue-button:not(:disabled):hover {
+    background-color: rgb(76, 88, 131);
+    cursor: pointer;
+}
+
+.blue-button:not(:disabled):active {
+    background-color: rgb(31, 35, 49);
+    cursor: pointer;
+}
+
+.blue-button:disabled {
+    background-color: rgb(144, 150, 161);
+    cursor: auto;
+}
+
+.grey-button {
+    border: solid 1px #000;
+    width: 10rem;
+    margin: .6rem;
+    padding: .4rem .7rem;
+    background-color: #333;
+    color: #fff;
+}
+
+.grey-button:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+.grey-button:active {
+    background-color: #333;
+    cursor: pointer;
+}
+
+.github-button {
+    display: flex;
+    align-items: center;
+    border: solid 1px #000;
+    width: 10rem;
+    margin: .6rem;
+    padding: .4rem .7rem;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.github-button:hover {
+    background-color: #111;
+}
+
+.github-icon {
+    width: 1.4rem;
+}
+
+label {
+    font-size: .9rem;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.bienvenida {
+    width: 96%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.role-img {
+    width: 10rem
+}
+
+.error {
+    color: #711;
+    text-align: center;
+}
+
+.msg {
+    color: #fff;
+    text-align: center;
+}

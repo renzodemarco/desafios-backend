@@ -1,9 +1,7 @@
-import mongoose from 'mongoose';
-import UserModel from '../../models/user.model.js';
-import ENV_CONFIG from '../../config/env.config.js'
+import UserModel from "../../models/user.model.js";
+import Mongo from '../../utils/db.connection.js'
 
-
-const connection = await mongoose.connect(ENV_CONFIG.MONGO_URI) 
+const connection = await Mongo.getInstance()
 
 export default class UserManager {
 

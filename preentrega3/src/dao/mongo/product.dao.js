@@ -1,9 +1,4 @@
-import mongoose from 'mongoose'
-import ProductModel from '../../models/products.model.js'
-import config from '../../config/env.config.js'
-
-
-const connection = await mongoose.connect(config.MONGO_URI)
+import ProductModel from "../../models/products.model.js";
 
 export default class ProductManager {
 
@@ -36,7 +31,11 @@ export default class ProductManager {
     }
 
     async getProductById(_id) {
-        return await ProductModel.findOne({ _id })
+        return await ProductModel.findOne({ _id }).lean()
+    }
+
+    async getProductByCode(code) {
+        return await ProductModel.findOne({ code }).lean()
     }
 
     async createProduct(product) {

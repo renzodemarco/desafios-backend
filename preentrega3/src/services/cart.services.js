@@ -1,8 +1,7 @@
-import CartManager from "../dao/mongo/cart.dao.js";
-import ProductManager from "../dao/mongo/product.dao.js";
+import { CartDAO, ProductDAO} from "../dao/index.js";
 
-const cartManager = new CartManager()
-const productManager = new ProductManager()
+const cartManager = new CartDAO()
+const ProductManager = new ProductDAO()
 
 export const getCarts = async () => {
     return await cartManager.getCarts()

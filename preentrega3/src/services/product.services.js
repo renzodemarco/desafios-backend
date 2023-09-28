@@ -1,6 +1,6 @@
-import ProductManager from "../dao/mongo/product.dao.js";
+import { ProductDAO } from "../dao/index.js";
 
-const manager = new ProductManager()
+const manager = new ProductDAO()
 
 export const getProducts = async options => {
     const products = await manager.getProducts(options)
@@ -19,6 +19,12 @@ export const getProductById = async id => {
 }
 
 export const createProduct = async product => {
+    // Acá le creo un code y verifico que no se repita
+    do {
+        product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
+    } 
+    while (await manager.getProductByCode(product.code))
+
     const newProduct = await manager.createProduct(product)
 
     if (!newProduct) throw new Error('Product not found')

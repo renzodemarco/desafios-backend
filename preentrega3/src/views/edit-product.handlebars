@@ -1,0 +1,30 @@
+<div class="container">
+
+    <h1>Modificar {{product.title}}</h1>
+
+    <form id="editProductForm">
+        <label for="title">Título:</label>
+            <input type="text" name="title" id="title" value="{{product.title}}">
+        <label for="description">Descripción:</label>
+            <input type="text" name="description" id="description" value="{{product.description}}">
+        <label for="year">Año:</label>
+            <input type="number" name="year" id="year" value={{product.year}}>
+        <label for="price">Precio:</label>
+            <input type="number" name="price" id="price" value={{product.price}}> 
+        <label for="stock">Stock:</label>
+            <input type="number" name="stock" id="stock" value={{product.stock}}>
+        <label for="category">Categoría:</label>
+        <select name="category" id="category" value="{{product.category}}">
+            <option value="Rock">Rock</option>
+            <option value="Pop">Pop</option>
+            <option value="Jazz">jazz</option>
+            <option value="Latin">Latin</option>
+            <option value="Metal">Metal</option>
+            <option value="Electro">Electro</option>
+            <option value="Pop">Pop</option>
+        </select>
+
+        <input class='blue-button' type="submit" id="submit" value="Actualizar producto">   
+    </form>
+
+</div>

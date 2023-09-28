@@ -1,5 +1,6 @@
 import * as userServices from '../services/user.services.js'
 import { generateToken } from '../utils/jwt.js'
+import userDTO from '../dto/user.dto.js'
 
 export const GETUsers = async (req, res) => {
     try {
@@ -13,7 +14,8 @@ export const GETUsers = async (req, res) => {
 
 export const GETCurrentUser = async (req, res) => {
     try {
-        return res.send(req.user)
+        const user = new userDTO(req.user)
+        return res.send(user)
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})

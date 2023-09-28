@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
 import CartModel from "../../models/carts.model.js";
-import config from '../../config/env.config.js'
+import Mongo from '../../utils/db.connection.js'
 
-const connection = await mongoose.connect(config.MONGO_URI)
+const connection = await Mongo.getInstance()
 
 export default class CartManager {
 

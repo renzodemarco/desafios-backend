@@ -19,3 +19,17 @@ export const GETProducts = async (req, res) => {
         return res.status(402).send({error: true, msg: e.message})
     }
 }
+
+export const GETCreateProduct = (req, res) => {
+    res.render('create-product')
+}
+
+export const GETEditProduct = async (req, res) => {
+    try {
+        const product = await productServices.getProductById(req.params.pid)
+        res.render('edit-product', {product})
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
+}

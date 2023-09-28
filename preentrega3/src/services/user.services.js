@@ -1,7 +1,7 @@
-import UserManager from "../dao/mongo/user.dao.js"
+import { UserDAO } from "../dao/index.js";
 import bcrypt from 'bcrypt'
 
-const manager = new UserManager()
+const manager = new UserDAO ()
 
 export const getUsers = async () => {
     return await manager.getUsers()

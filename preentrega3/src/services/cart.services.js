@@ -1,7 +1,7 @@
 import { CartDAO, ProductDAO} from "../dao/index.js";
 
 const cartManager = new CartDAO()
-const ProductManager = new ProductDAO()
+const productManager = new ProductDAO()
 
 export const getCarts = async () => {
     return await cartManager.getCarts()

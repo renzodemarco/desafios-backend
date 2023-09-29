@@ -1,14 +1,15 @@
-import { UserDAO } from "../dao/index.js";
+import { UserDAO, CartDAO } from "../dao/index.js";
 import bcrypt from 'bcrypt'
 
-const manager = new UserDAO ()
+const userManager = new UserDAO()
+const cartManager = new CartDAO()
 
 export const getUsers = async () => {
-    return await manager.getUsers()
+    return await userManager.getUsers()
 }
 
 export const getUserByEmail = async email => {
-    const user = await manager.getUserByEmail(email)
+    const user = await userManager.getUserByEmail(email)
 
     if (!user) throw new Error("User not found")
     
@@ -16,7 +17,7 @@ export const getUserByEmail = async email => {
 }
 
 export const getUserById = async id => {
-    const user = await manager.getUserById(id)
+    const user = await userManager.getUserById(id)
 
     if (!user) throw new Error("User not found")
 
@@ -26,15 +27,19 @@ export const getUserById = async id => {
 export const createUser = async user => {
     if (!user.first_name || !user.email) throw new Error("Incomplete information")
 
+    const cart = await cartManager.createCart()
+
+    const cartId = cart._id
+
     const salt = await bcrypt.genSalt(10)
 
     user.password = await bcrypt.hash(user.password, salt)
 
-    return await manager.createUser(user)
+    return await userManager.createUser({...user, cart: cartId})
 }
 
 export const validateUser = async (email, password) => {
-    const user = await manager.getUserByEmail(email)
+    const user = await userManager.getUserByEmail(email)
 
     if (!user) throw new Error("Email does not exist")
 

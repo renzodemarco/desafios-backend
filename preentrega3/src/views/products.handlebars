@@ -36,7 +36,7 @@
 
 {{else}}
 
-<div class="bienvenida">
+<div class="bienvenida" cart-id="{{cart}}">
     <img class="role-img"
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPVP8sfxKqe-qYCizNILsRDraLUh-QX0Fbaw&usqp=CAU">
 
@@ -44,6 +44,7 @@
     <button class="grey-button"
         onclick="localStorage.removeItem('accessToken'); redirect('http://localhost:8080/logout')">Cerrar
         sesión</button>
+    <button class="blue-button" onclick="redirect('http://localhost:8080/carts/{{cart}}')">Ver carrito</button>
 </div>
 
 
@@ -60,10 +61,12 @@
             <li><b>Stock: </b>{{this.stock}}</li>
             <li><b>Code: </b>{{this.code}}</li>
         </ul>
-        <button id="addToCart" class="blue-button">Agregar al carrito</button>
+        <button id="addToCart" class="blue-button add-product" product-id="{{this._id}}">Agregar al carrito</button>
     </div>
     {{/each}}
 </div>
+
+<script src="http://localhost:8080/js/userProducts.js"></script>
 
 {{/if}}
 

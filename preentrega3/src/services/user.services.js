@@ -35,7 +35,11 @@ export const createUser = async user => {
 
     user.password = await bcrypt.hash(user.password, salt)
 
-    return await userManager.createUser({...user, cart: cartId})
+    const newUser = await userManager.createUser({...user, cart: cartId})
+
+    await cartManager.addOwner(cartId, newUser._id)
+
+    return newUser
 }
 
 export const validateUser = async (email, password) => {

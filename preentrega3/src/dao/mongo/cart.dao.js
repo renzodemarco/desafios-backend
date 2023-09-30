@@ -32,6 +32,16 @@ export default class CartManager {
         return { cart, success: true }
     }
 
+    async addOwner(cartId, owner) {
+        const cart = await CartModel.findOne({ _id: cartId })
+
+        cart.owner = owner
+
+        cart.save()
+        
+        return {cart, success: true}
+    }
+
     async deleteProductFromCart(cartId, prodId) {
         const cart = await CartModel.findOne({ _id: cartId })
 

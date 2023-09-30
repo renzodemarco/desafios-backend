@@ -10,6 +10,7 @@ import productsViewsRouter from './routes/product.views.routes.js';
 import cartViewsRouter from './routes/cart.views.routes.js';
 import userViewsRouter from './routes/user.views.routes.js';
 import userRouter from './routes/user.routes.js'
+import chatRouter from './routes/chat.routes.js'
 import passport from 'passport';
 import initPassportStrategy from './config/passport.config.js'
 import authRouter from './routes/auth.routes.js';
@@ -53,6 +54,8 @@ app.use('/carts', cartViewsRouter)
 app.use('/', userViewsRouter)
 
 app.use('/auth', authRouter)
+
+app.use('/chat', chatRouter)
 
 
 app.listen(8080, () => {

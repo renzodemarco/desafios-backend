@@ -32,7 +32,6 @@ async function createProduct() {
         }
     })
     if (response.error) return alert(response.msg)
-    console.log(response)
     alert("Producto creado exitosamente")
     redirect('http://localhost:8080')
 }

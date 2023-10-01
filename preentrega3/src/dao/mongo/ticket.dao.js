@@ -13,6 +13,6 @@ export default class TicketManager {
     }
 
     async createTicket(ticket) {
-        return await TicketModel.create({ticket})
+        return await TicketModel.create(ticket)
     }
 }

@@ -15,7 +15,9 @@
 
     <div class="container">
         <h2>Precio total: ${{cart.cartPrice}}</h2>
+        {{#if cart.products}}
         <button class="blue-button" id="buy-cart" onclick="redirect('http://localhost:8080/carts/{{cart._id}}/purchase')">Finalizar compra</button>
+        {{/if}}
         <button class='grey-button' onclick="redirect('http://localhost:8080/')">Volver</button> 
     </div>
 

@@ -20,7 +20,6 @@ async function addProduct(cart, product) {
                 "Content-Type": "application/json"
             }
         })
-    console.log(response)
     if (response.error) return alert(response.msg)
     alert(`Se ha agregado el producto ${product}`)
 }

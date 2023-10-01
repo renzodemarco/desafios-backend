@@ -1,9 +1,11 @@
-<div class="container">
+<div class="container" cart-id="{{cart._id}}">
     <h1>Finalizar compra</h1>
     <h2>Precio final: ${{cart.cartPrice}}</h2>
     <button class="blue-button" id="buyCart">COMPRAR</button>
     <button class="grey-button" onclick="redirect('http://localhost:8080/carts/{{cart._id}}')">Volver al carrito</button>
 </div>
+
+<script src="http://localhost:8080/js/purchase.js"></script>
 
 <script>
     function redirect(url) {

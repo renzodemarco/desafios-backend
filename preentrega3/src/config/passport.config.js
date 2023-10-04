@@ -16,7 +16,7 @@ const initPassportStrategy = () => {
     },
     async (payload, done)=> {
         try {
-            if (payload.email === 'admincoder@coder.com') {
+            if (payload.email === 'admincoder@coder.com' && payload.role === 'admin') {
                 return done(null, { first_name: 'Admin', last_name: 'Coder', role: 'admin' })
             }
             const user = await userServices.getUserById(payload.sub)
@@ -82,19 +82,22 @@ const initPassportStrategy = () => {
         },
         async (accessToken, refreshToken, profile, done) => {
             const email = profile._json.email
-            
-            const user = await userServices.getUserByEmail(email)
 
-            if (user) return done(null, user)
+            try {
+                const user = await userServices.getUserByEmail(email)
 
-            const newUser = await userServices.createUser({
-                first_name: profile._json.name, 
-                last_name: '',
-                email,
-                password: ''
-            })
-
-            return done(null, newUser)
+                if (user) return done(null, user)
+            }
+            catch {
+                const newUser = await userServices.createUser({
+                    first_name: profile._json.name, 
+                    last_name: '',
+                    email,
+                    password: ''
+                })
+    
+                return done(null, newUser)
+            }
         }
     ))
 

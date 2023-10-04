@@ -73,7 +73,7 @@ export const POSTUserValidation = async (req, res) => {
         let token = ''
 
         if (email === 'admincoder@coder.com' && password === 'adminCod3r123') {
-            token = generateToken({ email: 'admincoder@coder.com' })
+            token = generateToken({ email: 'admincoder@coder.com', role: 'admin' })
         }
 
         else {

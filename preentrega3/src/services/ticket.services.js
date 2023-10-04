@@ -28,7 +28,7 @@ export const createTicket = async ticket => {
 
     for (const prod of ticket.products) {
         const product = await productManager.getProductById(prod.product._id);
-        if (product.stock > prod.quantity) {
+        if (product.stock >= prod.quantity) {
             hasStock.push(prod);
             await productManager.updateProduct(prod.product._id, {
                 stock: product.stock - prod.quantity,

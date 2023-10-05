@@ -1,0 +1,31 @@
+<h1>Carrito de compras:</h1>
+
+<div class="listContainer" cart-id="{{cart._id}}">
+{{#each cart.products}}
+    <div class="productContainer">
+        <ul>
+            <li><h2>{{this.product.title}} ({{this.product.year}})</h2></li>
+            <li><b>Precio unitario: </b>${{this.product.price}}</li>
+            <li><b>Cantidad: </b> {{this.quantity}}</li>
+            <li><h3>Precio total: <b> ${{this.totalPrice}} </b></h3></li>
+        </ul>
+        <button class="grey-button delete-product" product-id="{{this.product._id}}">Eliminar del carrito</button>
+    </div>
+{{/each}}
+
+    <div class="container">
+        <h2>Precio total: ${{cart.cartPrice}}</h2>
+        {{#if cart.products}}
+        <button class="blue-button" id="buy-cart" onclick="redirect('http://localhost:8080/carts/{{cart._id}}/purchase')">Finalizar compra</button>
+        {{/if}}
+        <button class='grey-button' onclick="redirect('http://localhost:8080/')">Volver</button> 
+    </div>
+
+</div>
+
+<script src="http://localhost:8080/js/cart.js"></script>
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

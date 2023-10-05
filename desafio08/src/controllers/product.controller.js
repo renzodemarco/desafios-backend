@@ -16,6 +16,7 @@ export const GETProducts = async (req, res) => {
         return res.status(402).send({error: true, msg: e.message})
     }
 }
+
 export const GETProductById = async (req, res) => {
     try {
         const product = await productServices.getProductById(req.params.pid)
@@ -57,4 +58,8 @@ export const DELETEProduct = async (req, res) => {
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})
     }
+}
+
+export const GETMockingProducts = (req, res) => {
+    
 }

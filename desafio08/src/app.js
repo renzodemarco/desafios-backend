@@ -16,6 +16,7 @@ import passport from 'passport';
 import initPassportStrategy from './config/passport.config.js'
 import authRouter from './routes/auth.routes.js';
 import ENV_CONFIG from './config/env.config.js'
+import mockingProductsRouter from './routes/mocking.products.routes.js';
 
 const app = express();
 
@@ -59,6 +60,8 @@ app.use('/auth', authRouter)
 app.use('/chat', chatRouter)
 
 app.use('/tickets', ticketRouter)
+
+app.use('/mockingproducts', mockingProductsRouter)
 
 
 app.listen(8080, () => {

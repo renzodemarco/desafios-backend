@@ -1,7 +1,7 @@
 import { ProductDAO } from "../dao/index.js";
 import CustomError from "../utils/errors/custom.error.js"
 import enumErrors from '../utils/errors/enum.errors.js'
-import { generateNewProductError } from "../utils/errors/generate.new.product.error.js";
+import { generateNewProductError, generateProductError } from "../utils/errors/generate.error.cause.js";
 
 const manager = new ProductDAO()
 
@@ -16,7 +16,12 @@ export const getProducts = async options => {
 export const getProductById = async id => {
     const product = await manager.getProductById(id)
 
-    if (!product) throw new Error('Product not found')
+    if (!product) throw CustomError.createError({
+        message: 'Product not found',
+        cause: generateProductError(id),
+        name: 'Could not find product',
+        code: enumErrors.DATABASE_ERROR
+    })
 
     return product
 }
@@ -25,7 +30,7 @@ export const createProduct = async product => {
     
     const {title, description, year, price, stock} = product
 
-    if (typeof title !== 'string' || typeof description !== 'string' || typeof year !== 'number' || typeof price !== 'number' || typeof stock !== 'number') {
+    if (!title || !description || !year || !price || !stock) {
         throw CustomError.createError({
             message: 'Not valid inputs',
             cause: generateNewProductError({title, description, year, price, stock}),
@@ -60,7 +65,7 @@ export const updateProduct = async (id, product) => {
 
     console.log(generateNewProductError({title, description, year, price, stock}))
 
-    if (!title !== 'string' || typeof description !== 'string' || typeof year !== 'number' || typeof price !== 'number' || typeof stock !== 'number') {
+    if (!title || !description || !year || !price || !stock) {
         throw CustomError.createError({
             message: 'Not valid inputs',
             cause: generateNewProductError({title, description, year, price, stock}),
@@ -86,7 +91,12 @@ export const updateProduct = async (id, product) => {
 export const deleteProduct = async id => {
     const product = manager.deleteProduct(id)
 
-    if (!product) throw new Error('Product not found')
+    if  (!product) throw CustomError.createError({
+        message: 'Product not found',
+        cause: generateProductError(id),
+        name: 'Could not find product',
+        code: enumErrors.DATABASE_ERROR
+    })
 
     return product
 }

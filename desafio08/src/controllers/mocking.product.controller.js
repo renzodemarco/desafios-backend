@@ -5,5 +5,8 @@ export const GETMockingProducts = (req, res) => {
     for (let i = 0; i < 100; i++) {
         products.push(generateMockProduct())
     }
-    return res.render('products', {products})
+    const {first_name, last_name, role, cart} = req.user 
+    const admin = (role === 'admin') ? true : false
+
+    return res.render('products', { products, first_name, last_name, admin, cart: cart?._id })
 }

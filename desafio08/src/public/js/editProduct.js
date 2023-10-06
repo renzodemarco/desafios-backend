@@ -12,7 +12,6 @@ form.addEventListener('submit', event => {
     event.preventDefault()
     const productId = event.target.getAttribute("product-id");
     editProduct(productId)
-    redirect('http://localhost:8080/')
 })
 
 async function editProduct(id) {
@@ -31,8 +30,12 @@ async function editProduct(id) {
             "Content-Type": "application/json"
         }
     })
-    if (response.error) return alert(response.msg)
+    const responseJSON = await response.json()
+
+    if (responseJSON.error) return alert(responseJSON.msg)
+    
     alert("Producto actualizado exitosamente")
+    redirect('http://localhost:8080/')
 }
 
 function redirect(url) {

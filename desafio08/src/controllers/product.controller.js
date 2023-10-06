@@ -30,7 +30,7 @@ export const GETProductById = async (req, res) => {
 export const POSTProduct = async (req, res) => {
     try {
         const data = req.body;
-        const product = await productServices.createProduct(data)
+        const product = await productServices.createProduct({...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
         res.send(product)
     }
     catch(e) {
@@ -42,7 +42,7 @@ export const PUTProduct = async (req, res) => {
     try {
         const {pid} = req.params
         const data = req.body
-        const product = await productServices.updateProduct(pid, data)
+        const product = await productServices.updateProduct(pid, {...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
         return res.send(product)
     }
     catch(e) {

@@ -23,11 +23,11 @@ export const getProductById = async id => {
 
 export const createProduct = async product => {
     
-    const  {title, description, year, price, stock} = product
+    const {title, description, year, price, stock} = product
 
-    if (!title || !description || !year || !price || !stock) {
+    if (typeof title !== 'string' || typeof description !== 'string' || typeof year !== 'number' || typeof price !== 'number' || typeof stock !== 'number') {
         throw CustomError.createError({
-            message: 'Missing inputs',
+            message: 'Not valid inputs',
             cause: generateNewProductError({title, description, year, price, stock}),
             name: 'Could not create product',
             code: enumErrors.USER_INPUT_ERROR
@@ -54,9 +54,31 @@ export const createProduct = async product => {
 }
 
 export const updateProduct = async (id, product) => {
+    const {title, description, year, price, stock} = product
+
+    console.log(description)
+
+    console.log(generateNewProductError({title, description, year, price, stock}))
+
+    if (!title !== 'string' || typeof description !== 'string' || typeof year !== 'number' || typeof price !== 'number' || typeof stock !== 'number') {
+        throw CustomError.createError({
+            message: 'Not valid inputs',
+            cause: generateNewProductError({title, description, year, price, stock}),
+            name: 'Could not update product',
+            code: enumErrors.USER_INPUT_ERROR
+        })
+    }
+
     const updatedProduct = manager.updateProduct(id, product)
 
-    if (!updatedProduct) throw new Error('Product not found')
+    if (!updatedProduct) {
+        throw CustomError.createError({
+            message: 'Could not create product',
+            cause: 'Database error',
+            name: 'New product error',
+            code: enumErrors.DATABASE_ERROR
+        })
+    }
 
     return updatedProduct
 }

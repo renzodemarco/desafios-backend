@@ -87,7 +87,7 @@ export const POSTUserValidation = async (req, res) => {
         }
 
         res.cookie('accessToken', token, {
-            maxAge: 1000 * (60*60),
+            maxAge: 1000 * (60*60*24),
             httpOnly: true
         })
 

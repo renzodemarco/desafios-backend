@@ -9,9 +9,9 @@ const submit = document.getElementById('submit')
 
 form.addEventListener("submit", event => {
     event.preventDefault()
-    if (title.value.length < 1 || description.value.length < 1 || year.value.toString().length < 1 || price.value.toString().length < 1 || stock.value.toString().length < 1) {
-        return alert("Falta completar campos")
-    }
+    // if (title.value.length < 1 || description.value.length < 1 || year.value.toString().length < 1 || price.value.toString().length < 1 || stock.value.toString().length < 1) {
+    //     return alert("Falta completar campos")
+    // }
     createProduct()
 })
 

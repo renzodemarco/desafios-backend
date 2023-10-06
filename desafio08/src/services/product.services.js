@@ -1,4 +1,7 @@
 import { ProductDAO } from "../dao/index.js";
+import CustomError from "../utils/errors/custom.error.js"
+import enumErrors from '../utils/errors/enum.errors.js'
+import { generateNewProductError } from "../utils/errors/generate.new.product.error.js";
 
 const manager = new ProductDAO()
 
@@ -19,7 +22,18 @@ export const getProductById = async id => {
 }
 
 export const createProduct = async product => {
-    // Acá le creo un code y verifico que no se repita
+    
+    const  {title, description, year, price, stock} = product
+
+    if (!title || !description || !year || !price || !stock) {
+        CustomError.createError({
+            message: 'Missing inputs',
+            cause: generateNewProductError({title, description, year, price, stock}),
+            name: 'Could not create product',
+            code: enumErrors.USER_INPUT_ERROR
+        })
+    }
+    
     do {
         product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
     } 
@@ -27,7 +41,14 @@ export const createProduct = async product => {
 
     const newProduct = await manager.createProduct(product)
 
-    if (!newProduct) throw new Error('Product not found')
+    if (!newProduct) {
+        CustomError.createError({
+            message: 'Could not create product',
+            cause: 'Database error',
+            name: 'New product error',
+            code: enumErrors.DATABASE_ERROR
+        })
+    }
 
     return newProduct
 }

@@ -26,7 +26,7 @@ export const createProduct = async product => {
     const  {title, description, year, price, stock} = product
 
     if (!title || !description || !year || !price || !stock) {
-        CustomError.createError({
+        throw CustomError.createError({
             message: 'Missing inputs',
             cause: generateNewProductError({title, description, year, price, stock}),
             name: 'Could not create product',
@@ -42,7 +42,7 @@ export const createProduct = async product => {
     const newProduct = await manager.createProduct(product)
 
     if (!newProduct) {
-        CustomError.createError({
+        throw CustomError.createError({
             message: 'Could not create product',
             cause: 'Database error',
             name: 'New product error',

@@ -31,7 +31,11 @@ async function createProduct() {
             "Content-Type": "application/json"
         }
     })
-    if (response.error) return alert(response.msg)
+
+    const responseJSON = await response.json()
+
+    if (responseJSON.error) return alert(responseJSON.msg)
+
     alert("Producto creado exitosamente")
     redirect('http://localhost:8080')
 }

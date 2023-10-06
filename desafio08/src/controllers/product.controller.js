@@ -59,7 +59,3 @@ export const DELETEProduct = async (req, res) => {
         return res.status(402).send({error: true, msg: e.message})
     }
 }
-
-export const GETMockingProducts = (req, res) => {
-    
-}

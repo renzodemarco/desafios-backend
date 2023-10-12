@@ -1,0 +1,44 @@
+<div class="container">
+
+    <h1>Crear nuevo producto</h1>
+
+    {{#if error}}
+        <p class="error">Ha habido un error en la creación del producto, por favor intente de nuevo</p>
+    {{/if}}
+
+    <form id="createProductForm">
+            <label for="title">Título:</label>
+        <input type="text" name="title" id="title">
+            <label for="description">Artista:</label>
+        <input type="text" name="description" id="description">
+            <label for="year">Año:</label>
+        <input type="number" name="year" id="year">
+            <label for="price">Precio:</label>
+        <input type="number" name="price" id="price">
+            <label for="stock">Stock:</label>
+        <input type="number" name="stock" id="stock">
+            <label for="category">Categoría:</label>
+        <select name="category" id="category">
+            <option value="Rock">Rock</option>
+            <option value="Pop">Pop</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Latin">Latin</option>
+            <option value="Metal">Metal</option>
+            <option value="Electro">Electro</option>
+            <option value="Pop">Pop</option>
+        </select>
+
+        <input class='blue-button' type="submit" id="submit" value="Agregar">   
+    </form>
+
+    <button class='grey-button' onclick="redirect('http://localhost:8080/')">Volver</button>
+
+</div>
+
+<script src="http://localhost:8080/js/createProduct.js"></script>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

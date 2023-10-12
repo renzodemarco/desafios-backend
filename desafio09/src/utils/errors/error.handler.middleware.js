@@ -1,7 +1,7 @@
 import EErrors from "./EnumErrors.js";
+// SI ESTOY EN DEV IMPORTA UNO Y OTRO SI ESTOY EN PROD
 
 const errorHandlerMiddleware = (error, req, res, next) => {
-    console.log(error.cause)
     switch (error.code) {
         case EErrors.ROUTING_ERROR:
             res.status(404).send({error: true, msg: 'No se ha encontrado la ruta'})

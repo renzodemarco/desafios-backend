@@ -17,6 +17,7 @@ import initPassportStrategy from './config/passport.config.js'
 import authRouter from './routes/auth.routes.js';
 import ENV_CONFIG from './config/env.config.js'
 import mockingProductsRouter from './routes/mocking.products.routes.js';
+import errorHandlerMiddleware from './utils/errors/error.handler.middleware.js';
 
 const app = express();
 
@@ -63,6 +64,7 @@ app.use('/tickets', ticketRouter)
 
 app.use('/mockingproducts', mockingProductsRouter)
 
+app.use(errorHandlerMiddleware)
 
 app.listen(8080, () => {
     console.log("Escuchando en puerto 8080...")

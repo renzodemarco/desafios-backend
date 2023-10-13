@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import * as cartController from '../controllers/cart.controller.js'
-import { isCartOwner } from '../utils/auth.middlewares.js'
-import passportCall from "../utils/passport.call.js";
+import { isCartOwner } from '../utils/middlewares/auth.middlewares.js'
+import passportCall from "../utils/middlewares/passport.call.js";
 
 const cartRouter = Router()
 

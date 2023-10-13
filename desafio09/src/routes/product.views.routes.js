@@ -1,6 +1,6 @@
 import { Router } from "express";
-import passportCall from "../utils/passport.call.js";
-import { userAuth } from "../utils/auth.middlewares.js";
+import passportCall from "../utils/middlewares/passport.call.js";
+import { userAuth } from "../utils/middlewares/auth.middlewares.js";
 import * as productController from '../controllers/product.views.controller.js'
 
 const productsViewsRouter = Router();

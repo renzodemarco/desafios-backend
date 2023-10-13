@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { isAdmin } from '../utils/auth.middlewares.js'
-import passportCall from "../utils/passport.call.js"
+import { isAdmin } from '../utils/middlewares/auth.middlewares.js'
+import passportCall from "../utils/middlewares/passport.call.js"
 import * as productController from '../controllers/product.controller.js'
 
 

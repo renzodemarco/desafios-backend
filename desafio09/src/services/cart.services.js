@@ -1,4 +1,4 @@
-import { CartDAO, ProductDAO} from "../dao/index.js";
+import { CartDAO, ProductDAO } from "../dao/index.js";
 import { generateCartError, generateProductError, generateProductInCartError } from "../utils/errors/generate.error.cause.js";
 
 const cartManager = new CartDAO()

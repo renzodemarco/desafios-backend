@@ -1,4 +1,4 @@
-import EErrors from "./EnumErrors.js";
+import EErrors from "./enum.errors.js";
 // SI ESTOY EN DEV IMPORTA UNO Y OTRO SI ESTOY EN PROD
 
 const errorHandlerMiddleware = (error, req, res, next) => {

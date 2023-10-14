@@ -14,7 +14,7 @@ buyButton.addEventListener('click', async () => {
 
     handleTicket(purchase)
 
-    window.location.href = `http://localhost:8080/carts/${cartId}`
+    // window.location.href = `http://localhost:8080/carts/${cartId}`
 })
 
 async function getCart(id) {
@@ -48,7 +48,7 @@ async function createTicket(id, ticket) {
 function handleTicket(purchase) {
     console.log(purchase)
     if (purchase.noStock) {
-        const noStockArray = purchase.noStock.map(prod => prod._id)
+        const noStockArray = purchase.noStock.map(prod => prod.product.title)
         alert('No se pudo realizar la compra de algunos productos debido a stock insuficiente: ' + noStockArray.join(', '))
     }
     if (purchase.ticket?.products) {

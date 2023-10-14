@@ -21,7 +21,7 @@ export default createLogger({
         new transports.File({
             level: 'WARNING',
             format: simple(),
-            filename: './errors.log' 
+            filename: './desafio09/src/log-register/register.log' 
         })
     ]
 })

@@ -3,22 +3,22 @@ import { createLogger, format, transports, addColors } from 'winston'
 const { simple, colorize } = format 
 
 const levels = { 
-    INFO: 2,
+    FATAL: 1,
+    ERROR: 2,
     WARNING: 3,
-    ERROR: 4,
-    FATAL: 5
+    INFO: 4,
+    HTTP: 5
 }
 
 const levelColors = {
-    HTTP: "blue",
-    INFO: "white",
+    FATAL: "red",
+    ERROR: "magenta",
     WARNING: "yellow",
-    ERROR: "orange",
-    FATAL: "red"
+    INFO: "white",
+    HTTP: "blue"
 }
 
 addColors(levelColors)
-
 
 export default createLogger({ 
     levels,

@@ -1,10 +1,17 @@
 import dotenv from 'dotenv'
-import opts from './args.js'
+import { Command } from 'commander'
+
+const program = new Command()
+
+program.option('--mode <mode>', 'Entorno', 'dev')
+
+program.parse()
+
+const args = program.opts()
 
 dotenv.config({
-    path: opts.mode === 'production' ? './.env.prod' : './.env.dev',
+    path: args.mode === 'production' ? './.env.prod' : './.env.dev',
 })
-
 
 export default {
     MONGO_URI: process.env.MONGO_URI,

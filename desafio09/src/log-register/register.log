@@ -1,0 +1,9 @@
+HTTP: GET / - 21:33:53
+HTTP: GET / - 21:34:07
+HTTP: GET /login - 21:34:08
+HTTP: GET /login - 21:34:53
+HTTP: POST /api/sessions/login - 21:34:57
+HTTP: GET /products - 21:34:57
+HTTP: GET /logout - 21:34:59
+HTTP: GET / - 21:35:00
+HTTP: GET /login - 21:35:00

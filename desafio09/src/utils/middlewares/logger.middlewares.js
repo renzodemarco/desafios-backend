@@ -1,9 +1,8 @@
-import loggerConfig from '../../config/loggers.config.js'
+import config from '../../config/loggers.config.js'
 
-const HTTPDevLogger = (req, res, next) => {
+export default (req, res, next) => {
     req.logger = config
     req.logger.HTTP(`${req.method} ${req.url} - ${new Date().toLocaleTimeString()}`)
-    return next()
+    
+    next()
 }
-
-export { HTTPDevLogger }

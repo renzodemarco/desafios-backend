@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import passportCall from "../utils/passport.call.js";
-import { isUser } from '../utils/auth.middlewares.js'
+import passportCall from "../utils/middlewares/passport.call.js";
+import { isUser } from '../utils/middlewares/auth.middlewares.js'
 
 const chatRouter = Router()
 

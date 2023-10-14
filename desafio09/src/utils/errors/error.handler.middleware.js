@@ -19,7 +19,6 @@ const errorHandlerMiddleware = (error, req, res, next) => {
             res.status(403).send({error: true, msg: 'Sin autorización'})
         break
         default: res.status(502).send({error: true, msg:'Unhandled error/promise'})
-        
     }
 }
 

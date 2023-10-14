@@ -1,9 +1,11 @@
 import { Command } from 'commander'
 
-const args = new Command()
+const program = new Command()
 
-args.option('--mode <mode>', 'Entorno', 'dev')
+program.option('--mode <mode>', 'Entorno', 'dev')
 
-args.parse()
+program.parse()
 
-export default args.opts
+const opts = program.opts()
+
+export default opts

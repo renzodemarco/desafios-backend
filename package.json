@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node desafio09/src/app.js",
-    "prod": "node desafio09/src/app.js --mode production",
+    "prod": "nodemon desafio09/src/app.js --mode production",
     "dev": "nodemon desafio09/src/app.js --mode dev"
   },
   "repository": {

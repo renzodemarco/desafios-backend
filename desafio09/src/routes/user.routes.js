@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import * as userController from '../controllers/user.controller.js'
-import passportCall from '../utils/passport.call.js'
+import passportCall from '../utils/middlewares/passport.call.js'
 
 const userRouter = Router()
 

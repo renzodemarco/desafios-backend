@@ -19,4 +19,8 @@ export default class UserManager {
     async createUser(user) {
         return await UserModel.create(user)
     }
+
+    async updateUser(_id, data) {
+        return await UserManager.findByIdAndUpdate(_id, data, { new: true })
+    }
 }

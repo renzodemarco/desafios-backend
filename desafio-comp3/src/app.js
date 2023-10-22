@@ -15,13 +15,16 @@ import ticketRouter from './routes/ticket.routes.js';
 import passport from 'passport';
 import initPassportStrategy from './config/passport.config.js'
 import authRouter from './routes/auth.routes.js';
-import ENV_CONFIG from './config/env.config.js'
+import env from './config/env.config.js'
 import mockingProductsRouter from './routes/mocking.products.routes.js';
 import errorHandlerMiddleware from './utils/errors/error.handler.middleware.js';
 import loggerMW from './utils/middlewares/logger.middlewares.js'
 import loggerRouter from './routes/loggers.routes.js';
+import recoverPassRouter from './routes/recover.password.routes.js';
 
 const app = express();
+
+const PORT = env.PORT || 9090
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', `${__dirname}/views`)
@@ -37,7 +40,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: mongoStore.create({
-        mongoUrl: ENV_CONFIG.MONGO_URI,
+        mongoUrl: env.MONGO_URI,
         ttl: 3600
     })
 }))
@@ -70,8 +73,10 @@ app.use('/mockingproducts', mockingProductsRouter)
 
 app.use('/api/loggers', loggerRouter)
 
-// app.use(errorHandlerMiddleware)
+app.use('/recover-password', recoverPassRouter)
 
-app.listen(8080, () => {
-    console.log("Escuchando en puerto 8080...")
+app.use(errorHandlerMiddleware)
+
+app.listen(PORT, () => {
+    console.log("Escuchando en puerto " + PORT)
 })

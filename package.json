@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node desafio09/src/app.js",
-    "prod": "nodemon desafio09/src/app.js --mode production",
-    "dev": "nodemon desafio09/src/app.js --mode dev"
+    "start": "node desafio-comp3/src/app.js",
+    "prod": "nodemon desafio-comp3/src/app.js --mode production",
+    "dev": "nodemon desafio-comp3/src/app.js --mode dev"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.4.2",
     "mongoose-paginate-v2": "^1.7.31",
+    "nodemailer": "^6.9.6",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
     "passport-jwt": "^4.0.1",

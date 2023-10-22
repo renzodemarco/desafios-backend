@@ -53,3 +53,13 @@ export const validateUser = async (email, password) => {
 
     return user
 }
+
+export const updateUserByEmail = async (email, data) => {
+    const user = await userManager.getUserByEmail(email)
+
+    const updatedUser = await userManager.updateUser(user._id, data)
+
+    if (!user) throw new Error("User not found")
+
+    return user
+}

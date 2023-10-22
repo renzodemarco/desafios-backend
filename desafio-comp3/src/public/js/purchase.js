@@ -14,7 +14,7 @@ buyButton.addEventListener('click', async () => {
 
     handleTicket(purchase)
 
-    // window.location.href = `http://localhost:8080/carts/${cartId}`
+    window.location.href = `http://localhost:8080/carts/${cartId}`
 })
 
 async function getCart(id) {

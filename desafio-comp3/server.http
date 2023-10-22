@@ -1,0 +1,7 @@
+### Recibir EMAIL
+POST http://localhost:8080/recover-password
+Content-Type: application/json
+
+{
+    "email": "renzo11demarco@gmail.com"
+}

@@ -11,6 +11,7 @@ export const GETRecoverPassRequest = (req, res) => {
 export const POSTRecoverPassRequest = async (req, res) => {
     try {
         const { email } = req.body
+        console.log("llega al controller")
         const response = await recoverPasswordServices.postRecoverPassRequest(email)
         return res.render('check-mail', {email})
     }
@@ -29,9 +30,10 @@ export const GETRecoverPass = (req, res) => {
         const { token } = req.query
         const data = jwt.verify(token, env.JWT_SECRET)
         const { email } = data
+        if (!data) return res.redirect('/recover-password?expired=true') 
         return res.status(200).render('recover-pass', { email })
     }
-    catch(e) {
+    catch(e) { 
         return res.status(401).send({error: true, msg: e.message})
     }
 }
@@ -40,9 +42,15 @@ export const POSTRecoverPass = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        const updatedPassword = userServices.updateUserByEmail(email, { password })
+        console.log(email + password)
 
-        return res.status(200).render('recover-pass', { email })
+        const response = userServices.updateUserByEmail(email, password)
+
+        if (response.samePassword) return res.status(200).json(response)
+
+        console.log("success controller")
+        
+        return res.status(200).json({success: true})
     }
     catch(e) {
         return res.status(401).send({error: true, msg: e.message})

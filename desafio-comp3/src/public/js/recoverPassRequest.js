@@ -1,7 +1,7 @@
 const form = document.getElementById("form")
 const input = document.getElementById("email")
 
-loginForm.addEventListener('submit', async (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault()
     handleSubmit(input.value) 
 })

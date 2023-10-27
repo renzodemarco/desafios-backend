@@ -21,6 +21,6 @@ export default class UserManager {
     }
 
     async updateUser(_id, data) {
-        return await UserManager.findByIdAndUpdate(_id, data, { new: true })
+        return await UserModel.findByIdAndUpdate(_id, data, { new: true })
     }
 }

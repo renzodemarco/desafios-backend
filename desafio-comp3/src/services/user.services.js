@@ -54,12 +54,20 @@ export const validateUser = async (email, password) => {
     return user
 }
 
-export const updateUserByEmail = async (email, data) => {
+export const updateUserByEmail = async (email, password) => {
     const user = await userManager.getUserByEmail(email)
-
-    const updatedUser = await userManager.updateUser(user._id, data)
 
     if (!user) throw new Error("User not found")
 
-    return user
+    const isEqual = await bcrypt.compare(password, user.password)
+
+    if (isEqual) return {error: true, samePassword: true}
+
+    const updatedUser = await userManager.updateUser(user._id, {password})
+
+    if (!updatedUser) throw new Error("Could not update password")
+
+    console.log("success services")
+
+    return updatedUser
 }

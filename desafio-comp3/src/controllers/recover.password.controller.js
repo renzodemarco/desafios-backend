@@ -11,12 +11,14 @@ export const GETRecoverPassRequest = (req, res) => {
 export const POSTRecoverPassRequest = async (req, res) => {
     try {
         const { email } = req.body
-        console.log("llega al controller")
         const response = await recoverPasswordServices.postRecoverPassRequest(email)
-        return res.render('check-mail', {email})
+        if (response.error) {
+            return {error: true, msg: response.msg}
+        }
+        return res.json({ error: false, msg: "Mensaje enviado correctamente" })
     }
     catch(e) {
-        return res.status(500).send({error: true, msg: e.message})
+        return res.status(500).json({error: true, msg: e.message})
     }
 }
 

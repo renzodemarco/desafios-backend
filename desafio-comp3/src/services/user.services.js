@@ -57,7 +57,7 @@ export const validateUser = async (email, password) => {
 export const updateUserByEmail = async (email, password) => {
     const user = await userManager.getUserByEmail(email)
 
-    if (!user) throw new Error("User not found")
+    if (!user) throw new Error("User not found")  // ESTE ERROR ME ESTA CAGANDO TODO!!
 
     const isEqual = await bcrypt.compare(password, user.password)
 

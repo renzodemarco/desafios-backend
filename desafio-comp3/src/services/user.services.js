@@ -54,20 +54,24 @@ export const validateUser = async (email, password) => {
     return user
 }
 
-export const updateUserByEmail = async (email, password) => {
-    const user = await userManager.getUserByEmail(email)
+export const updateUserById = async (id, data) => {
+    const user = await userManager.getUserById(id)
 
-    if (!user) throw new Error("User not found")  // ESTE ERROR ME ESTA CAGANDO TODO!!
+    if (!user) throw new Error("User does not exist")
 
-    const isEqual = await bcrypt.compare(password, user.password)
+    if (data.password) {
+        const isEqual = await bcrypt.compare(data.password, user.password)
 
-    if (isEqual) return {error: true, samePassword: true}
+        if (isEqual) throw new Error("New password can not be the same as the old one")
 
-    const updatedUser = await userManager.updateUser(user._id, {password})
+        const salt = await bcrypt.genSalt(10)
 
-    if (!updatedUser) throw new Error("Could not update password")
+        data.password = await bcrypt.hash(data.password, salt)
+    }
 
-    console.log("success services")
+    const updatedUser = await userManager.updateUser(user._id, data)
+
+    if (!updatedUser) throw new Error("Could not update user")
 
     return updatedUser
 }

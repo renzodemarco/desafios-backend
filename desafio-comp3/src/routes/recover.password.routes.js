@@ -7,7 +7,7 @@ recoverPassRouter.get('/request', recoverPassController.GETRecoverPassRequest)
 .post('/request', recoverPassController.POSTRecoverPassRequest) 
 .get('/check', recoverPassController.GETCheckMail)
 .get('/', recoverPassController.GETRecoverPass )
-.post('/', recoverPassController.POSTRecoverPass)  // POST para cambiar contraseña
+.post('/', recoverPassController.POSTRecoverPass)
 
 
 export default recoverPassRouter

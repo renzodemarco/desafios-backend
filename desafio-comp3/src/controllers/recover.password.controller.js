@@ -36,7 +36,7 @@ export const GETRecoverPass = (req, res) => {
         return res.status(200).render('recover-pass', { email })
     }
     catch(e) { 
-        return res.status(401).send({error: true, msg: e.message})
+        return res.status(400).send({error: true, msg: e.message})
     }
 }
 
@@ -44,18 +44,18 @@ export const POSTRecoverPass = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        console.log(email + password)
+        const user = await userServices.getUserByEmail(email)
 
-        const response = userServices.updateUserByEmail(email, password)
+        if (!user) return res.status(401).json({error: true, msg: "Email does not exist"})
 
-        if (response.samePassword) return res.status(200).json(response)
+        const response = await userServices.updateUserById(user._id, {password})
 
-        console.log("success controller")
-        
+        if (response.error) return res.status(200).json({error: true, msg: response.msg})
+
         return res.status(200).json({success: true})
     }
     catch(e) {
-        return res.status(401).send({error: true, msg: e.message})
+        return res.status(401).json({error: true, msg: e.message})
     }
 }
 

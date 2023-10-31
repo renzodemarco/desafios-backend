@@ -32,6 +32,6 @@ const handleSubmit = async (email) => {
             return data
         })
         .catch(error => {
-            console.error('Ocurrió un error:', error);
+            console.error(error);
         });
 }

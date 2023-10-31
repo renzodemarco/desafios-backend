@@ -18,3 +18,13 @@ export const JWTCookie = (req, res, next) => {
         return res.status(403).send({msg: 'Authorization denied'})
     }
 }
+
+export const verifyRecoverPasswordToken = token => {
+    try {
+        const verify = jwt.verify(token, SECRET)
+        return true
+    }
+    catch {
+        return false
+    }
+}

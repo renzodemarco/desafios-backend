@@ -5,7 +5,6 @@ const recoverPassRouter = Router();
 
 recoverPassRouter.get('/request', recoverPassController.GETRecoverPassRequest)
 .post('/request', recoverPassController.POSTRecoverPassRequest) 
-.get('/check', recoverPassController.GETCheckMail)
 .get('/', recoverPassController.GETRecoverPass )
 .post('/', recoverPassController.POSTRecoverPass)
 

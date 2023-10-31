@@ -1,7 +1,6 @@
 import * as recoverPasswordServices from '../services/recover.password.services.js'
 import * as userServices from '../services/user.services.js'
-import jwt from 'jsonwebtoken'
-import env from '../config/env.config.js'
+import { verifyRecoverPasswordToken } from '../utils/jwt.js'
 
 export const GETRecoverPassRequest = (req, res) => {
     const { expired } = req.query
@@ -22,17 +21,16 @@ export const POSTRecoverPassRequest = async (req, res) => {
     }
 }
 
-export const GETCheckMail = (req, res) => {
-    const { email } = req.query
-    res.render('check-mail', {email})
-}
-
 export const GETRecoverPass = (req, res) => {
     try {
         const { token } = req.query
-        const data = jwt.verify(token, env.JWT_SECRET)
+
+        const data = verifyRecoverPasswordToken(token)
+
+        if (!data) return res.redirect('/recover-password/request?expired=true') 
+
         const { email } = data
-        if (!data) return res.redirect('/recover-password?expired=true') 
+
         return res.status(200).render('recover-pass', { email })
     }
     catch(e) { 

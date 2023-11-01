@@ -61,8 +61,6 @@ export const createProduct = async product => {
 export const updateProduct = async (id, product) => {
     const {title, description, year, price, stock} = product
 
-    console.log(description)
-
     console.log(generateNewProductError({title, description, year, price, stock}))
 
     if (!title || !description || !year || !price || !stock) {

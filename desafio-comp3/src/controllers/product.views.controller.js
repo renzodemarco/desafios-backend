@@ -11,9 +11,10 @@ export const GETProducts = async (req, res) => {
         }
         const products = await productServices.getProducts(options)
         const { docs, ...data} = products
-        const {first_name, last_name, role, cart} = req.user 
-        const admin = (role === 'admin') ? true : false
-        res.render('products', { products: docs, first_name, last_name, admin, cart: cart?._id})
+        const {first_name, last_name, role, cart, _id} = req.user 
+        const admin = role === 'admin'
+        const premium = role === 'premium'
+        res.render('products', { products: docs, first_name, last_name, admin, premium, cart: cart?._id, user: _id})
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})

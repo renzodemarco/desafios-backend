@@ -97,3 +97,18 @@ export const POSTUserValidation = async (req, res) => {
         return res.status(402).send({error: true, msg: e.message})
     }
 }
+
+export const PUTRole = async (req, res) => {
+    try {
+        const { role } = req.body
+
+        const user = await userServices.updateUserById(req.params.uid, { role })
+
+        if (!user) throw new Error('Could not update user')
+
+        return res.status(200).send({success: true})
+    }
+    catch(e) {
+        return res.status(402).send({error: true, msg: e.message})
+    }
+}

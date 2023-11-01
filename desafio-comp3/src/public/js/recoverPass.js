@@ -43,7 +43,7 @@ form.addEventListener('submit', async event => {
 
 const handleSubmit = async (email, password) => {
     return fetch('/recover-password/', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         },

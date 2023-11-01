@@ -21,8 +21,8 @@ export const JWTCookie = (req, res, next) => {
 
 export const verifyRecoverPasswordToken = token => {
     try {
-        const verify = jwt.verify(token, SECRET)
-        return true
+        const verifiedData = jwt.verify(token, SECRET)
+        return verifiedData
     }
     catch {
         return false

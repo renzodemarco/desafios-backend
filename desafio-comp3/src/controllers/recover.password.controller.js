@@ -31,6 +31,8 @@ export const GETRecoverPass = (req, res) => {
 
         const { email } = data
 
+        console.log(data)
+
         return res.status(200).render('recover-pass', { email })
     }
     catch(e) { 
@@ -38,9 +40,11 @@ export const GETRecoverPass = (req, res) => {
     }
 }
 
-export const POSTRecoverPass = async (req, res) => {
+export const PUTRecoverPass = async (req, res) => {
     try {
         const { email, password } = req.body
+
+        console.log("el mail es: " + email)
 
         const user = await userServices.getUserByEmail(email)
 

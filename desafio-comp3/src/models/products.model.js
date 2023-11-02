@@ -28,8 +28,9 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     owner: {
-            type: mongoose.Schema.Types.ObjectId,
-            default: 'admin'
+        type: String,
+        default: 'admin',
+        required: true
     },
     thumbnail: {
         type: [String],

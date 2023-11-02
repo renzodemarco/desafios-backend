@@ -12,12 +12,21 @@ export const GETProducts = async (req, res) => {
         const products = await productServices.getProducts(options)
         const { docs, ...data} = products
         const {first_name, last_name, role, cart, _id} = req.user 
-        const admin = role === 'admin'
-        const premium = role === 'premium'
-        res.render('products', { products: docs, first_name, last_name, admin, premium, cart: cart?._id, user: _id})
+
+        if (role === 'admin') {
+            return res.render('products-admin', { admin: true, products: docs, first_name, last_name })
+        }
+
+        if (role === 'premium') {
+            const ownProducts = docs.filter(prod => prod.owner === _id.toString())
+            const otherProducts = docs.filter(prod => prod.owner !== _id.toString())
+            return res.render('products-premium', { products: otherProducts, ownProducts, first_name, last_name, premium: true, cart: cart?._id, user: _id })
+        }
+
+        return res.render('products-user', { products: docs, first_name, last_name, cart: cart?._id, user: _id })
     }
     catch(e) {
-        return res.status(402).send({error: true, msg: e.message})
+        return res.status(500).send({error: true, msg: e.message})
     }
 }
 

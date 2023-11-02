@@ -1,5 +1,4 @@
 import * as cartServices from '../../services/cart.services.js'
-import mongoose from 'mongoose';
 
 export const isLogged = (req, res, next,) => {
     if (req.user) return res.redirect('/products');

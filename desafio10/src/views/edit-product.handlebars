@@ -1,0 +1,39 @@
+<div class="container">
+
+    <h1>Modificar {{product.title}}</h1>
+
+    <form id="editProductForm" product-id="{{product._id}}">
+        <label for="title">Título:</label>
+            <input type="text" name="title" id="title" value="{{product.title}}">
+        <label for="description">Descripción:</label>
+            <input type="text" name="description" id="description" value="{{product.description}}">
+        <label for="year">Año:</label>
+            <input type="number" name="year" id="year" value={{product.year}}>
+        <label for="price">Precio:</label>
+            <input type="number" name="price" id="price" value={{product.price}}> 
+        <label for="stock">Stock:</label>
+            <input type="number" name="stock" id="stock" value={{product.stock}}>
+        <label for="category">Categoría:</label>
+        <select name="category" id="category" category="{{product.category}}">
+            <option value="Rock">Rock</option>
+            <option value="Pop">Pop</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Latin">Latin</option>
+            <option value="Metal">Metal</option>
+            <option value="Electro">Electro</option>
+            <option value="Pop">Pop</option>
+        </select>
+
+        <input class='blue-button' type="submit" id="submit" value="Actualizar producto">  
+    </form>
+        <button class='grey-button' onclick="redirect('http://localhost:8080/')">Volver</button> 
+
+</div>
+
+<script src="http://localhost:8080/js/editProduct.js"></script>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

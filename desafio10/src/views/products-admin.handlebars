@@ -1,0 +1,34 @@
+<div class="bienvenida">
+    <img class="role-img" src="https://i.pinimg.com/736x/b1/92/c7/b192c70d750d0700becf81b1ccc9e2a6.jpg">
+
+    <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
+    <div>
+        <button class="grey-button"
+            onclick="localStorage.removeItem('accessToken'); redirect('http://localhost:8080/logout')">
+            Cerrar sesión
+        </button>
+        <button class="blue-button" onclick="redirect('http://localhost:8080/products/create')">Crear producto</button>
+    </div>
+
+</div>
+
+<div class="listContainer">
+    {{#each products}}
+    <div class="productContainer">
+        <ul>
+            <li>
+                <h2>{{this.title}} ({{this.year}})</h2>
+            </li>
+            <li><b>Artista: </b>{{this.description}}</li>
+            <li><b>Precio: </b>${{this.price}}</li>
+            <li><b>Categoría: </b>{{this.category}}</li>
+            <li><b>Stock: </b>{{this.stock}}</li>
+            <li><b>Code: </b>{{this.code}}</li>
+        </ul>
+        <button class="blue-button edit-product" product-id="{{this._id}}">Modificar producto</button>
+        <button class="grey-button delete-product" product-id="{{this._id}}">Eliminar producto</button>
+    </div>
+    {{/each}}
+</div>
+
+<script src="http://localhost:8080/js/productsAdmin.js"></script>

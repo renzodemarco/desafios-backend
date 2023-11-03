@@ -25,10 +25,10 @@ changeToUser.addEventListener('click', async () => {
 
 
 deleteButtons.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
         if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
-            const response = deleteProduct(productId);
+            const response = await deleteProduct(productId);
             if (response.error) return alert(response.msg)
             alert(`Se ha eliminado el producto ${productId}`)
             redirect('/')
@@ -50,7 +50,6 @@ async function deleteProduct(id) {
     .then(response => response.json)
     .then(data => data)
     .catch(error =>alert(error.msg))
-
 }
 
 async function addProduct(cart, product) {

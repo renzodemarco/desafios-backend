@@ -23,22 +23,24 @@ export const isAdminOrPremium = (req, res, next) => {
 }
 
 export const isAdminOrOwner = async (req, res, next) => {
-    isAdminOrPremium(req, res, next)
-    try {
-        const product = await productServices.getProductById(req.params.pid)
+    await isAdminOrPremium(req, res, async () => {
+        try {
+            const product = await productServices.getProductById(req.params.pid);
 
-        if (!product) {
-            return res.status(404).send({ error: true, msg: "Product not found" });
-        }
+            if (!product) {
+                return res.status(404).send({ error: true, msg: "Product not found" });
+            }
 
-        if (req.user._id.toString() !== product.owner && req.user.role !== 'admin') {
-            return res.status(403).send({ error: true, msg: "Not Product Owner" });
+            if (req.user._id?.toString() !== product.owner && req.user.role !== 'admin') {
+                return res.status(403).send({ error: true, msg: "Not Product Owner" });
+            }
+
+            next();
         }
-    }
-    catch (e) {
-        console.log(e)
-        return res.status(500).send({ error: true, msg: "Internal Server Error" })
-    }
+        catch (e) {
+            return res.status(500).send({ error: true, msg: "Internal Server Error" })
+        }
+    })
 }
 
 export const isUser = (req, res, next) => {

@@ -2,10 +2,13 @@ const deleteButtons = document.querySelectorAll('.delete-product')
 const editButtons = document.querySelectorAll('.edit-product')
 
 deleteButtons.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
         if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
-            deleteProduct(productId);
+            const response = await deleteProduct(productId)
+            if (response.error) return alert(response.msg)
+            alert(`Se ha eliminado el producto ${productId}`)
+            redirect('/')
         }
     })
 
@@ -18,10 +21,10 @@ deleteButtons.forEach(button => {
 })
 
 async function deleteProduct(id) {
-    const response = await fetch(`/api/products/${id}`, {
+    return fetch(`/api/products/${id}`, {
         method: 'DELETE'
     })
-    if (response.error) return alert(response.msg)
-    alert(`Se ha eliminado el producto ${id}`)
-    redirect('http://localhost:8080')
+    .then(response => response.json)
+    .then(data => data)
+    .catch(error =>alert(error.msg))
 }

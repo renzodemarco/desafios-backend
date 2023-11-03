@@ -29,21 +29,21 @@ export const getProductById = async id => {
 }
 
 export const createProduct = async product => {
-    
-    const {title, description, year, price, stock} = product
+
+    const { title, description, year, price, stock } = product
 
     if (!title || !description || !year || !price || !stock) {
         throw CustomError.createError({
             message: 'Not valid inputs',
-            cause: generateNewProductError({title, description, year, price, stock}),
+            cause: generateNewProductError({ title, description, year, price, stock }),
             name: 'Could not create product',
             code: enumErrors.USER_INPUT_ERROR
         })
     }
-    
+
     do {
         product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
-    } 
+    }
     while (await manager.getProductByCode(product.code))
 
     const newProduct = await manager.createProduct(product)
@@ -78,7 +78,7 @@ export const updateProduct = async (id, product) => {
 export const deleteProduct = async id => {
     const product = await manager.deleteProduct(id)
 
-    if  (!product) throw CustomError.createError({
+    if (!product) throw CustomError.createError({
         message: 'Product not found',
         cause: generateProductError(id),
         name: 'Could not find product',

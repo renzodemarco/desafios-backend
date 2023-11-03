@@ -30,8 +30,8 @@ deleteButtons.forEach(button => {
         if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
             const response = deleteProduct(productId);
             if (response.error) return alert(response.msg)
-            alert(`Se ha eliminado el producto ${id}`)
-            redirect('http://localhost:8080')
+            alert(`Se ha eliminado el producto ${productId}`)
+            redirect('/')
         }
     })
 

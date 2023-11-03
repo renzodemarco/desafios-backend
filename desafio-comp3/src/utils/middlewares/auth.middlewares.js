@@ -26,12 +26,19 @@ export const isAdminOrOwner = async (req, res, next) => {
     isAdminOrPremium(req, res, next)
     try {
         const product = await productServices.getProductById(req.params.pid)
-        if (req.user._id.toString() !== product.owner) return res.status(403).send({ error: true, msg: "Not Product Owner" })
+
+        if (!product) {
+            return res.status(404).send({ error: true, msg: "Product not found" });
+        }
+
+        if (req.user._id.toString() !== product.owner && req.user.role !== 'admin') {
+            return res.status(403).send({ error: true, msg: "Not Product Owner" });
+        }
     }
-    catch(e) {
+    catch (e) {
         console.log(e)
+        return res.status(500).send({ error: true, msg: "Internal Server Error" })
     }
-    next()
 }
 
 export const isUser = (req, res, next) => {

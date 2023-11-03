@@ -14,6 +14,8 @@ export const getProducts = async options => {
 }
 
 export const getProductById = async id => {
+    console.log(id)
+
     const product = await manager.getProductById(id)
 
     if (!product) throw CustomError.createError({

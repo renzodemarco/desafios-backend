@@ -47,7 +47,7 @@ async function createTicket(id, ticket) {
 
 function handleTicket(purchase) {
     console.log(purchase)
-    if (purchase.noStock) {
+    if (purchase.noStock.length > 0) {
         const noStockArray = purchase.noStock.map(prod => prod.product.title)
         alert('No se pudo realizar la compra de algunos productos debido a stock insuficiente: ' + noStockArray.join(', '))
     }

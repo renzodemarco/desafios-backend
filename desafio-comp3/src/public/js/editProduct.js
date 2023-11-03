@@ -8,10 +8,18 @@ const category = document.getElementById('category')
 const submit = document.getElementById('submit')
 
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
     event.preventDefault()
-    const productId = event.target.getAttribute("product-id");
-    editProduct(productId)
+    try {
+        const productId = event.target.getAttribute("product-id");
+        const response = await editProduct(productId)
+        if (response.error) return alert(response.msg)
+        alert("Producto actualizado exitosamente")
+        redirect('http://localhost:8080/')
+    }
+    catch(e) {
+        console.log(e)
+    }
 })
 
 async function editProduct(id) {
@@ -23,19 +31,22 @@ async function editProduct(id) {
         stock: stock.value,
         category: category.value.toLowerCase()
     }
-    const response = await fetch(`http://localhost:8080/api/products/${id}`, {
+    return response = fetch(`http://localhost:8080/api/products/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json"
         }
     })
-    const responseJSON = await response.json()
-
-    if (responseJSON.error) return alert(responseJSON.msg)
-    
-    alert("Producto actualizado exitosamente")
-    redirect('http://localhost:8080/')
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        return data
+    })
+    .catch(error => {
+        console.error('Ocurrió un error:', error);
+    });
 }
 
 function redirect(url) {

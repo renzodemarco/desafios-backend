@@ -6,7 +6,7 @@
         <p class="error">Ha habido un error en la creación del producto, por favor intente de nuevo</p>
     {{/if}}
 
-    <form id="createProductForm">
+    <form id="createProductForm"  user={{user}}>
             <label for="title">Título:</label>
         <input type="text" name="title" id="title">
             <label for="description">Artista:</label>

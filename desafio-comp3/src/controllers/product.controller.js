@@ -43,17 +43,17 @@ export const PUTProduct = async (req, res) => {
         const {pid} = req.params
         const data = req.body
         const product = await productServices.updateProduct(pid, {...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
-        return res.send(product)
+        return res.send({product})
     }
     catch(e) {
-        return res.status(402).send({error: true, msg: e.message})
+        return res.status(500).send({error: true, msg: e.message})
     }
 }
 
 export const DELETEProduct = async (req, res) => {
     try {
         const product = await productServices.deleteProduct(req.params.pid)
-        return res.send(product)
+        return res.send({product})
     }
     catch(e) {
         return res.status(402).send({error: true, msg: e.message})

@@ -59,20 +59,7 @@ export const createProduct = async product => {
 }
 
 export const updateProduct = async (id, product) => {
-    const {title, description, year, price, stock} = product
-
-    console.log(generateNewProductError({title, description, year, price, stock}))
-
-    if (!title || !description || !year || !price || !stock) {
-        throw CustomError.createError({
-            message: 'Not valid inputs',
-            cause: generateNewProductError({title, description, year, price, stock}),
-            name: 'Could not update product',
-            code: enumErrors.USER_INPUT_ERROR
-        })
-    }
-
-    const updatedProduct = manager.updateProduct(id, product)
+    const updatedProduct = await manager.updateProduct(id, product)
 
     if (!updatedProduct) {
         throw CustomError.createError({
@@ -87,7 +74,7 @@ export const updateProduct = async (id, product) => {
 }
 
 export const deleteProduct = async id => {
-    const product = manager.deleteProduct(id)
+    const product = await manager.deleteProduct(id)
 
     if  (!product) throw CustomError.createError({
         message: 'Product not found',

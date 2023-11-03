@@ -31,7 +31,8 @@ export const GETProducts = async (req, res) => {
 }
 
 export const GETCreateProduct = (req, res) => {
-    res.render('create-product')
+    const user = req.user._id.toString()
+    res.render('create-product', { user })
 }
 
 export const GETEditProduct = async (req, res) => {

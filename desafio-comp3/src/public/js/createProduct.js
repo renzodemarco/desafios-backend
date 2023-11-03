@@ -6,10 +6,10 @@ const price = document.getElementById('price')
 const stock = document.getElementById('stock')
 const category = document.getElementById('category')
 const submit = document.getElementById('submit')
+const user = form.getAttribute('user')
 
 form.addEventListener("submit", event => {
     event.preventDefault()
-
     createProduct()
 })
 
@@ -20,7 +20,8 @@ async function createProduct() {
         year: year.value,
         price: price.value,
         stock: stock.value,
-        category: category.value.toLowerCase()
+        category: category.value.toLowerCase(),
+        owner: user
     }
     const response = await fetch('http://localhost:8080/api/products/', {
         method: 'POST',

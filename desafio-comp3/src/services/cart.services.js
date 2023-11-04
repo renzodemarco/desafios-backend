@@ -44,6 +44,12 @@ export const addProductToCart = async (cartId, prodId) => {
         code: enumErrors.DATABASE_ERROR
     })
 
+    if (product.stock < 1) throw new Error('Not stock')
+
+    await productManager.updateProduct(product._id, {
+        stock: product.stock - 1,
+    });
+
     return await cartManager.addProductToCart(cartId, prodId)
 }
 

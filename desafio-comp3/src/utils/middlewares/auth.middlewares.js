@@ -43,6 +43,20 @@ export const isAdminOrOwner = async (req, res, next) => {
     })
 }
 
+export const isNotProductOwner = async (req, res, next) => {
+        const product = await productServices.getProductById(req.params.pid)
+
+        if (!product) {
+            return res.status(404).send({ error: true, msg: "Product not found" });
+        }
+
+        if (req.user._id?.toString() === product.owner) {
+            return res.status(403).send({ error: true, msg: "Can not add own product to cart" });
+        }
+
+        next()
+}
+
 export const isUser = (req, res, next) => {
     if (req.user?.role !== "user" || !req.user) return res.status(403).send({ error: true, msg: "Not Authorized" });
     next()

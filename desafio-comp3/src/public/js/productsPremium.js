@@ -11,7 +11,8 @@ addButtons.forEach(button => {
         if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
             const response = await addProduct(cartId, productId);
             if (response.error) return alert(response.msg)
-            return alert(`Se ha agregado el producto ${productId}`)
+            alert(`Se ha agregado el producto ${productId}`)
+            location.reload()
         }
     })
 })

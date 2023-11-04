@@ -8,10 +8,12 @@ const addButtons = document.querySelectorAll('.add-product')
 addButtons.forEach(button => {
     button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
+        const productContainer = event.target.closest('.productContainer');
+        const title = productContainer.querySelector('h2').innerHTML
+        if (confirm(`¿Seguro que desea agregar el producto ${title}?`)) {
             const response = await addProduct(cartId, productId);
             if (response.error) return alert(response.msg)
-            alert(`Se ha agregado el producto ${productId}`)
+            alert(`Se ha agregado el producto ${title}`)
             location.reload()
         }
     })
@@ -28,10 +30,12 @@ changeToUser.addEventListener('click', async () => {
 deleteButtons.forEach(button => {
     button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
+        const productContainer = event.target.closest('.productContainer');
+        const title = productContainer.querySelector('h2').innerHTML
+        if (confirm(`¿Seguro que desea eliminar el producto ${title}?`)) {
             const response = await deleteProduct(productId);
             if (response.error) return alert(response.msg)
-            alert(`Se ha eliminado el producto ${productId}`)
+            alert(`Se ha eliminado el producto ${title}`)
             redirect('/')
         }
     })

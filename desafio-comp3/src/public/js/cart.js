@@ -5,7 +5,9 @@ const currentCart = document.querySelector('.listContainer').getAttribute("cart-
 deleteButtons.forEach(button => {
     button.addEventListener('click', event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
+        const productContainer = event.target.closest('.productContainer');
+        const title = productContainer.querySelector('h2').innerHTML
+        if (confirm(`¿Seguro que desea eliminar el producto ${title}?`)) {
             deleteProduct(currentCart, productId);
         }
     })

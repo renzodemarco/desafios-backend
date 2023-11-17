@@ -9,10 +9,10 @@
 
     <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
     <button class="grey-button"
-        onclick="localStorage.removeItem('accessToken'); redirect('http://localhost:8080/logout')">Cerrar
+        onclick="localStorage.removeItem('accessToken'); redirect('/logout')">Cerrar
         sesión</button>
-    <button class="blue-button" onclick="redirect('http://localhost:8080/carts/{{cart}}')">Ver carrito</button>
-    <button class="blue-button" onclick="redirect('http://localhost:8080/chat')">Ir al chat</button>
+    <button class="blue-button" onclick="redirect('/carts/{{cart}}')">Ver carrito</button>
+    <button class="blue-button" onclick="redirect('/chat')">Ir al chat</button>
 
 </div>
 
@@ -36,7 +36,7 @@
 </div>
 
 
-<script src="http://localhost:8080/js/productsUser.js"></script>
+<script src="/js/productsUser.js"></script>
 
 <script>
     function redirect(url) {

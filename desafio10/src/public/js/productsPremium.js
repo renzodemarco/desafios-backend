@@ -25,20 +25,21 @@ changeToUser.addEventListener('click', async () => {
 
 
 deleteButtons.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
         if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
-            const response = deleteProduct(productId);
-            if (response.error) return alert(response.msg)
-            alert(`Se ha eliminado el producto ${id}`)
-            redirect('http://localhost:8080')
+            const response = await deleteProduct(productId);
+            if (response.error) return alert(response.message)
+            console.log(response)
+            alert(`Se ha eliminado el producto ${response.product.title}`)
+            redirect('/')
         }
     })
 
     editButtons.forEach(button => {
         button.addEventListener("click", event => {
             const productId = event.target.getAttribute("product-id");
-            redirect(`http://localhost:8080/products/edit/${productId}`)
+            redirect(`/products/edit/${productId}`)
         })
     })
 })
@@ -47,14 +48,13 @@ async function deleteProduct(id) {
     return fetch(`/api/products/${id}`, {
         method: 'DELETE'
     })
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => data)
-    .catch(error =>alert(error.msg))
-
+    .catch(error =>alert(error.message))
 }
 
 async function addProduct(cart, product) {
-    return fetch(`http://localhost:8080/api/carts/${cart}/products/${product}`, {
+    return fetch(`/api/carts/${cart}/products/${product}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -72,7 +72,7 @@ async function addProduct(cart, product) {
 }
 
 async function changeRole(role) {
-    return fetch(`http://localhost:8080/api/sessions/premium/${userId}`, {
+    return fetch(`/api/sessions/premium/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(role),
         headers: {

@@ -22,7 +22,7 @@ changeToPremium.addEventListener('click', async () => {
 })
 
 async function addProduct(cart, product) {
-    return fetch(`http://localhost:8080/api/carts/${cart}/products/${product}`, {
+    return fetch(`/api/carts/${cart}/products/${product}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -40,7 +40,7 @@ async function addProduct(cart, product) {
 }
 
 async function changeRole(role) {
-    return fetch(`http://localhost:8080/api/sessions/premium/${userId}`, {
+    return fetch(`/api/sessions/premium/${userId}`, {
         method: 'PUT',
         body: JSON.stringify(role),
         headers: {

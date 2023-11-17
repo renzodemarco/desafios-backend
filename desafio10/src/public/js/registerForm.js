@@ -23,5 +23,5 @@ registerForm.addEventListener('submit', async (event) => {
 
     const redirect = url => window.location.href = url
 
-    redirect('http://localhost:8080/')
+    redirect('/')
 })

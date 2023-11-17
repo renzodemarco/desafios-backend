@@ -1,5 +1,5 @@
 import { CartDAO, ProductDAO } from "../dao/index.js";
-import { generateCartError, generateProductError, generateProductInCartError } from "../utils/errors/generate.error.cause.js";
+import { generateCartError, generateProductError, generateProductInCartError } from "../middlewares/generate.error.msg.js";
 
 const cartManager = new CartDAO()
 const productManager = new ProductDAO()

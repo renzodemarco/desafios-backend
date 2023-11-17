@@ -14,12 +14,12 @@ buyButton.addEventListener('click', async () => {
 
     handleTicket(purchase)
 
-    window.location.href = `http://localhost:8080/carts/${cartId}`
+    window.location.href = `/carts/${cartId}`
 })
 
 async function getCart(id) {
     try {
-        const cart = await fetch(`http://localhost:8080/api/carts/${id}`, {
+        const cart = await fetch(`/api/carts/${id}`, {
             method: 'GET'
         })
         return await cart.json()
@@ -31,7 +31,7 @@ async function getCart(id) {
 
 async function createTicket(id, ticket) {
     try {
-        const purchase = await fetch(`http://localhost:8080/carts/${id}/purchase`, {
+        const purchase = await fetch(`/carts/${id}/purchase`, {
             method: 'POST',
             headers:  {
                 "Content-Type": "application/json"

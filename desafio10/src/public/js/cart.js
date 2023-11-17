@@ -12,7 +12,7 @@ deleteButtons.forEach(button => {
 })
 
 async function deleteProduct(cart, product) {
-    const response = await fetch(`http://localhost:8080/api/carts/${cart}/products/${product}`, {
+    const response = await fetch(`/api/carts/${cart}/products/${product}`, {
             method: 'DELETE'
         })
     if (response.error) return alert(response.msg)

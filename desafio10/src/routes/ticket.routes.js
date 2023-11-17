@@ -1,6 +1,6 @@
 import { Router } from "express";
-import passportCall from "../utils/middlewares/passport.call.js"
-import { isAdmin } from '../utils/middlewares/auth.middlewares.js'
+import passportCall from "../middlewares/passport.call.js"
+import { isAdmin } from '../middlewares/auth.middlewares.js'
 import * as ticketController from '../controllers/ticket.controller.js'
 
 

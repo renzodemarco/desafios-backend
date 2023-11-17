@@ -2,7 +2,7 @@ import * as productServices from '../services/product.services.js'
 
 export const GETProducts = async (req, res) => {
     try {
-        const { limit = 10, page = 1, sort, query = [] } = req.query;
+        const { limit = 30, page = 1, sort, query = [] } = req.query;
         const options = {
             limit: Number(limit), 
             page: Number(page), 

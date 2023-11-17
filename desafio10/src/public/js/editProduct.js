@@ -15,7 +15,7 @@ form.addEventListener('submit', async event => {
         const response = await editProduct(productId)
         if (response.error) return alert(response.msg)
         alert("Producto actualizado exitosamente")
-        redirect('http://localhost:8080/')
+        redirect('/')
     }
     catch(e) {
         console.log(e)
@@ -31,7 +31,7 @@ async function editProduct(id) {
         stock: stock.value,
         category: category.value.toLowerCase()
     }
-    return response = fetch(`http://localhost:8080/api/products/${id}`, {
+    return response = fetch(`/api/products/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
         headers: {

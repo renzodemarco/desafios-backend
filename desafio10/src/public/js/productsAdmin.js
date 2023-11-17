@@ -12,7 +12,7 @@ deleteButtons.forEach(button => {
     editButtons.forEach(button => {
         button.addEventListener("click", event => {
             const productId = event.target.getAttribute("product-id");
-            redirect(`http://localhost:8080/products/edit/${productId}`)
+            redirect(`/products/edit/${productId}`)
         })
     })
 })
@@ -23,5 +23,5 @@ async function deleteProduct(id) {
     })
     if (response.error) return alert(response.msg)
     alert(`Se ha eliminado el producto ${id}`)
-    redirect('http://localhost:8080')
+    redirect('/')
 }

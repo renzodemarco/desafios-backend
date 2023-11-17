@@ -4,49 +4,85 @@ export default class ProductManager {
 
     constructor() {}
 
-    async getProducts({ limit, page, sort, query }) {
-        let sortBy;
-        if (sort == 'asc') {
-            sortBy = { price: 1 }
-        }
-        else if (sort == 'desc') {
-            sortBy = { price: -1 }
-        }
-        else sortBy = {}
-
-        let queryBy =
-            query.length > 0 ? {
-                category: { $in: query }
-            } : {}
-
-        return await ProductModel.paginate(
-            queryBy,
-            {
-                limit: limit,
-                page: page,
-                lean: true,
-                sort: sortBy
+    getProducts = async ({ limit, page, sort, query }, next) => {
+        try {
+            let sortBy;
+            if (sort == 'asc') {
+                sortBy = { price: 1 }
             }
-        )
+            else if (sort == 'desc') {
+                sortBy = { price: -1 }
+            }
+            else sortBy = {}
+    
+            let queryBy =
+                query.length > 0 ? {
+                    category: { $in: query }
+                } : {}
+    
+            return await ProductModel.paginate(
+                queryBy,
+                {
+                    limit: limit,
+                    page: page,
+                    lean: true,
+                    sort: sortBy
+                }
+            )
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 
-    async getProductById(_id) {
-        return await ProductModel.findOne({ _id }).lean()
+    getProductById = async (_id, next) => {
+        try {
+            return await ProductModel.findOne({ _id }).lean()
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 
-    async getProductByCode(code) {
-        return await ProductModel.findOne({ code }).lean()
+    getProductByCode = async (code, next) => {
+        try {
+            return await ProductModel.findOne({ code }).lean()
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 
-    async createProduct(product) {
-        return await ProductModel.create(product)
+    createProduct = async (product, next) => {
+        try {
+            return await ProductModel.create(product)
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 
-    async updateProduct(_id, prod) {
-        return await ProductModel.findOneAndUpdate({ _id }, prod, { new: true })
+    updateProduct = async (_id, prod, next) => {
+        try {
+            return await ProductModel.findOneAndUpdate({ _id }, prod, { new: true })
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 
-    async deleteProduct(_id) {
-        return await ProductModel.findOneAndDelete({ _id })
+    deleteProduct = async (_id, next) => {
+        try {
+            return await ProductModel.findOneAndDelete({ _id })
+        }
+        catch(error) {
+            error.from = "mongo"
+            return next(error)
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { isAdminOrPremium, isAdminOrOwner } from '../utils/middlewares/auth.middlewares.js'
-import passportCall from "../utils/middlewares/passport.call.js"
+import { isAdminOrPremium, isAdminOrOwner } from '../middlewares/auth.middlewares.js'
+import passportCall from "../middlewares/passport.call.js"
 import * as productController from '../controllers/product.controller.js'
 
 

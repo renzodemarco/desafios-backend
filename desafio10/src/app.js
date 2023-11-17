@@ -17,8 +17,8 @@ import initPassportStrategy from './config/passport.config.js'
 import authRouter from './routes/auth.routes.js';
 import env from './config/env.config.js'
 import mockingProductsRouter from './routes/mocking.products.routes.js';
-import errorHandlerMiddleware from './utils/errors/error.handler.middleware.js';
-import loggerMW from './utils/middlewares/logger.middlewares.js'
+import errorHandler from './middlewares/error.handler.js';
+import loggerMW from './middlewares/logger.middlewares.js'
 import loggerRouter from './routes/loggers.routes.js';
 import recoverPassRouter from './routes/recover.password.routes.js';
 
@@ -75,7 +75,7 @@ app.use('/api/loggers', loggerRouter)
 
 app.use('/recover-password', recoverPassRouter)
 
-app.use(errorHandlerMiddleware)
+app.use(errorHandler)
 
 app.listen(PORT, () => {
     console.log("Escuchando en puerto " + PORT)

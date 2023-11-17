@@ -1,87 +1,59 @@
 import { ProductDAO } from "../dao/index.js";
-import CustomError from "../utils/errors/custom.error.js"
-import enumErrors from '../utils/errors/enum.errors.js'
-import { generateNewProductError, generateProductError } from "../utils/errors/generate.error.cause.js";
+import { generateNewProductError, generateProductError } from "../middlewares/generate.error.msg.js";
 
 const manager = new ProductDAO()
 
-export const getProducts = async options => {
-    const products = await manager.getProducts(options)
-
-    if (!products) throw new Error('Could not get products')
-
-    return products
+export const getProducts = async (options, next) => {
+    try {
+        return manager.getProducts(options)
+    }
+    catch(error) {
+        error.from = "service"
+        return next(error)
+    }
 }
 
-export const getProductById = async id => {
-    const product = await manager.getProductById(id)
-
-    if (!product) throw CustomError.createError({
-        message: 'Product not found',
-        cause: generateProductError(id),
-        name: 'Could not find product',
-        code: enumErrors.DATABASE_ERROR
-    })
-
-    return product
+export const getProductById = async (id, next) => {
+    try {
+        return await manager.getProductById(id, next)
+    }
+    catch(error) {
+        error.from = "service"
+        return next(error)
+    }
 }
 
-export const createProduct = async product => {
+export const createProduct = async (product, next) => {
+    try {
+        do {
+            product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
+        } 
+        while (await manager.getProductByCode(product.code))
     
-    const {title, description, year, price, stock} = product
-
-    if (!title || !description || !year || !price || !stock) {
-        throw CustomError.createError({
-            message: 'Not valid inputs',
-            cause: generateNewProductError({title, description, year, price, stock}),
-            name: 'Could not create product',
-            code: enumErrors.USER_INPUT_ERROR
-        })
+        return await manager.createProduct(product)
     }
-    
-    do {
-        product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
-    } 
-    while (await manager.getProductByCode(product.code))
-
-    const newProduct = await manager.createProduct(product)
-
-    if (!newProduct) {
-        throw CustomError.createError({
-            message: 'Could not create product',
-            cause: 'Database error',
-            name: 'New product error',
-            code: enumErrors.DATABASE_ERROR
-        })
+    catch(error) {
+        error.from = "service"
+        return next(error)
     }
-
-    return newProduct
 }
 
-export const updateProduct = async (id, product) => {
-    const updatedProduct = await manager.updateProduct(id, product)
-
-    if (!updatedProduct) {
-        throw CustomError.createError({
-            message: 'Could not create product',
-            cause: 'Database error',
-            name: 'New product error',
-            code: enumErrors.DATABASE_ERROR
-        })
+export const updateProduct = async (id, product, next) => {
+    try {
+        return await manager.updateProduct(id, product, next)
     }
-
-    return updatedProduct
+    catch(error) {
+        error.from = "service"
+        return next(error)
+    }    
 }
 
-export const deleteProduct = async id => {
-    const product = await manager.deleteProduct(id)
-
-    if  (!product) throw CustomError.createError({
-        message: 'Product not found',
-        cause: generateProductError(id),
-        name: 'Could not find product',
-        code: enumErrors.DATABASE_ERROR
-    })
-
-    return product
+export const deleteProduct = async (id, next) => {
+    try {
+        return await manager.deleteProduct(id)
+    }
+    catch(error) {
+        error.from = "service"
+        return next(error)
+    }
 }

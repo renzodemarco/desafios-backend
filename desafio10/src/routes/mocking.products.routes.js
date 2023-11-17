@@ -1,5 +1,5 @@
 import { Router } from "express"
-import passportCall from '../utils/middlewares/passport.call.js'
+import passportCall from '../middlewares/passport.call.js'
 import * as mockingProductsController from '../controllers/mocking.product.controller.js'
 
 

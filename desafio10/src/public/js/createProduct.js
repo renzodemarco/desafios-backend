@@ -23,7 +23,7 @@ async function createProduct() {
         category: category.value.toLowerCase(),
         owner: user
     }
-    const response = await fetch('http://localhost:8080/api/products/', {
+    const response = await fetch('/api/products/', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -36,5 +36,5 @@ async function createProduct() {
     if (responseJSON.error) return alert(responseJSON.msg)
 
     alert("Producto creado exitosamente")
-    redirect('http://localhost:8080')
+    redirect('/')
 }

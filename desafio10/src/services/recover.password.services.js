@@ -1,12 +1,14 @@
 import transport from '../config/transport.config.js'
 import * as userServices from '../services/user.services.js'
+import CustomError from '../utils/error.custom.js'
+import dictionary from '../utils/error.dictionary.js'
 import { generateToken } from '../utils/jwt.js'
 
-export const postRecoverPassRequest = async email => {
+export const postRecoverPassRequest = async (email, next) => {
     try {
-        const user = userServices.getUserByEmail(email)
+        const user = userServices.getUserByEmail(email, next)
 
-        if (!user) return {error: true, msg: "Email does not exist"}
+        if (!user) return CustomError.new(dictionary.userNotFound)
 
         const token = generateToken({email})
 
@@ -14,11 +16,14 @@ export const postRecoverPassRequest = async email => {
             from: 'CODERHOUSE <coderhouse@mail.com>',
             to: email,
             subject: "Recuperación de contraseña",
-            text: `Haz clic en el siguiente link: http://localhost:8080/recover-password?token=${token}`
-        })
-        if (response) return {error: false, msg: "Correo enviado correctamente"}
+            html: `<h2>Recuperación de contraseña</h2>
+            <p>Para restablecer tu contraseña, haga clic <a href="http://localhost:8080/recover-password?token=${token}">aquí</a>.</p>
+        </body>`
+        }) 
+        if (response) return { error: false, message: "Correo enviado correctamente" }
     }
-    catch(e) {
-        return e
+    catch(error) {
+        error.from = 'services'
+        return next(error)
     }
 }

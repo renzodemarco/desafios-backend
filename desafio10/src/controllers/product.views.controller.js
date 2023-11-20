@@ -1,6 +1,6 @@
 import * as productServices from '../services/product.services.js'
 
-export const GETProducts = async (req, res) => {
+export const GETProducts = async (req, res, next) => {
     try {
         const { limit = 30, page = 1, sort, query = [] } = req.query;
         const options = {
@@ -9,7 +9,7 @@ export const GETProducts = async (req, res) => {
             sort, 
             query
         }
-        const products = await productServices.getProducts(options)
+        const products = await productServices.getProducts(options, next)
         const { docs, ...data} = products
         const {first_name, last_name, role, cart, _id} = req.user 
 
@@ -25,22 +25,24 @@ export const GETProducts = async (req, res) => {
 
         return res.render('products-user', { products: docs, first_name, last_name, cart: cart?._id, user: _id })
     }
-    catch(e) {
-        return res.status(500).send({error: true, msg: e.message})
+    catch(error) {
+        error.from = 'controller'
+        return next(error)
     }
 }
 
 export const GETCreateProduct = (req, res) => {
     const user = req.user._id.toString()
-    res.render('create-product', { user })
+    return res.render('create-product', { user })
 }
 
-export const GETEditProduct = async (req, res) => {
+export const GETEditProduct = async (req, res, next) => {
     try {
-        const product = await productServices.getProductById(req.params.pid)
-        res.render('edit-product', {product})
+        const product = await productServices.getProductById(req.params.pid, next)
+        return res.render('edit-product', {product})
     }
-    catch(e) {
-        return res.status(402).send({error: true, msg: e.message})
+    catch(error) {
+        error.from = 'controller'
+        return next(error)
     }
 }

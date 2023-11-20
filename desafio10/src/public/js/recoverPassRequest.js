@@ -7,7 +7,7 @@ form.addEventListener('submit', async event => {
     try {
     const response = await handleSubmit(email)
 
-    if (response.error) return alert(response.msg)
+    if (response.error) return alert(response.message)
 
     return alert("Mensaje enviado, por favor revise su casilla de correo e ingrese al link")
 

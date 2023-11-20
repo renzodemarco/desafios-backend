@@ -1,9 +1,6 @@
 import config from '../config/env.config.js'
-import MongoConnection from '../utils/db.connection.js'
 
 let CartDAO, ProductDAO, UserDAO
-
-const connection = MongoConnection.getInstance()
 
 switch (config.persistence) {
     case "MONGO": 

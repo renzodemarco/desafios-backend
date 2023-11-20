@@ -1,11 +1,12 @@
 import * as ticketServices from '../services/ticket.services.js'
 
-export const GETTickets = async (req, res) => {
+export const GETTickets = async (req, res, next) => {
     try {
-        const tickets = await ticketServices.getTickets()
-        res.send(tickets)
+        const tickets = await ticketServices.getTickets(next)
+        return res.json(tickets)
     }
-    catch(e) {
-        return res.status(402).send({error: true, msg: e.message})
+    catch(error) {
+        error.from = 'controller'
+        return next(error)
     }
 }

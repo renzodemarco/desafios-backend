@@ -15,7 +15,7 @@ async function deleteProduct(cart, product) {
     const response = await fetch(`/api/carts/${cart}/products/${product}`, {
             method: 'DELETE'
         })
-    if (response.error) return alert(response.msg)
+    if (response.error) return alert(response.message)
     alert(`Se ha eliminado el producto ${product}`)
     location.reload()
 }

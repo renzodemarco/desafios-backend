@@ -13,7 +13,7 @@ form.addEventListener('submit', async event => {
     try {
         const productId = event.target.getAttribute("product-id");
         const response = await editProduct(productId)
-        if (response.error) return alert(response.msg)
+        if (response.error) return alert(response.message)
         alert("Producto actualizado exitosamente")
         redirect('/')
     }

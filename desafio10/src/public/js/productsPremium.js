@@ -10,15 +10,16 @@ addButtons.forEach(button => {
         const productId = event.target.getAttribute("product-id");
         if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
             const response = await addProduct(cartId, productId);
-            if (response.error) return alert(response.msg)
-            return alert(`Se ha agregado el producto ${productId}`)
-        }
+            console.log(response)
+            if (response.ok) return alert(`Se ha agregado el producto ${productId}`)
+            return alert(response.message)
+        }   
     })
 })
 
 changeToUser.addEventListener('click', async () => {
     const response = await changeRole({ role: 'user' })
-    if (response.error) return alert(response.msg)
+    if (response.error) return alert(response.message)
     alert("Se ha cambiado el rol")
     return window.location.href = '/'
 })
@@ -30,8 +31,7 @@ deleteButtons.forEach(button => {
         if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
             const response = await deleteProduct(productId);
             if (response.error) return alert(response.message)
-            console.log(response)
-            alert(`Se ha eliminado el producto ${response.product.title}`)
+            alert(`Se ha eliminado el producto ${response.title}`)
             redirect('/')
         }
     })
@@ -60,14 +60,14 @@ async function addProduct(cart, product) {
             "Content-Type": "application/json"
         }
     })
-        .then(response => {
+        .then(response => { 
             return response.json();
         })
         .then(data => {
             return data
         })
         .catch(error => {
-            alert(error.msg);
+            alert(error.message);
         });
 }
 
@@ -86,6 +86,6 @@ async function changeRole(role) {
             return data
         })
         .catch(error => {
-            alert(error.msg);
+            alert(error.message);
         });
 }

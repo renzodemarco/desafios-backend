@@ -19,7 +19,7 @@ registerForm.addEventListener('submit', async (event) => {
 
     const responseData = await response.json()
 
-    if (responseData.error) return alert(responseData.msg)
+    if (responseData.error) return alert(responseData.message)
 
     const redirect = url => window.location.href = url
 

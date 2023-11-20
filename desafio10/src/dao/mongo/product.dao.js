@@ -31,7 +31,7 @@ export default class ProductManager {
             )
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }
@@ -41,7 +41,7 @@ export default class ProductManager {
             return await ProductModel.findOne({ _id }).lean()
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }
@@ -51,7 +51,7 @@ export default class ProductManager {
             return await ProductModel.findOne({ code }).lean()
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }
@@ -61,7 +61,7 @@ export default class ProductManager {
             return await ProductModel.create(product)
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }
@@ -71,7 +71,7 @@ export default class ProductManager {
             return await ProductModel.findOneAndUpdate({ _id }, prod, { new: true })
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }
@@ -81,7 +81,7 @@ export default class ProductManager {
             return await ProductModel.findOneAndDelete({ _id })
         }
         catch(error) {
-            error.from = "mongo"
+            error.from = "dao"
             return next(error)
         }
     }

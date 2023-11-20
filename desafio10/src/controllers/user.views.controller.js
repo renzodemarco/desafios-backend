@@ -1,5 +1,3 @@
-import * as userServices from '../services/user.services.js'
-
 export const GETLoginView = (req, res) => {
     const {retry, register, updated} = req.query
     res.render('login', {retry, register, updated})

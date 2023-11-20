@@ -1,11 +1,12 @@
 import { ProductDAO } from "../dao/index.js";
-import { generateNewProductError, generateProductError } from "../middlewares/generate.error.msg.js";
+import dictionary from '../utils/error.dictionary.js'
+import CustomError from '../utils/error.custom.js'
 
 const manager = new ProductDAO()
 
 export const getProducts = async (options, next) => {
     try {
-        return manager.getProducts(options)
+        return manager.getProducts(options, next)
     }
     catch(error) {
         error.from = "service"
@@ -15,7 +16,11 @@ export const getProducts = async (options, next) => {
 
 export const getProductById = async (id, next) => {
     try {
-        return await manager.getProductById(id, next)
+        const product = await manager.getProductById(id, next)
+
+        if (!product) return CustomError.new(dictionary.productNotFound)
+
+        return product
     }
     catch(error) {
         error.from = "service"

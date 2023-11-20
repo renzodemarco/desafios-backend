@@ -25,7 +25,7 @@ form.addEventListener('submit', async event => {
     try {
     const response = await handleSubmit(email, password.value)
 
-    if (response.error) return alert(response.msg)
+    if (response.error) return alert(response.message)
 
     if (response.success) {
         alert("Contraseña modificada")

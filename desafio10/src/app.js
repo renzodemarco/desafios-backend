@@ -21,6 +21,7 @@ import errorHandler from './middlewares/error.handler.js';
 import loggerMW from './middlewares/logger.middlewares.js'
 import loggerRouter from './routes/loggers.routes.js';
 import recoverPassRouter from './routes/recover.password.routes.js';
+import MongoConnection from './utils/db.connection.js'
 
 const app = express();
 
@@ -78,5 +79,6 @@ app.use('/recover-password', recoverPassRouter)
 app.use(errorHandler)
 
 app.listen(PORT, () => {
+    MongoConnection.getInstance()
     console.log("Escuchando en puerto " + PORT)
 })

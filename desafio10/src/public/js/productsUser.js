@@ -8,7 +8,7 @@ addButtons.forEach(button => {
         const productId = event.target.getAttribute("product-id");
         if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
             const response = await addProduct(cartId, productId);
-            if (response.error) return alert(response.msg)
+            if (response.error) return alert(response.message)
             return alert(`Se ha agregado el producto ${productId}`)
         }
     })
@@ -16,7 +16,7 @@ addButtons.forEach(button => {
 
 changeToPremium.addEventListener('click', async () => {
     const response = await changeRole({ role: 'premium' })
-    if (response.error) return alert(response.msg)
+    if (response.error) return alert(response.message)
     alert("Se ha cambiado el rol")
     return window.location.href = '/'
 })
@@ -35,7 +35,7 @@ async function addProduct(cart, product) {
             return data
         })
         .catch(error => {
-            alert(error.msg);
+            alert(error.message);
         });
 }
 
@@ -54,6 +54,6 @@ async function changeRole(role) {
             return data
         })
         .catch(error => {
-            alert(error.msg);
+            alert(error.message);
         });
 }

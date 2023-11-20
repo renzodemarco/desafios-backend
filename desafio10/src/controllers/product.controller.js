@@ -9,7 +9,7 @@ export const GETProducts = async (req, res, next) => {
             sort, 
             query
         }
-        const products = await productServices.getProducts(options)
+        const products = await productServices.getProducts(options, next)
         return res.send(products)
     }
     catch (error) {
@@ -20,7 +20,7 @@ export const GETProducts = async (req, res, next) => {
 
 export const GETProductById = async (req, res, next) => {
     try {
-        const product = await productServices.getProductById(req.params.pid)
+        const product = await productServices.getProductById(req.params.pid, next)
         return res.send(product)
     }
     catch (error) {
@@ -32,8 +32,8 @@ export const GETProductById = async (req, res, next) => {
 export const POSTProduct = async (req, res, next) => {
     try {
         const data = req.body;
-        const product = await productServices.createProduct({...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
-        res.send(product)
+        const product = await productServices.createProduct({...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)}, next)
+        return res.send(product)
     }
     catch (error) {
         error.from = "controller"
@@ -57,7 +57,7 @@ export const PUTProduct = async (req, res, next) => {
 export const DELETEProduct = async (req, res, next) => {
     try {
         const product = await productServices.deleteProduct(req.params.pid, next)
-        return res.json({product})  
+        return res.json(product)  
     }
     catch (error) {
         error.from = "controller"

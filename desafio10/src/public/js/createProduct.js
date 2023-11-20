@@ -33,7 +33,7 @@ async function createProduct() {
 
     const responseJSON = await response.json()
 
-    if (responseJSON.error) return alert(responseJSON.msg)
+    if (responseJSON.error) return alert(responseJSON.message)
 
     alert("Producto creado exitosamente")
     redirect('/')

@@ -1,0 +1,53 @@
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Título del producto
+        description:
+          type: string
+          description: Descripción del producto
+        year:
+          type: number
+          description: Año de lanzamiento del producto
+        price:
+          type: number
+          description: Precio del producto
+        code:
+          type: string
+          description: Código del producto
+        owner:
+          type: string
+          description: ObjectId de referencia del usuario que creó el producto
+        thumbnail:
+          type: array
+          items:
+            type: string
+          description: Enlaces de las imágenes del producto
+        category:
+          type: string
+          description: Categoría a la que pertenece el producto
+        status:
+          type: boolean
+          description: ¿Está el producto disponible?
+      example:
+        title: "Autochocador"
+        description: "Jaime Sin Tierra"
+        year: 2000
+        price: 150
+        code: "74y312"
+        owner: "admin"
+        thumbnail: ["https://f4.bcbits.com/img/a1263499453_5.jpg"]
+        category: "rock"
+        status: true
+  update:
+    product:
+      type: object
+      properties:
+        price:
+          type: number
+          description: Nuevo precio del producto
+      example:
+        price: 165

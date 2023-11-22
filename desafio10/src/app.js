@@ -22,10 +22,15 @@ import loggerMW from './middlewares/logger.middlewares.js'
 import loggerRouter from './routes/loggers.routes.js';
 import recoverPassRouter from './routes/recover.password.routes.js';
 import MongoConnection from './utils/db.connection.js'
+import swaggerJSDoc from 'swagger-jsdoc'
+import { serve, setup } from 'swagger-ui-express'
+import config from './config/swagger.js'
 
 const app = express();
 
 const PORT = env.PORT || 9090
+
+const specs = swaggerJSDoc(config)
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', `${__dirname}/views`)
@@ -75,6 +80,8 @@ app.use('/mockingproducts', mockingProductsRouter)
 app.use('/api/loggers', loggerRouter)
 
 app.use('/recover-password', recoverPassRouter)
+
+app.use('/docs', serve, setup(specs))
 
 app.use(errorHandler)
 

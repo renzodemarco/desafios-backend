@@ -18,6 +18,7 @@ import authRouter from './routes/auth.routes.js';
 import env from './config/env.config.js'
 import mockingProductsRouter from './routes/mocking.products.routes.js';
 import errorHandler from './middlewares/error.handler.js';
+import notFoundHandler from './middlewares/not.found.handler.js';
 import loggerMW from './middlewares/logger.middlewares.js'
 import loggerRouter from './routes/loggers.routes.js';
 import recoverPassRouter from './routes/recover.password.routes.js';
@@ -84,6 +85,8 @@ app.use('/recover-password', recoverPassRouter)
 app.use('/docs', serve, setup(specs))
 
 app.use(errorHandler)
+
+app.use(notFoundHandler)
 
 app.listen(PORT, () => {
     MongoConnection.getInstance()

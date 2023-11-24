@@ -3,3 +3,35 @@ GET http://localhost:8082/api/products/64d7bf86678402946f7a1260
 
 ### POST product in own cart
 POST http://localhost:8082/api/carts/651842d299f3f80802c58256/products/64d7bf86678402946f7a1267
+
+### POST product
+POST http://localhost:8082/api/products
+Content-Type: application/json
+
+{
+    "title": "Producto prueba",
+    "description": "Artista",
+    "year": 2000,
+    "stock": 42,
+    "price": 150,
+    "category": "pop"
+}
+
+### READ product
+GET http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
+
+### UPDATE product
+PUT http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
+Content-Type: application/json
+
+{
+    "title": "Producto prueba",
+    "description": "Artista",
+    "year": 2000,
+    "stock": 12,
+    "price": 165,
+    "category": "pop"
+}
+
+### DESTROY product
+DELETE http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef

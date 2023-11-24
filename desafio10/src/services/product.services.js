@@ -33,9 +33,9 @@ export const createProduct = async (product, next) => {
         do {
             product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
         } 
-        while (await manager.getProductByCode(product.code))
+        while (await manager.getProductByCode(product.code, next))
     
-        return await manager.createProduct(product)
+        return await manager.createProduct(product, next)
     }
     catch(error) {
         error.from = "service"

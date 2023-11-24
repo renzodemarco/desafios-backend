@@ -8,8 +8,8 @@ const productsRouter = Router();
 
 productsRouter.get('/', productController.GETProducts)
 .get('/:pid', productController.GETProductById)
-.post('/', passportCall('current'), isAdminOrPremium, isCartOwner, isNotProductOwner, productController.POSTProduct)
-.put('/:pid', passportCall('current'), isAdminOrPremium, isCartOwner, isAdminOrOwner, productController.PUTProduct)
-.delete('/:pid', passportCall('current'), isAdminOrPremium, isCartOwner, isAdminOrOwner, productController.DELETEProduct)
+.post('/', passportCall('current'),  productController.POSTProduct)
+.put('/:pid', passportCall('current'), productController.PUTProduct)
+.delete('/:pid', passportCall('current'), productController.DELETEProduct)
 
 export default productsRouter

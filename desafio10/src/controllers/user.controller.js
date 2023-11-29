@@ -84,7 +84,8 @@ export const POSTUserValidation = async (req, res, next) => {
 
         else {
             const user = await userServices.validateUser(email, password, next)
-            if (!user) return res.json({ error: true, msg:'Incorrect email or password' })
+            
+            if (!user) return next()
 
             token = generateToken({
                 sub: user._id, 
@@ -97,7 +98,7 @@ export const POSTUserValidation = async (req, res, next) => {
             httpOnly: true
         })
 
-        return res.json({accessToken: token})
+        return res.status(200).json({accessToken: token})
     }
     catch(error) {
         error.from = 'controller'

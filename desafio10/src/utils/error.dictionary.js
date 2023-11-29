@@ -32,11 +32,11 @@ const dictionary = {
         message: "Can not add own product to cart"
     },
     email: {
-        status: 400,
+        status: 404,
         message: "Email does not exist"
     },    
     signUp: {
-        status: 400,
+        status: 401,
         message: "Not valid email or password"
     },
     samePassword: {

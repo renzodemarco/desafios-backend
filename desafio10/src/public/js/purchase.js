@@ -31,7 +31,7 @@ async function getCart(id) {
 
 async function createTicket(id, ticket) {
     try {
-        const purchase = await fetch(`/carts/${id}/purchase`, {
+        const purchase = await fetch(`/api/tickets/${id}/purchase`, {
             method: 'POST',
             headers:  {
                 "Content-Type": "application/json"

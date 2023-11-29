@@ -13,12 +13,17 @@ loginForm.addEventListener('submit', async (event) => {
             "Content-Type": "application/json"
         }
     })
+    
+    console.log(response)
 
-    const responseData = await response.json()
+    if (response.status === 404) {
+        return alert('El correo electrónico no existe');
+    } else if (response.status === 401 || response.status === 403) {
+        return alert('Correo electrónico o contraseña incorrectas');
+    }
 
-    if (responseData.error) return alert(responseData.message)
+    if (response.ok) {
+        window.location.href = '/products'
+    }
 
-    const redirect = url => window.location.href = url
-
-    redirect('/products')
 })

@@ -6,7 +6,7 @@ import passportCall from "../middlewares/passport.call.js";
 const cartRouter = Router()
 
 cartRouter.get('/', cartController.GETCarts)
-.get('/:cid', cartController.GETCartById)
+.get('/:cid', passportCall('current'), isCartOwner, cartController.GETCartById)
 .post('/', cartController.POSTCart)
 .post('/:cid/products/:pid', passportCall('current'), isCartOwner, isNotProductOwner, cartController.POSTProductToCart)
 .delete('/:cid/products/:pid', passportCall('current'), isCartOwner, cartController.DELETEProductFromCart)

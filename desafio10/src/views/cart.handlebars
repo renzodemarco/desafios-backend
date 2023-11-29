@@ -16,14 +16,14 @@
     <div class="container">
         <h2>Precio total: ${{cart.cartPrice}}</h2>
         {{#if cart.products}}
-        <button class="blue-button" id="buy-cart" onclick="redirect('/carts/{{cart._id}}/purchase')">Finalizar compra</button>
+        <button class="blue-button" id="buy-cart" onclick="redirect('/tickets/{{cart._id}}/purchase')">Finalizar compra</button>
         {{/if}}
         <button class='grey-button' onclick="redirect('/')">Volver</button> 
     </div>
 
 </div>
 
-<script src="./js/cart.js"></script>
+<script src="/js/cart.js"></script>
 <script>
     function redirect(url) {
         window.location.href = url

@@ -9,7 +9,7 @@
     
     <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
     <button class="grey-button"
-        onclick="localStorage.removeItem('accessToken'); redirect(/logout')">Cerrar
+        onclick="localStorage.removeItem('accessToken'); redirect('/logout')">Cerrar
         sesión</button>
     <button class="blue-button" onclick="redirect('/carts/{{cart}}')">Ver carrito</button>
     <button class="blue-button" onclick="redirect('/chat')">Ir al chat</button>

@@ -23,5 +23,5 @@ registerForm.addEventListener('submit', async (event) => {
 
     const redirect = url => window.location.href = url
 
-    redirect('/')
+    redirect('/login?register=true')
 })

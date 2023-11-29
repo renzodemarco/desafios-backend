@@ -9,6 +9,7 @@ import cartRouter from './routes/cart.routes.js';
 import productsViewsRouter from './routes/product.views.routes.js';
 import cartViewsRouter from './routes/cart.views.routes.js';
 import userViewsRouter from './routes/user.views.routes.js';
+import ticketViewsRouter from './routes/ticket.views.routes.js';
 import userRouter from './routes/user.routes.js'
 import chatRouter from './routes/chat.routes.js'
 import ticketRouter from './routes/ticket.routes.js';
@@ -64,17 +65,19 @@ app.use('/api/carts', cartRouter)
 
 app.use('/api/sessions', userRouter)
 
+app.use('/api/tickets', ticketRouter)
+
 app.use('/products', productsViewsRouter)
 
 app.use('/carts', cartViewsRouter)
+
+app.use('/tickets', ticketViewsRouter)
 
 app.use('/', userViewsRouter)
 
 app.use('/auth', authRouter)
 
 app.use('/chat', chatRouter)
-
-app.use('/tickets', ticketRouter)
 
 app.use('/mockingproducts', mockingProductsRouter)
 
@@ -85,8 +88,6 @@ app.use('/recover-password', recoverPassRouter)
 app.use('/docs', serve, setup(specs))
 
 app.use(errorHandler)
-
-app.use(notFoundHandler)
 
 app.listen(PORT, () => {
     MongoConnection.getInstance()

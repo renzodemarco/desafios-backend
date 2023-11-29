@@ -35,3 +35,7 @@ Content-Type: application/json
 
 ### DESTROY product
 DELETE http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
+
+
+### DELETE cart
+DELETE http://localhost:8082/api/carts/651842d299f3f80802c58256

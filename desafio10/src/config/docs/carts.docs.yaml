@@ -172,7 +172,7 @@ components:
 paths: 
   /api/carts:
     post:
-      summary: Crear un nuevo carrito en la base de datos
+      summary: Crear un nuevo carrito
       tags:
         - Carts
       security:
@@ -202,8 +202,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/serverError'
+  /api/carts/{cid}:
     get:
-      summary: Leer un carrito de la base de datos
+      summary: Leer un carrito
       tags:
         - Carts
       security:
@@ -246,7 +247,7 @@ paths:
               schema:
                 $ref: '#components/responses/serverError'
     put:
-      summary: Actualizar carrito en la base de datos
+      summary: Actualizar carrito
       tags:
         - Carts
       security:
@@ -301,7 +302,7 @@ paths:
               schema:
                 $ref: '#/components/responses/serverError'
     delete:
-      summary: Eliminar un carrito de la base de datos
+      summary: Eliminar todos los productos de un carrito
       tags:
         - Carts
       security:

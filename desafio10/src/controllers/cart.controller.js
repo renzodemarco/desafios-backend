@@ -1,6 +1,6 @@
 import * as cartServices from '../services/cart.services.js'
 
-export const GETCarts = async (req, res) => {
+export const GETCarts = async (req, res, next) => {
     try {
         const carts = await cartServices.getCarts(next)
         return res.send(carts)

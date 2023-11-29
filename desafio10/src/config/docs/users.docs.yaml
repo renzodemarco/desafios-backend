@@ -110,9 +110,6 @@ components:
         role: premium
         _id: 653bc489806d3d93518d1ea8
         _v: 0
-        owner: 61749a832daf842f3c4e2456
-        _id: 653bc489806d3d93518d1ea8
-        _v: 0
     deleteSuccess:
       type: object
       description: Objeto con el usuario eliminado
@@ -124,9 +121,6 @@ components:
         password: $2b$10$avZGokuFhhjh88jasHYiKuo4hJdwoMkHhYjYFiod/ItzmRzGBeH7e
         cart: 651842d299f3f80802c58256
         role: premium
-        _id: 653bc489806d3d93518d1ea8
-        _v: 0
-        owner: 61749a832daf842f3c4e2456
         _id: 653bc489806d3d93518d1ea8
         _v: 0
     clientError:
@@ -144,7 +138,7 @@ components:
       example:
         status: 400
         from: POST /api/sessions controller
-        message: Incomplete values
+        message: Not valid email or password
     authenticationError:
       type: object
       properties:
@@ -230,9 +224,118 @@ paths:
               $ref: '#/components/schemas/Login'
       responses:
         '200':
-          description: El éxito retorna una cookie "token" para enviar en las peticiones que requieran autenticación
+          description: El éxito retorna un objeto con la información del usuario y setea una cookie "token" para enviar en las peticiones que requieran autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/loginSuccess'
           headers: 
             Set-Cookie:
               schema: 
                 type: string
-                example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjMDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "400":
+          description: Valores incorrectos para el inicio de sesión
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/clientError'
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/serverError'
+  api/sessions/register:
+    post:
+      summary: Registrar un nuevo usuario
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        description: Información del usuario a registrar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '201':
+          description:  El éxito retorna un objeto con los datos del usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/createSuccess'
+        "400":
+          description: Falta de valores para el registro
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/clientError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/serverError'
+  api/sessions/github:
+    post:
+      summary: Iniciar sesión con GitHub
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        description: Correo electrónico con el que se quiere iniciar sesión
+        content:
+          application/json:
+            type: object
+            properties:
+              email:
+                type: string
+                description: Correo electrónico del usuario asociado a GitHub
+      responses:
+        '200':
+          description: El éxito retorna un objeto con la información del usuario y setea una cookie "token" para enviar en las peticiones que requieran autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/loginSuccess'
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+                example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjMDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '201':
+          description: El éxito crea un nuevo usuario con la información de GitHub, retorna un objeto con la información del usuario y setea una cookie "token" para enviar en las peticiones que requieran autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/loginSuccess'
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+                example: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjMDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        "400":
+          description: Valores incorrectos para el inicio de sesión
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/clientError'
+        "404":
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/serverError'

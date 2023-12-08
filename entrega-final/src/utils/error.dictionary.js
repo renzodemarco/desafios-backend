@@ -51,6 +51,10 @@ const dictionary = {
         status: 400,
         message: "Incomplete values"
     },
+    registerError: {
+        status: 500,
+        message: "Registration error"
+    },
     auth: {
         status: 401,
         message: "Invalid credentials"

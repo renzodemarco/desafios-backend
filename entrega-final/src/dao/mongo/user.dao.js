@@ -23,4 +23,8 @@ export default class UserManager {
     async updateUser(_id, data) {
         return await UserModel.findByIdAndUpdate(_id, data, { new: true })
     }
+
+    async deleteUser(id) {
+        return await UserModel.findByIdAndDelete(id)
+    }
 }

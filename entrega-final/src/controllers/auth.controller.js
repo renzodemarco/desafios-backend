@@ -1,4 +1,5 @@
 import { generateToken } from '../utils/jwt.js'
+import * as userServices from '../services/user.services.js'
 
 export const GETGithubCallback = (req, res, next) => {
     try {
@@ -20,5 +21,18 @@ export const GETGithubCallback = (req, res, next) => {
         error.from = "controller"
         return next(error)
     }
+}
 
+export const DELETEUser = async (req, res, next) => {
+    try {
+        const userId = req.user._id
+
+        await userServices.deleteUser(userId)
+
+        return res.status(200).json({ success: true })
+    }
+    catch(error) {
+        error.from = "controller"
+        return next(error)
+    }
 }

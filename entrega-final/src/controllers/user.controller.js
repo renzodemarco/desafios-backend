@@ -1,6 +1,8 @@
 import * as userServices from '../services/user.services.js'
 import { generateToken } from '../utils/jwt.js'
 import userDTO from '../dto/user.dto.js'
+import CustomError from '../utils/error.custom.js'
+import dictionary from '../utils/error.dictionary.js'
 
 export const GETUsers = async (req, res, next) => {
     try {
@@ -52,8 +54,7 @@ export const POSTUser = async (req, res, next) => {
     try {
         const { first_name, last_name, email, age, password } = req.body
         const user = await userServices.createUser({ first_name, last_name, email, age, password })
-        if (!user) return res.redirect('/register?error=true')
-        return res.redirect('/login')
+        if (user) return res.status(201).json(user)
     }
     catch (error) {
         error.from = 'controller'
@@ -63,8 +64,8 @@ export const POSTUser = async (req, res, next) => {
 
 export const POSTPassportUser = async (req, res, next) => {
     try {
-        if (req.user) res.send({ error: false })
-        else throw new Error('There has been an error in the register')
+        if (!req.user) return CustomError.new(dictionary.registerError)
+        return res.status(201).json(req.user)
     }
     catch (error) {
         error.from = 'controller'
@@ -128,6 +129,6 @@ export const POSTLogout = (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
         res.clearCookie('accessToken');
-        res.status(200).json({ message: 'Logout successful' });
+        res.status(200).json({ success: true });
     })
 }

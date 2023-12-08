@@ -16,5 +16,6 @@ authRouter.post('/register', passportCall('register'), userController.POSTPasspo
 .put('/prem', passportCall('current'), isUser, userController.PUTRole)
 .post('/request', passportCall('current'), recoverPassController.POSTRecoverPassRequest) 
 .put('/', recoverPassController.PUTRecoverPass)
+.delete('/', passportCall('current'), authController.DELETEUser)
 
 export default authRouter

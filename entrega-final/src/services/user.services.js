@@ -109,3 +109,16 @@ export const updateUserById = async (id, data) => {
         throw error
     }
 }
+
+export const deleteUser = async (id) => {
+    try {
+        const user = await userManager.getUserById(id)
+
+        if (!user) return CustomError.new(dictionary.userNotFound)
+    
+        return await userManager.deleteUser(id)
+    }
+    catch(error) {
+        throw error
+    }
+}

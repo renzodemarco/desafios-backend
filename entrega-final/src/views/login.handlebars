@@ -1,0 +1,38 @@
+<div class="container">
+
+    <h1>Iniciar sesión</h1>
+
+    {{#if register}}
+        <p class="msg">Usuario correctamente registrado, por favor ingrese</p>
+    {{/if}}
+
+    {{#if updated}}
+        <p class="msg">Contraseña modificada, por favor ingrese</p>
+    {{/if}}
+
+
+    <form method="post" id="loginForm">
+            <label for="email">Correo electrónico:</label>
+        <input type="text" name="email" id="email">
+            <label for="name">Contraseña:</label>
+        <input type="password" name="password" id="password">
+
+        <input class='blue-button' type="submit" value="Ingresar">
+    </form>
+
+    <button class="github-button" onclick="redirect('/api/auth/github')">
+        Ingresar con GitHub 
+        <img class="github-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN0Uu0auB-_30X62d-vUYM-jhN4TkqPqgv6A&usqp=CAU" alt="github icon">
+    </button>
+
+    <button class='grey-button' onclick="redirect('/register')">Crear nuevo usuario</button>
+    <button class='blue-button' onclick="redirect('/recover-password/request')">Olvidé mi contraseña</button>
+
+</div>
+
+<script src="/js/loginForm.js"></script>
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

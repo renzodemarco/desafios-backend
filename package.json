@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node desafio10/src/app.js",
-    "prod": "nodemon desafio10/src/app.js --mode production",
-    "dev": "nodemon desafio10/src/app.js --mode dev"
+    "start": "node entrega-final/src/app.js",
+    "prod": "nodemon entrega-final/src/app.js --mode production",
+    "dev": "nodemon entrega-final/src/app.js --mode dev"
   },
   "repository": {
     "type": "git",

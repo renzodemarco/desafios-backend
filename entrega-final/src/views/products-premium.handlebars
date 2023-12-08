@@ -1,0 +1,62 @@
+<div class="bienvenida" cart-id="{{cart}}" user="{{user}}">
+
+    <img class="role-img"
+        src="https://as2.ftcdn.net/v2/jpg/01/04/61/19/1000_F_104611977_L5IyO4lGDkJoohqybPCVKcrcm5huXXsi.jpg">
+    <button class="blue-button" id="change-to-user" >
+        CAMBIAR A USUARIO NORMAL
+    </button>
+
+    
+    <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
+    <button class="grey-button"
+        onclick="localStorage.removeItem('accessToken'); redirect('/api/auth/logout')">Cerrar
+        sesión</button>
+    <button class="blue-button" onclick="redirect('/carts/{{cart}}')">Ver carrito</button>
+    <button class="blue-button" onclick="redirect('/chat')">Ir al chat</button>
+    <button class="blue-button" onclick="redirect('/products/create')">Crear producto</button>
+
+</div>
+
+<div class="listContainer">
+    {{#each ownProducts}}
+    <div class="productContainer">
+        <ul>
+            <li>
+                <h2>{{this.title}} ({{this.year}})</h2>
+            </li>
+            <li><b>Artista: </b>{{this.description}}</li>
+            <li><b>Precio: </b>${{this.price}}</li>
+            <li><b>Categoría: </b>{{this.category}}</li>
+            <li><b>Stock: </b>{{this.stock}}</li>
+            <li><b>Code: </b>{{this.code}}</li>
+        </ul>
+        <button class="blue-button edit-product" product-id="{{this._id}}">Modificar producto</button>
+        <button class="grey-button delete-product" product-id="{{this._id}}">Eliminar producto</button>
+    </div>
+    {{/each}}
+
+    {{#each products}}
+    <div class="productContainer">
+        <ul>
+            <li>
+                <h2>{{this.title}} ({{this.year}})</h2>
+            </li>
+            <li><b>Artista: </b>{{this.description}}</li>
+            <li><b>Precio: </b>${{this.price}}</li>
+            <li><b>Categoría: </b>{{this.category}}</li>
+            <li><b>Stock: </b>{{this.stock}}</li>
+            <li><b>Code: </b>{{this.code}}</li>
+        </ul>
+        <button id="addToCart" class="blue-button add-product" product-id="{{this._id}}">Agregar al carrito</button>
+    </div>
+    {{/each}}
+</div>
+
+
+<script src="/js/productsPremium.js"></script>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

@@ -1,0 +1,384 @@
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Título del producto
+        description:
+          type: string
+          description: Descripción del producto
+        year:
+          type: number
+          description: Año de lanzamiento del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: number
+          description: Stock del producto
+        code:
+          type: string
+          description: Código del producto
+        owner:
+          type: string
+          description: ObjectId de referencia del usuario que creó el producto
+        thumbnail:
+          type: array
+          items:
+            type: string
+          description: Enlaces de las imágenes del producto
+        category:
+          type: string
+          description: Categoría a la que pertenece el producto
+        status:
+          type: boolean
+          description: ¿Está el producto disponible?
+      example:
+        title: Autochocador
+        description: Jaime Sin Tierra
+        year: 2000
+        price: 150
+        stock: 12
+        code: 74y312
+        owner: admin
+        thumbnail: ["https://f4.bcbits.com/img/a1263499453_5.jpg"]
+        category: rock
+        status: true
+  update:
+    product:
+      type: object
+      properties:
+        price:
+          type: number
+          description: Nuevo precio del producto
+      example:
+        price: 165
+  responses:
+    createSuccess:
+      type: object
+      description: Objeto con las propiedades del producto creado sumado al _id y _v de Mongo DB
+      example:
+        title: "Autochocador"
+        description: "Jaime Sin Tierra"
+        year: 2000
+        price: 150
+        stock: 12
+        code: "74y312"
+        owner: "admin"
+        thumbnail: ["https://f4.bcbits.com/img/a1263499453_5.jpg"]
+        category: "rock"
+        status: true
+        _id: 653bc489806d3d93518d1ea8
+        _v: 0
+    readSuccess:
+      type: array
+      items: 
+        type: object
+      description: Lista de productos leídos según las opciones especificadas
+    updateSuccess:
+      type: object
+      description: Objeto actualizado
+      example:
+        title: "Autochocador"
+        description: "Jaime Sin Tierra"
+        year: 2000
+        price: 165
+        stock: 12
+        code: "74y312"
+        owner: "admin"
+        thumbnail: ["https://f4.bcbits.com/img/a1263499453_5.jpg"]
+        category: "rock"
+        status: true
+        _id: 653bc489806d3d93518d1ea8
+        _v: 0
+    deleteSuccess:
+      type: object
+      description: Objeto eliminado
+      example:
+        title: "Autochocador"
+        description: "Jaime Sin Tierra"
+        year: 2000
+        price: 165
+        stock: 12
+        code: "74y312"
+        owner: "admin"
+        thumbnail: ["https://f4.bcbits.com/img/a1263499453_5.jpg"]
+        category: "rock"
+        status: true
+        _id: 653bc489806d3d93518d1ea8
+        _v: 0
+    clientError:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Estado de la solicitud
+        from:
+          type: string
+          description: Método, endpoint y origen del error
+        message:
+          type: string
+          description: Descripción del error
+      example:
+        status: 400
+        from: POST /api/products controller
+        message: Incomplete values
+    authenticationError:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Estado de la solicitud
+        from:
+          type: string
+          description: Método, endpoint y origen del error
+        message:
+          type: string
+          description: Descripción del error
+      example:
+        status: 401
+        from: POST /api/products middleware
+        message: Invalid credentials
+    authorizationError:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Estado de la solicitud
+        from:
+          type: string
+          description: Método, endpoint y origen del error
+        message:
+          type: string
+          description: Descripción del error
+      example:
+        status: 403
+        from: POST /api/products middleware
+        message: Not allowed
+    notFoundError:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Estado de la solicitud
+        from:
+          type: string
+          description: Método, endpoint y origen del error
+        message:
+          type: string
+          description: Descripción del error
+      example:
+        status: 404
+        from: GET /api/products dao
+        message: Products not found
+    serverError:
+      type: object
+      properties:
+        status:
+          type: number
+          description: Estado de la solicitud
+        from:
+          type: string
+          description: Método, endpoint y origen del error
+        message:
+          type: string
+          description: Descripción del error
+      example:
+        status: 500
+        from: POST /api/products dao
+        message: produc is not defined
+  securityDefinitions:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+paths: 
+  /api/products:
+    post:
+      summary: Crear un nuevo producto en la base de datos
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Products'
+      responses:
+        "201":
+          description: Éxito en la creación de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/createSuccess'
+        "400":
+          description: Falta de valores para la creación de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/clientError'
+        "401":
+          description: Sin autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authenticationError'
+        "403":
+          description: Sin autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authorizationError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/serverError'
+    get:
+      summary: Leer productos de la base de datos
+      tags:
+        - Products
+      parameters:
+        - name: limit
+          in: query
+          description: Filtrar por cantidad de productos por página (10 por defecto)
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Filtrar por número de página (1 por defecto)
+          required: false
+          type: string
+        - name: sort
+          in: query
+          description: Filtrar por precio ('asc' para precio ascendente y 'desc' para precio descendente)
+          required: false
+          type: string
+        - name: query
+          in: query
+          description: Filtrar por categoría
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Éxito en la lectura de productos
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/readSuccess'
+        "404":
+          description: Productos no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/serverError'
+    put:
+      summary: Actualizar producto en la base de datos (se pueden modificar varios aspectos pero aquí veremos el precio)
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto a actualizar
+        type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/update/product'
+      responses:
+        "200":
+          description: Éxito en la actualización de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/updateSuccess'
+        "400":
+          description: Falta de valores para la actualización de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/clientError'
+        "401":
+          description: Sin autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authenticationError'
+        "403":
+          description: Sin autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authorizationError'
+        "404":
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/serverError'
+    delete:
+      summary: Eliminar un producto de la base de datos
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto a eliminar
+        type: string
+      responses:
+        "200":
+          description: Éxito en la eliminación de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/deleteSuccess'
+        "401":
+          description: Sin autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authenticationError'
+        "403":
+          description: Sin autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/authorizationError'
+        "404":
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/serverError'

@@ -1,0 +1,44 @@
+<div class="bienvenida" cart-id="{{cart}}" user="{{user}}">
+
+    <img class="role-img"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPVP8sfxKqe-qYCizNILsRDraLUh-QX0Fbaw&usqp=CAU">
+
+    <button class="blue-button" id="change-to-premium" >
+        CAMBIAR A USUARIO PREMIUM
+    </button>
+
+    <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
+    <button class="grey-button"
+        onclick="localStorage.removeItem('accessToken'); redirect('/api/auth/logout')">Cerrar
+        sesión</button>
+    <button class="blue-button" onclick="redirect('/carts/{{cart}}')">Ver carrito</button>
+
+</div>
+
+
+<div class="listContainer">
+    {{#each products}}
+    <div class="productContainer">
+        <ul>
+            <li>
+                <h2>{{this.title}} ({{this.year}})</h2>
+            </li>
+            <li><b>Artista: </b>{{this.description}}</li>
+            <li><b>Precio: </b>${{this.price}}</li>
+            <li><b>Categoría: </b>{{this.category}}</li>
+            <li><b>Stock: </b>{{this.stock}}</li>
+            <li><b>Code: </b>{{this.code}}</li>
+        </ul>
+        <button id="addToCart" class="blue-button add-product" product-id="{{this._id}}">Agregar al carrito</button>
+    </div>
+    {{/each}}
+</div>
+
+
+<script src="/js/productsUser.js"></script>
+
+<script>
+    function redirect(url) {
+        window.location.href = url
+    }
+</script>

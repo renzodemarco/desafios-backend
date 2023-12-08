@@ -18,7 +18,7 @@ form.addEventListener('submit', async event => {
 })
 
 const handleSubmit = async (email) => {
-    return fetch('/recover-password/request', {
+    return fetch('/api/auth/request', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

@@ -34,7 +34,11 @@ const dictionary = {
     email: {
         status: 404,
         message: "Email does not exist"
-    },    
+    },
+    emailExists: {
+        status: 400,
+        message: "Email already exists"
+    },
     signUp: {
         status: 401,
         message: "Not valid email or password"

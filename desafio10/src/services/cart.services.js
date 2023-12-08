@@ -5,47 +5,44 @@ import CustomError from '../utils/error.custom.js'
 const cartManager = new CartDAO()
 const productManager = new ProductDAO()
 
-export const getCarts = async (next) => {
+export const getCarts = async () => {
     try {
-        return await cartManager.getCarts(next)
+        return await cartManager.getCarts()
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const getCartById = async (id, next) => {
+export const getCartById = async (id) => {
     try {
-        const cart = await cartManager.getCartById(id, next)
+        const cart = await cartManager.getCartById(id)
 
         if (!cart) return CustomError.new(dictionary.cartNotFound)
 
         return cart
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const createCart = async (next) => {
+export const createCart = async () => {
     try {
-        return await cartManager.createCart(next)
+        return await cartManager.createCart()
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const addProductToCart = async (cartId, prodId, next) => {
+export const addProductToCart = async (cartId, prodId) => {
     try {
-        const cart = await cartManager.getCartById(cartId, next)
+        const cart = await cartManager.getCartById(cartId)
     
         if (!cart) return CustomError.new(dictionary.cartNotFound)
     
-        const product = await productManager.getProductById(prodId, next)
+        const product = await productManager.getProductById(prodId)
     
         if (!product) return CustomError.new(dictionary.productNotFound)
     
@@ -53,22 +50,21 @@ export const addProductToCart = async (cartId, prodId, next) => {
     }
 
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const deleteProductFromCart = async (cartId, prodId, next) => {
+export const deleteProductFromCart = async (cartId, prodId) => {
     try {
-        const cart = await cartManager.getCartById(cartId, next)
+        const cart = await cartManager.getCartById(cartId)
     
         if (!cart) return CustomError.new(dictionary.cartNotFound)
     
-        const product = await productManager.getProductById(prodId, next)
+        const product = await productManager.getProductById(prodId)
     
         if (!product) return CustomError.new(dictionary.productNotFound)
     
-        const updatedCart = await cartManager.deleteProductFromCart(cartId, prodId) 
+        const updatedCart = await cartManager.deleteProductFromCart(cartId) 
 
         if (!updatedCart) return CustomError.new(dictionary.notFoundInCart)
 
@@ -76,34 +72,32 @@ export const deleteProductFromCart = async (cartId, prodId, next) => {
     }
 
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const deleteAllProducts = async (cartId, next) => {
+export const deleteAllProducts = async (cartId) => {
     try {
-        const cart = await cartManager.getCartById(cartId, next)
+        const cart = await cartManager.getCartById(cartId)
     
         if (!cart) return CustomError.new(dictionary.cartNotFound)
     
-        return await cartManager.deleteAllProducts(cartId, next)
+        return await cartManager.deleteAllProducts(cartId)
     }
 
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const updateCart = async (cartId, products, next) => {
+export const updateCart = async (cartId, products) => {
     try {
-        const cart = await cartManager.getCartById(cartId, next)
+        const cart = await cartManager.getCartById(cartId)
     
         if (!cart) return CustomError.new(dictionary.cartNotFound)
     
-        const verifyProducts = await Promise.all(products.map(async (prod, next) => {
-                const product = await productManager.getProductById(prod.product._id, next);
+        const verifyProducts = await Promise.all(products.map(async (prod) => {
+                const product = await productManager.getProductById(prod.product._id);
                 return product !== null
         }))
     
@@ -111,28 +105,27 @@ export const updateCart = async (cartId, products, next) => {
     
         if (!validProducts) return CustomError.new(dictionary.notValidProducts)
     
-        return await cartManager.updateCart(cartId, products, next)
+        return await cartManager.updateCart(cartId, products)
     }
 
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const updateProdQuantity = async (cartId, prodId, quantity, next) => {
+export const updateProdQuantity = async (cartId, prodId, quantity) => {
     try {
         if (isNaN(quantity)) return CustomError.new(dictionary.notValidValues)
 
-        const cart = await cartManager.getCartById(cartId, next)
+        const cart = await cartManager.getCartById(cartId)
         
         if (!cart) return CustomError.new(dictionary.cartNotFound)
     
-        const product = await productManager.getProductById(prodId, next)
+        const product = await productManager.getProductById(prodId)
     
         if (!product) return CustomError.new(dictionary.productNotFound)
     
-        const updatedCart = await cartManager.updateProdQuantity(cartId, prodId, quantity, next)
+        const updatedCart = await cartManager.updateProdQuantity(cartId, prodId, quantity)
     
         if (!updatedCart) return CustomError.new(dictionary.notFoundInCart)
     
@@ -140,7 +133,6 @@ export const updateProdQuantity = async (cartId, prodId, quantity, next) => {
     }
 
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }

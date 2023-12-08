@@ -24,6 +24,7 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import { serve, setup } from 'swagger-ui-express'
 import config from './config/swagger.js'
 
+
 const app = express();
 
 const PORT = env.PORT || 9090
@@ -76,6 +77,8 @@ app.use('/api/loggers', loggerRouter)
 app.use('/docs', serve, setup(specs))
 
 app.use(errorHandler)
+
+app.use(notFoundHandler)
 
 app.listen(PORT, () => {
     MongoConnection.getInstance()

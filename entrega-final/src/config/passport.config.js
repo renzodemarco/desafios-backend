@@ -51,6 +51,7 @@ const initPassportStrategy = () => {
                 return done(null, user.toObject())
             }
             catch(error) {
+                error.from = 'passport'
                 return done(error)
             }
         } 
@@ -65,9 +66,11 @@ const initPassportStrategy = () => {
         async (req, email, password, done) => {
             try {
                 const user = await userServices.validateUser(email, password)
+                if (!user) return done(error)
                 return done(null, user)
             }
             catch(error) {
+                error.from = 'passport'
                 return done(error)
             } 
         }
@@ -86,16 +89,16 @@ const initPassportStrategy = () => {
             try {
                 const user = await userServices.getUserByEmail(email)
 
-                if (user) return done(null, user)
+                return done(null, user)
             }
             catch {
                 const newUser = await userServices.createUser({
-                    first_name: profile._json.name, 
-                    last_name: '',
-                    email,
-                    password: ''
-                })
-    
+                        first_name: profile._json.name, 
+                        last_name: '',
+                        email,
+                        password: ''
+                    })
+
                 return done(null, newUser)
             }
         }

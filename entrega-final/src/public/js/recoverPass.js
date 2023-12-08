@@ -21,41 +21,24 @@ password2.addEventListener('keyup', handlePasswords)
 
 form.addEventListener('submit', async event => {
     event.preventDefault()
-
     try {
-    const response = await handleSubmit(email, password.value)
+        const response = await fetch('/api/auth', {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password: password.value }),
+        });
 
-    if (response.error) return alert(response.message)
+        if (!response.ok) {
+            const data = await response.json();
+            return alert(data.message)
+        }
 
-    if (response.success) {
-        alert("Contraseña modificada")
-
-        window.location.href = '/'
-    }
-
-    }
-    catch(e) {
-        console.log(e)
+        alert("Contraseña modificada con éxito")
+        window.location.href = '/login'
+    } 
+    catch (error) {
+        console.log(error);
     }
 })
-
-
-
-const handleSubmit = async (email, password) => {
-    return fetch('/recover-password/', {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({email, password}),
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            return data
-        })
-        .catch(error => {
-            console.error('Ocurrió un error:', error);
-        });
-}

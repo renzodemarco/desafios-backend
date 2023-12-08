@@ -4,9 +4,9 @@ import CustomError from '../utils/error.custom.js'
 import dictionary from '../utils/error.dictionary.js'
 import { generateToken } from '../utils/jwt.js'
 
-export const postRecoverPassRequest = async (email, next) => {
+export const postRecoverPassRequest = async (email) => {
     try {
-        const user = userServices.getUserByEmail(email, next)
+        const user = userServices.getUserByEmail(email)
 
         if (!user) return CustomError.new(dictionary.userNotFound)
 
@@ -23,7 +23,6 @@ export const postRecoverPassRequest = async (email, next) => {
         if (response) return { error: false, message: "Correo enviado correctamente" }
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }

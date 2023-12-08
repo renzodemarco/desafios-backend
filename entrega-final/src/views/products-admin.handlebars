@@ -3,10 +3,7 @@
 
     <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
     <div>
-        <button class="grey-button"
-            onclick="localStorage.removeItem('accessToken'); redirect('/api/auth/logout')">
-            Cerrar sesión
-        </button>
+        <button class="grey-button" id="sign-out"> Cerrar sesión </button>
         <button class="blue-button" onclick="redirect('/products/create')">Crear producto</button>
     </div>
 

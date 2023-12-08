@@ -7,3 +7,7 @@ export const GETRegisterView = (req, res) => {
     const {error} = req.query
     res.render('register', {error})
 }
+
+export const GETSignoutView = (req, res) => {
+    res.render('signout')
+}

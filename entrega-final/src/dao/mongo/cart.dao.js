@@ -4,158 +4,99 @@ export default class CartManager {
 
     constructor() { }
 
-    async getCarts(next) {
-        try {
-            return await CartModel.find()
-        }
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+    async getCarts() {
+        return await CartModel.find()
     }
 
-    async getCartById(_id, next) {
-        try {
-            return await CartModel.findOne({ _id }).lean()
-        }
-        catch(error) {
-            error.from = 'dao'
-            return(next)
-        }
+    async getCartById(_id) {
+        return await CartModel.findOne({ _id }).lean()
     }
 
-    async createCart(next) {
-        try {
-            return await CartModel.create({products: []})
-        }
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+    async createCart() {
+        return await CartModel.create({ products: [] })
     }
 
-    async addProductToCart(cartId, prodId, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async addProductToCart(cartId, prodId) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            const existingProduct = cart.products.find(prod => prod.product._id.toString() === prodId);
-    
-            if (existingProduct) {
-                existingProduct.quantity++;
-            } else {
-                cart.products.push({ product: prodId, quantity: 1 });
-            }
-    
-            await cart.save();
-    
-            return cart
+        const existingProduct = cart.products.find(prod => prod.product._id.toString() === prodId);
+
+        if (existingProduct) {
+            existingProduct.quantity++;
+        } else {
+            cart.products.push({ product: prodId, quantity: 1 });
         }
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }        
+        await cart.save();
+
+        return cart
     }
 
-    async addOwner(cartId, owner, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async addOwner(cartId, owner) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            cart.owner = owner
-    
-            cart.save()
-            
-            return cart
-        }
+        cart.owner = owner
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+        cart.save()
+
+        return cart
     }
 
-    async deleteProductFromCart(cartId, prodId, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async deleteProductFromCart(cartId, prodId) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            const productIndex = cart.products.findIndex(prod => prod.product._id.toString() === prodId);
-    
-            if (productIndex === -1) {
-                return false
-            }
-    
-            if (cart.products[productIndex].quantity === 1) {
-                cart.products.splice([productIndex], 1)
-            }
-    
-            else {
-                cart.products[productIndex].quantity--
-            }
-    
-            await cart.save();
-    
-            return cart
+        const productIndex = cart.products.findIndex(prod => prod.product._id.toString() === prodId);
+
+        if (productIndex === -1) {
+            return false
         }
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
+        if (cart.products[productIndex].quantity === 1) {
+            cart.products.splice([productIndex], 1)
         }
+
+        else {
+            cart.products[productIndex].quantity--
+        }
+
+        await cart.save();
+
+        return cart
     }
 
-    async deleteAllProducts(cartId, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async deleteAllProducts(cartId) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            cart.products = []
-    
-            cart.save()
-    
-            return cart
-        }
+        cart.products = []
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+        cart.save()
+
+        return cart
     }
 
-    async updateCart(cartId, products, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async updateCart(cartId, products) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            cart.products = products
-    
-            cart.save()
-    
-            return cart
-        }
+        cart.products = products
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+        cart.save()
+
+        return cart
     }
 
 
-    async updateProdQuantity(cartId, prodId, quantity, next) {
-        try {
-            const cart = await CartModel.findOne({ _id: cartId })
+    async updateProdQuantity(cartId, prodId, quantity) {
+        const cart = await CartModel.findOne({ _id: cartId })
 
-            const product = cart.products.find(prod => prod.product._id.toString() == prodId)
-    
-            if (!product) return false
-    
-            product.quantity = quantity
-    
-            await cart.save();
-    
-            return cart
-        }
+        const product = cart.products.find(prod => prod.product._id.toString() == prodId)
 
-        catch(error) {
-            error.from = 'dao'
-            return next(error)
-        }
+        if (!product) return false
+
+        product.quantity = quantity
+
+        await cart.save();
+
+        return cart
+
     }
 }

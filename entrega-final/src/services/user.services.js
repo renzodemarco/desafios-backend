@@ -6,49 +6,50 @@ import dictionary from '../utils/error.dictionary.js'
 const userManager = new UserDAO()
 const cartManager = new CartDAO()
 
-export const getUsers = async (next) => {
+export const getUsers = async () => {
     try {
-        return await userManager.getUsers(next)
+        return await userManager.getUsers()
     }
     catch(error){
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const getUserByEmail = async (email, next) => {
+export const getUserByEmail = async (email) => {
     try {
-        const user = await userManager.getUserByEmail(email, next)
+        const user = await userManager.getUserByEmail(email)
 
         if (!user) return CustomError.new(dictionary.userNotFound)
         
         return user
     }
     catch(error){
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const getUserById = async (id, next) => {
+export const getUserById = async (id) => {
     try {
-        const user = await userManager.getUserById(id, next)
+        const user = await userManager.getUserById(id)
 
         if (!user) return CustomError.new(dictionary.userNotFound)
     
         return user
     }
     catch(error){
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const createUser = async (user, next) => {
+export const createUser = async (user) => {
     try {
         if (!user.first_name || !user.email) return CustomError.new(dictionary.incomplete)
 
-        const cart = await cartManager.createCart(next)
+        const emailExists = await userManager.getUserByEmail(user.email)
+
+        if (emailExists) return CustomError.new(dictionary.emailExists)
+
+        const cart = await cartManager.createCart()
     
         const cartId = cart._id
     
@@ -56,21 +57,20 @@ export const createUser = async (user, next) => {
     
         user.password = await bcrypt.hash(user.password, salt)
     
-        const newUser = await userManager.createUser({...user, cart: cartId}, next)
+        const newUser = await userManager.createUser({...user, cart: cartId})
     
-        await cartManager.addOwner(cartId, newUser._id, next)
+        await cartManager.addOwner(cartId, newUser._id)
     
         return newUser
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const validateUser = async (email, password, next) => {
+export const validateUser = async (email, password) => {
     try {
-        const user = await userManager.getUserByEmail(email, next)
+        const user = await userManager.getUserByEmail(email)
 
         if (!user) return CustomError.new(dictionary.email)
     
@@ -81,14 +81,13 @@ export const validateUser = async (email, password, next) => {
         return user
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const updateUserById = async (id, data, next) => {
+export const updateUserById = async (id, data) => {
     try {
-        const user = await userManager.getUserById(id, next)
+        const user = await userManager.getUserById(id)
 
         if (!user) return CustomError.new(dictionary.userNotFound)
     
@@ -98,16 +97,15 @@ export const updateUserById = async (id, data, next) => {
             if (isEqual) return CustomError.new(dictionary.samePassword)
     
             const salt = await bcrypt.genSalt(10)
-    
+
             data.password = await bcrypt.hash(data.password, salt)
         }
     
-        const updatedUser = await userManager.updateUser(user._id, data, next)
+        const updatedUser = await userManager.updateUser(user._id, data)
     
         return updatedUser
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }

@@ -10,7 +10,7 @@ export const GETRecoverPassRequest = (req, res) => {
 export const POSTRecoverPassRequest = async (req, res, next) => {
     try {
         const { email } = req.body
-        const response = await recoverPasswordServices.postRecoverPassRequest(email, next)
+        const response = await recoverPasswordServices.postRecoverPassRequest(email)
         if (response.error) {
             return {error: true, msg: response.msg}
         }
@@ -44,11 +44,11 @@ export const PUTRecoverPass = async (req, res, next) => {
     try {
         const { email, password } = req.body
 
-        const user = await userServices.getUserByEmail(email, next)
+        const user = await userServices.getUserByEmail(email)
 
         if (!user) return res.status(401).json({error: true, msg: "Email does not exist"})
 
-        const response = await userServices.updateUserById(user._id, {password}, next)
+        const response = await userServices.updateUserById(user._id, {password})
 
         if (response.error) return res.status(200).json({error: true, message: response.message})
 

@@ -9,7 +9,7 @@ export const GETProducts = async (req, res, next) => {
             sort, 
             query
         }
-        const products = await productServices.getProducts(options, next)
+        const products = await productServices.getProducts(options)
         return res.json(products)
     }
     catch (error) {
@@ -20,7 +20,7 @@ export const GETProducts = async (req, res, next) => {
 
 export const GETProductById = async (req, res, next) => {
     try {
-        const product = await productServices.getProductById(req.params.pid, next)
+        const product = await productServices.getProductById(req.params.pid)
         return res.json(product)
     }
     catch (error) {
@@ -32,7 +32,7 @@ export const GETProductById = async (req, res, next) => {
 export const POSTProduct = async (req, res, next) => {
     try {
         const data = req.body;
-        const product = await productServices.createProduct({...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)}, next)
+        const product = await productServices.createProduct({...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
         return res.json(product)
     }
     catch (error) {
@@ -45,7 +45,7 @@ export const PUTProduct = async (req, res, next) => {
     try {
         const {pid} = req.params
         const data = req.body
-        const product = await productServices.updateProduct(pid, {...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)}, next)
+        const product = await productServices.updateProduct(pid, {...data, price: Number(data.price), stock: Number(data.stock), year: Number(data.year)})
         return res.json(product)
     }
     catch (error) {
@@ -56,7 +56,7 @@ export const PUTProduct = async (req, res, next) => {
 
 export const DELETEProduct = async (req, res, next) => {
     try {
-        const product = await productServices.deleteProduct(req.params.pid, next)
+        const product = await productServices.deleteProduct(req.params.pid)
         return res.json(product)  
     }
     catch (error) {

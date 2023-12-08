@@ -15,7 +15,7 @@ cartRouter
 .delete('/:pid', passportCall('current'), cartController.DELETEProductFromOwnCart)
 
 // admin routes (se debe indicar qué cart se quiere modificar)
-.get('/:cid', passportCall('current'), isAdmin, cartController.GETCartById)
+.get('/:cid', passportCall('current'), cartController.GETCartById)
 .put('/:cid', passportCall('current'), isAdmin, cartController.PUTCart)
 .post('/:cid/products/:pid', passportCall('current'), isAdmin, cartController.POSTProductToCart)
 .delete('/:cid/products/:pid', passportCall('current'), isAdmin, cartController.DELETEProductFromCart)

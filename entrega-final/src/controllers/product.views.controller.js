@@ -9,7 +9,7 @@ export const GETProducts = async (req, res, next) => {
             sort, 
             query
         }
-        const products = await productServices.getProducts(options, next)
+        const products = await productServices.getProducts(options)
         const { docs, ...data} = products
         const {first_name, last_name, role, cart, _id} = req.user 
 
@@ -38,7 +38,7 @@ export const GETCreateProduct = (req, res) => {
 
 export const GETEditProduct = async (req, res, next) => {
     try {
-        const product = await productServices.getProductById(req.params.pid, next)
+        const product = await productServices.getProductById(req.params.pid)
         return res.render('edit-product', {product})
     }
     catch(error) {

@@ -4,61 +4,56 @@ import CustomError from '../utils/error.custom.js'
 
 const manager = new ProductDAO()
 
-export const getProducts = async (options, next) => {
+export const getProducts = async (options) => {
     try {
-        return manager.getProducts(options, next)
+        return manager.getProducts(options)
     }
     catch(error) {
-        error.from = "service"
-        return next(error)
+        throw error
     }
 }
 
-export const getProductById = async (id, next) => {
+export const getProductById = async (id) => {
     try {
-        const product = await manager.getProductById(id, next)
+        const product = await manager.getProductById(id)
 
         if (!product) return CustomError.new(dictionary.productNotFound)
 
         return product
     }
     catch(error) {
-        error.from = "service"
-        return next(error)
+        throw error
     }
 }
 
-export const createProduct = async (product, next) => {
+export const createProduct = async (product) => {
     try {
         do {
             product.code = (Math.floor(Math.random() * 900000) + 100000).toString();
         } 
-        while (await manager.getProductByCode(product.code, next))
+        while (await manager.getProductByCode(product.code))
     
-        return await manager.createProduct(product, next)
+        return await manager.createProduct(product)
     }
     catch(error) {
-        error.from = "service"
-        return next(error)
+        throw error
     }
 }
 
-export const updateProduct = async (id, product, next) => {
+export const updateProduct = async (id, product) => {
     try {
-        return await manager.updateProduct(id, product, next)
+        return await manager.updateProduct(id, product)
     }
     catch(error) {
-        error.from = "service"
-        return next(error)
+        throw error
     }    
 }
 
-export const deleteProduct = async (id, next) => {
+export const deleteProduct = async (id) => {
     try {
         return await manager.deleteProduct(id)
     }
     catch(error) {
-        error.from = "service"
-        return next(error)
+        throw error
     }
 }

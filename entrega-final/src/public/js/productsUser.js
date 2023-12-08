@@ -2,6 +2,7 @@ const cartId = document.querySelector(".bienvenida").getAttribute("cart-id")
 const userId = document.querySelector(".bienvenida").getAttribute("user")
 const changeToPremium = document.getElementById("change-to-premium")
 const addButtons = document.querySelectorAll('.add-product')
+const signOutButton = document.getElementById("sign-out")
 
 addButtons.forEach(button => {
     button.addEventListener("click", async event => {
@@ -40,7 +41,7 @@ async function addProduct(product) {
 }
 
 async function changeRole(role) {
-    return fetch(`/api/sessions/premium/${userId}`, {
+    return fetch('/api/auth/prem', {
         method: 'PUT',
         body: JSON.stringify(role),
         headers: {
@@ -57,3 +58,13 @@ async function changeRole(role) {
             alert(error.message);
         });
 }
+
+signOutButton.addEventListener('click', async () => {
+    const response = await fetch('/api/auth/signout', {
+        method: 'POST'
+    })
+    if (!response.ok) return alert(response.message)
+    else {
+        window.location.href = '/'
+    }
+})

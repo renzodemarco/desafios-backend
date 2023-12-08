@@ -1,5 +1,6 @@
 const deleteButtons = document.querySelectorAll('.delete-product')
 const editButtons = document.querySelectorAll('.edit-product')
+const signOutButton = document.getElementById("sign-out")
 
 deleteButtons.forEach(button => {
     button.addEventListener("click", event => {
@@ -21,7 +22,17 @@ async function deleteProduct(id) {
     const response = await fetch(`/api/products/${id}`, {
         method: 'DELETE'
     })
-    if (response.error) return alert(response.message)
+    if (!response.ok) return alert(response.message)
     alert(`Se ha eliminado el producto ${id}`)
     redirect('/')
 }
+
+signOutButton.addEventListener('click', async () => {
+    const response = await fetch('/api/auth/signout', {
+        method: 'POST'
+    })
+    if (!response.ok) return alert(response.message)
+    else {
+        window.location.href = '/'
+    }
+})

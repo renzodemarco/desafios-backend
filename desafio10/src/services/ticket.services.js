@@ -8,26 +8,25 @@ const ticketManager = new TicketManager()
 const productManager = new ProductManager()
 const cartManager = new CartManager()
 
-export const getTickets = async (next) => {
+export const getTickets = async () => {
     try {
-        const tickets = await ticketManager.getTickets(next)
+        const tickets = await ticketManager.getTickets()
 
         if (!tickets) return CustomError.new(dictionary.ticketsNotFound)
 
         return tickets.length < 1 ? "Ticket list empty" : tickets
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }
 
-export const createTicket = async (ticket, next) => {
+export const createTicket = async (ticket) => {
     try {
         do {
             ticket.code = (Math.floor(Math.random() * 900000) + 100000).toString();
         }
-        while (await ticketManager.getTicketByCode(ticket.code, next))
+        while (await ticketManager.getTicketByCode(ticket.code))
     
         ticket.purchase_datetime = new Date().toLocaleString()
     
@@ -35,21 +34,21 @@ export const createTicket = async (ticket, next) => {
         const noStock = []
     
         for (const prod of ticket.products) {
-            const product = await productManager.getProductById(prod.product._id, next);
+            const product = await productManager.getProductById(prod.product._id);
             if (product.stock >= prod.quantity) {
                 hasStock.push(prod);
                 await productManager.updateProduct(prod.product._id, {
                     stock: product.stock - prod.quantity,
-                }, next);
+                });
             } else {
                 noStock.push(prod);
             }
         }
     
         if (hasStock.length > 0) {
-            await cartManager.updateCart(ticket.cartId, noStock, next)
+            await cartManager.updateCart(ticket.cartId, noStock)
     
-            const newTicket = await ticketManager.createTicket({...ticket, products: hasStock }, next)
+            const newTicket = await ticketManager.createTicket({...ticket, products: hasStock })
         
             return { ticket: newTicket, noStock }
         }
@@ -57,7 +56,6 @@ export const createTicket = async (ticket, next) => {
         return { noStock }
     }
     catch(error) {
-        error.from = 'services'
-        return next(error)
+        throw error
     }
 }

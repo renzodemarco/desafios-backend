@@ -117,7 +117,7 @@ export const PUTRole = async (req, res, next) => {
 
         if (!user) throw new Error('Could not update user')
 
-        return res.status(200).json({ success: true })
+        return res.status(200).json({ success: true, role: user.role })
     }
     catch (error) {
         error.from = 'controller'

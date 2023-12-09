@@ -5,7 +5,7 @@ GET http://localhost:8082/api/products/64d7bf86678402946f7a1260
 POST http://localhost:8082/api/carts/651842d299f3f80802c58256/products/64d7bf86678402946f7a1267
 
 ### POST product
-POST http://localhost:8082/api/products
+POST http://localhost:8080/api/products
 Content-Type: application/json
 
 {
@@ -21,20 +21,15 @@ Content-Type: application/json
 GET http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
 
 ### UPDATE product
-PUT http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
+PUT http://localhost:8080/api/products/6574c6dc98474929d7d0d737
 Content-Type: application/json
 
 {
-    "title": "Producto prueba",
-    "description": "Artista",
-    "year": 2000,
-    "stock": 12,
-    "price": 165,
-    "category": "pop"
+    "title": "Prosdaa"
 }
 
 ### DESTROY product
-DELETE http://localhost:8082/api/products/655f6fd4c82f762ef46ea7ef
+DELETE http://localhost:8080/api/products/6574c6dc98474929d7d0d737
 
 
 ### DELETE cart

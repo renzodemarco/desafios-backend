@@ -45,7 +45,7 @@ export const isAdminOrPremium = (req, res, next) => {
 
 export const isAdminOrOwner = async (req, res, next) => {
     try {
-        if (req.user === 'admin') return next()
+        if (req.user.role === 'admin') return next()
 
         const product = await productServices.getProductById(req.params.pid, next)
 

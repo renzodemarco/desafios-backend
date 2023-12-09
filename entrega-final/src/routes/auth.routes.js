@@ -10,6 +10,7 @@ const authRouter = Router()
 
 authRouter.post('/register', passportCall('register'), userController.POSTPassportUser)
 .post('/login', userController.POSTUserValidation)
+.get('/current', passportCall('current'), userController.GETCurrentUser)
 .post('/signout', userController.POSTLogout)
 .get('/github', passport.authenticate('github', { scope: ['user: email'] }))
 .get('/github/callback', passport.authenticate('github'), authController.GETGithubCallback)

@@ -4,6 +4,10 @@ const submit = document.getElementById('submit')
 const msg = document.getElementById('msg')
 const form = document.getElementById('form')
 const email = form.getAttribute('email')
+const currentURL = window.location.href;
+const url = new URL(currentURL);
+
+const token = url.searchParams.get('token');
 
 const handlePasswords = () => {
     if (password.value !== password2.value) {
@@ -25,7 +29,8 @@ form.addEventListener('submit', async event => {
         const response = await fetch('/api/auth', {
             method: 'PUT',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` 
             },
             body: JSON.stringify({ email, password: password.value }),
         });

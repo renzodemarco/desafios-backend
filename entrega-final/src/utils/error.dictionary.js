@@ -55,6 +55,22 @@ const dictionary = {
         status: 500,
         message: "Registration error"
     },
+    getError: {
+        status: 500,
+        message: "Error fetching data: GET request failed"
+    },
+    postError: {
+        status: 500,
+        message: "Error creating data: POST request failed"
+    },
+    putError: {
+        status: 500,
+        message: "Error updating data: PUT request failed"
+    },
+    deleteError: {
+        status: 500,
+        message: "Error deleting data: DELETE request failed"
+    },
     auth: {
         status: 401,
         message: "Invalid credentials"

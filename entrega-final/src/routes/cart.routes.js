@@ -6,7 +6,7 @@ import passportCall from "../middlewares/passport.call.js";
 const cartRouter = Router()
 
 cartRouter
-// user routes (se trabaja siempre con)
+// user routes (se trabaja siempre con el carrito propio)
 .get('/', passportCall('current'), isUser, cartController.GETOwnCart)
 .post('/', passportCall('current'), isUser, cartController.POSTCart)
 .post('/:pid', passportCall('current'), isNotProductOwner, cartController.POSTProductToOwnCart)
@@ -15,7 +15,8 @@ cartRouter
 .delete('/:pid', passportCall('current'), cartController.DELETEProductFromOwnCart)
 
 // admin routes (se debe indicar qué cart se quiere modificar)
-.get('/:cid', passportCall('current'), cartController.GETCartById)
+.get('/all', passportCall('current'), isAdmin, )
+.get('/:cid', passportCall('current'), isAdmin, cartController.GETCartById)
 .put('/:cid', passportCall('current'), isAdmin, cartController.PUTCart)
 .post('/:cid/products/:pid', passportCall('current'), isAdmin, cartController.POSTProductToCart)
 .delete('/:cid/products/:pid', passportCall('current'), isAdmin, cartController.DELETEProductFromCart)

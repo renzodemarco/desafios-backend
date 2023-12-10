@@ -46,7 +46,9 @@ export const addProductToCart = async (cartId, prodId) => {
     
         if (!product) return CustomError.new(dictionary.productNotFound)
     
-        return await cartManager.addProductToCart(cartId, prodId)
+        const response = await cartManager.addProductToCart(cartId, prodId)
+
+        return response
     }
 
     catch(error) {
@@ -132,6 +134,15 @@ export const updateProdQuantity = async (cartId, prodId, quantity) => {
         return updatedCart
     }
 
+    catch(error) {
+        throw error
+    }
+}
+
+export const deleteCart = async (id) => {
+    try {
+        return await cartManager.deleteCart(id)
+    }
     catch(error) {
         throw error
     }

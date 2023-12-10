@@ -16,6 +16,10 @@ export default class CartManager {
         return await CartModel.create({ products: [] })
     }
 
+    async deleteCart(id) {
+        return await CartModel.findByIdAndDelete(id)
+    }
+
     async addProductToCart(cartId, prodId) {
         const cart = await CartModel.findOne({ _id: cartId })
 
@@ -97,6 +101,5 @@ export default class CartManager {
         await cart.save();
 
         return cart
-
     }
 }

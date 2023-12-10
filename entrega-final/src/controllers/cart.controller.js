@@ -70,6 +70,17 @@ export const POSTProductToCart = async (req, res, next) => {
     }
 }
 
+export const DELETECart = async (req, res, next) =>{
+    try {
+        const response = await cartServices.deleteCart(req.params.cid)
+        if (!response) return CustomError.new(dictionary.deleteError)
+        return res.status(200).json(response)
+    }
+    catch(error) {
+        return next(error)
+    }
+}
+
 export const DELETEProductFromCart = async (req, res, next) =>{
     try {
         const cart = await cartServices.deleteProductFromCart(req.params.cid, req.params.pid)

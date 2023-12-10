@@ -43,6 +43,18 @@ components:
       readSuccess:
         type: array
         description: Array con todos los carritos
+        example:
+          [
+            { products: [],
+            _id: 653bc489806d3d93518d1ea9,
+            _v: 0},
+            { products: [],
+            _id: 653bc489806d3d93518d1ea8,
+            _v: 0},
+            { products: [],
+            _id: 653bc489806d3d93518d1ea7,
+            _v: 0}
+          ]
       readOneSuccess:
         type: object
         description: Objeto con el carrito leído
@@ -197,7 +209,7 @@ paths:
         - cookieAuth: []
       responses:
         "200":
-          description: Éxito en la lectura del carrito
+          description: Éxito en la lectura de los carritos
           content:
             application/json:
               schema:
@@ -477,7 +489,7 @@ paths:
       - name: cid
         in: path
         required: true
-        description: Id del carrito a eliminar
+        description: Id del carrito a actualizar
         type: string
       - name: pid
         in: path

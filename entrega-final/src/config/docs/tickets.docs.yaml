@@ -61,6 +61,23 @@ components:
         items: 
           type: object
         description: Lista de todos los tickets
+        example:
+          cart:
+            _id: "65760847c4170867c44f9671"
+            products: []
+            __v: 6
+            owner:
+              _id: "65760847c4170867c44f9673"
+              first_name: "María Sol"
+              last_name: "Domínguez Dahl"
+              email: "solcis@gmail.com"
+              age: 25
+              password: "$2b$10$hKt7Q7pNSiWWRti/Vg1h1eaWIHojsVJIJbpZh6RdSH.1FmO7HASme"
+              cart: "65760847c4170867c44f9671"
+              role: "user"
+              __v: 0
+            cartPrice: 0
+          totalPrice: 0
       clientError:
         type: object
         properties:

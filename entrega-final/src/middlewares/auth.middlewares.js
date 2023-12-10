@@ -22,7 +22,6 @@ export const isAdmin = (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = 'middleware isAdmin'
         return next(error)
     }
 }
@@ -38,7 +37,6 @@ export const isAdminOrPremium = (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = 'middleware isAdminOrPremium'
         return next(error)
     }
 }
@@ -54,7 +52,6 @@ export const isAdminOrOwner = async (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = "middleware isAdminOrOwner"
         return next(error)
     }
 }
@@ -70,7 +67,6 @@ export const isUser = (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = "middleware isUser"
         return next(error)
     }
 }
@@ -88,7 +84,6 @@ export const isCartOwner = async (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = 'middleware isCartOwner'
         return next(error)
     }
 
@@ -109,7 +104,6 @@ export const isNotProductOwner = async (req, res, next) => {
         next()
     }
     catch(error) {
-        error.from = "middleware isNotProductOwner"
         return next(error)
     }
 }

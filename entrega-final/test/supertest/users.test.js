@@ -38,7 +38,7 @@ describe("Testeando un flujo de operaciones para Users...", () => {
     })
 
     it("Debería cerrar sesión", async () => {
-        const response = await requester.post('/auth/signout')
+        const response = await requester.post('/auth/signout').set("Cookie", [cookie.name + "=" + cookie.value])
         expect(response.status).to.be.equals(200)
     })
 

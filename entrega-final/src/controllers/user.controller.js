@@ -10,7 +10,6 @@ export const GETUsers = async (req, res, next) => {
         return res.json(users)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -21,7 +20,6 @@ export const GETCurrentUser = async (req, res, next) => {
         return res.json(user)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -33,7 +31,6 @@ export const GETUserByEmail = async (req, res, next) => {
         return res.json(user)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -45,7 +42,6 @@ export const GETUserById = async (req, res, next) => {
         return res.json(user)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -57,7 +53,6 @@ export const POSTUser = async (req, res, next) => {
         if (user) return res.status(201).json(user)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -68,7 +63,6 @@ export const POSTPassportUser = async (req, res, next) => {
         return res.status(201).json(req.user)
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -102,7 +96,6 @@ export const POSTUserValidation = async (req, res, next) => {
         return res.status(200).json({ accessToken: token })
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
@@ -120,15 +113,20 @@ export const PUTRole = async (req, res, next) => {
         return res.status(200).json({ success: true, role: user.role })
     }
     catch (error) {
-        error.from = 'controller'
         return next(error)
     }
 }
 
 export const POSTLogout = (req, res, next) => {
-    req.logout((err) => {
-        if (err) return next(err);
-        res.clearCookie('accessToken');
-        res.status(200).json({ success: true });
-    })
+    try {
+        if (!req.user) return CustomError.new(dictionary.auth)
+        req.logout((err) => {
+            if (err) return next(err);
+            res.clearCookie('accessToken');
+            return res.status(200).json({ success: true });
+        })
+    }
+    catch (error) {
+        return next(error)
+    }
 }

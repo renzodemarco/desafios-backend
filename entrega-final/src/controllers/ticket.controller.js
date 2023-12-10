@@ -17,7 +17,7 @@ export const GETTicket = async (req, res, next) => {
         const cart = await cartServices.getCartById(cartId)
         cart.products.forEach(prod => prod.totalPrice = prod.quantity * prod.product.price)
         cart.cartPrice = cart.products.reduce((acc, cur) => acc + cur.totalPrice, 0)
-        return res.status(200).json({cart, totalPrice: cart.cartPrice})
+        return res.status(200).json({ cart, totalPrice: cart.cartPrice })
     }
     catch(error) {
         return next(error)

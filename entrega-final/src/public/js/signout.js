@@ -1,15 +1,11 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('/api/auth/signout', {
-            method: 'POST'
-        });
+const signOutButton = document.getElementById("sign-out")
 
-        if (response.ok) {
-            window.location.href = '/'
-        } else {
-            console.error('Ocurrió un problema durante el logout');
-        }
-    } catch (error) {
-        console.error('Error en la solicitud:', error);
+signOutButton.addEventListener('click', async () => {
+    const response = await fetch('/api/auth/signout', {
+        method: 'POST'
+    })
+    if (!response.ok) return alert(response.message)
+    else {
+        window.location.href = '/'
     }
-});
+})

@@ -102,11 +102,11 @@ export const POSTUserValidation = async (req, res, next) => {
 
 export const PUTRole = async (req, res, next) => {
     try {
-        const { role } = req.body
+        const { role, _id } = req.user
 
-        const userId = req.user._id
+        const newRole = role == 'premium' ? 'user' : 'premium'
 
-        const user = await userServices.updateUserById(userId, { role })
+        const user = await userServices.updateUserById(_id, { role: newRole })
 
         if (!user) throw new Error('Could not update user')
 
@@ -127,6 +127,53 @@ export const POSTLogout = (req, res, next) => {
         })
     }
     catch (error) {
+        return next(error)
+    }
+}
+
+export const POSTRecoverPassRequest = async (req, res) => {
+    try {
+        const { email } = req.body
+        const response = await recoverPasswordServices.postRecoverPassRequest(email)
+        return res.json(response)
+    }
+    catch(error) {
+        throw error
+    }
+}
+
+export const PUTRecoverPass = async (req, res, next) => {
+    try {
+        const { email, password } = req.body
+
+        const token = req.headers.authorization.split(' ')[1]
+
+        const auth = verifyRecoverPasswordToken(token)
+
+        if (auth.email !== email) return CustomError.new(dictionary.auth)
+
+        const user = await userServices.getUserByEmail(email)
+
+        if (!user) return CustomError.new(dictionary.email)
+
+        const response = await userServices.updateUserById(user._id, { password })
+
+        return res.status(200).json(response)
+    }
+    catch(error) {
+        return next(error)
+    }
+}
+
+export const DELETEUser = async (req, res, next) => {
+    try {
+        const userId = req.user._id
+
+        await userServices.deleteUser(userId)
+
+        return res.status(200).json({ success: true })
+    }
+    catch(error) {
         return next(error)
     }
 }

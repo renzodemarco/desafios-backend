@@ -200,6 +200,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/carts/responses/serverError'
+    get:
+      summary: Leer el propio carrito (user)
+      tags:
+        - Carts
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Éxito en la lectura del carrito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/readOneSuccess'
+        "401":
+          description: Sin autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/authenticationError'
+        "403":
+          description: Sin autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/authorizationError'
+        "404":
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/carts/responses/serverError'
   /api/carts/all:
     get:
       summary: Leer todos los carritos (admin)
@@ -302,50 +339,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/carts/responses/readOneSuccess'
-        "401":
-          description: Sin autenticación
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/carts/responses/authenticationError'
-        "403":
-          description: Sin autorización
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/carts/responses/authorizationError'
-        "404":
-          description: Carrito no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/carts/responses/notFoundError'
-        "500":
-          description: Error del servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#components/carts/responses/serverError'
-  /api/carts/destroy/{cid}:
-    delete:
-      summary: Eliminar un carrito (admin)
-      tags:
-        - Carts
-      security:
-        - cookieAuth: []
-      parameters:
-      - name: cid
-        in: path
-        required: true
-        description: Id del carrito a eliminar
-        type: string
-      responses:
-        "200":
-          description: Éxito en la eliminación del carrito
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/carts/responses/deleteSuccess'
         "401":
           description: Sin autenticación
           content:
@@ -527,3 +520,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/carts/responses/serverError'
+  /api/carts/destroy/{cid}:
+    delete:
+      summary: Eliminar un carrito (admin)
+      tags:
+        - Carts
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito a eliminar
+        type: string
+      responses:
+        "200":
+          description: Éxito en la eliminación del carrito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/deleteSuccess'
+        "401":
+          description: Sin autenticación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/authenticationError'
+        "403":
+          description: Sin autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/authorizationError'
+        "404":
+          description: Carrito no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/carts/responses/notFoundError'
+        "500":
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#components/carts/responses/serverError'

@@ -1,12 +1,15 @@
 const deleteButtons = document.querySelectorAll('.delete-product')
 const editButtons = document.querySelectorAll('.edit-product')
-const signOutButton = document.getElementById("sign-out")
 
 deleteButtons.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
-            deleteProduct(productId);
+        if (confirm(`¿Seguro que desea eliminar este producto?`)) {
+            const response = await deleteProduct(productId);
+            if (response) {
+                alert(`Producto eliminado exitosamente`)
+                redirect('/products')
+            }
         }
     })
 
@@ -19,20 +22,15 @@ deleteButtons.forEach(button => {
 })
 
 async function deleteProduct(id) {
-    const response = await fetch(`/api/products/${id}`, {
+    return fetch(`/api/products/${id}`, {
         method: 'DELETE'
     })
-    if (!response.ok) return alert(response.message)
-    alert(`Se ha eliminado el producto ${id}`)
-    redirect('/')
-}
-
-signOutButton.addEventListener('click', async () => {
-    const response = await fetch('/api/auth/signout', {
-        method: 'POST'
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response);
+        }
+        return response.json()
     })
-    if (!response.ok) return alert(response.message)
-    else {
-        window.location.href = '/'
-    }
-})
+    .then(data => data)
+    .catch(error => alert(error.message))
+}

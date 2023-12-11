@@ -11,6 +11,9 @@ export const GETProducts = async (req, res, next) => {
         }
         const products = await productServices.getProducts(options)
         const { docs, ...data} = products
+
+        if (!req.user) return res.render('products', { products: docs })
+
         const {first_name, last_name, role, cart, _id} = req.user 
 
         if (role === 'admin') {
@@ -32,8 +35,7 @@ export const GETProducts = async (req, res, next) => {
 }
 
 export const GETCreateProduct = (req, res) => {
-    const user = req.user._id.toString()
-    return res.render('create-product', { user })
+    return res.render('create-product')
 }
 
 export const GETEditProduct = async (req, res, next) => {

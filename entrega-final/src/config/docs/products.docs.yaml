@@ -246,7 +246,7 @@ components:
 paths:
   /api/products:
     post:
-      summary: Crear un nuevo producto en la base de datos (admin)
+      summary: Crear un nuevo producto en la base de datos (admin/premium)
       tags:
         - Products
       security:
@@ -365,7 +365,7 @@ paths:
               schema:
                 $ref: "#components/products/responses/serverError"
     put:
-      summary: Actualizar producto en la base de datos (admin)
+      summary: Actualizar producto en la base de datos (admin/premium)
       tags:
         - Products
       security:
@@ -420,7 +420,7 @@ paths:
               schema:
                 $ref: "#components/products/responses/serverError"
     delete:
-      summary: Eliminar un producto de la base de datos (admin)
+      summary: Eliminar un producto de la base de datos (admin/premium)
       tags:
         - Products
       security:

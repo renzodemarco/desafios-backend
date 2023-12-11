@@ -1,25 +1,20 @@
-const cartId = document.querySelector(".bienvenida").getAttribute("cart-id")
-const userId = document.querySelector(".bienvenida").getAttribute("user")
 const deleteButtons = document.querySelectorAll('.delete-product')
 const editButtons = document.querySelectorAll('.edit-product')
 const changeToUser = document.getElementById("change-to-user")
 const addButtons = document.querySelectorAll('.add-product')
-const signOutButton = document.getElementById("sign-out")
 
 addButtons.forEach(button => {
     button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
+        if (confirm(`¿Seguro que desea agregar el producto al carrito?`)) {
             const response = await addProduct(productId);
-            console.log(response)
-            if (response.ok) return alert(`Se ha agregado el producto ${productId}`)
-            return alert(response.message)
+            if (response) return alert('Producto agregado al carrito')
         }   
     })
 })
 
 changeToUser.addEventListener('click', async () => {
-    const response = await changeRole({ role: 'user' })
+    const response = await changeRole()
     if (response.error) return alert(response.message)
     alert("Se ha cambiado el rol")
     return window.location.href = '/'
@@ -29,11 +24,12 @@ changeToUser.addEventListener('click', async () => {
 deleteButtons.forEach(button => {
     button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
+        if (confirm(`¿Seguro que desea eliminar este producto?`)) {
             const response = await deleteProduct(productId);
-            if (response.error) return alert(response.message)
-            alert(`Se ha eliminado el producto ${response.title}`)
-            redirect('/')
+            if (response) {
+                alert(`Producto eliminado exitosamente`)
+                redirect('/products')
+            }
         }
     })
 
@@ -49,9 +45,14 @@ async function deleteProduct(id) {
     return fetch(`/api/products/${id}`, {
         method: 'DELETE'
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response);
+        }
+        return response.json()
+    })
     .then(data => data)
-    .catch(error =>alert(error.message))
+    .catch(error => alert(error.message))
 }
 
 async function addProduct(product) {
@@ -62,6 +63,9 @@ async function addProduct(product) {
         }
     })
         .then(response => { 
+            if (!response.ok) {
+                throw new Error(response);
+            }
             return response.json();
         })
         .then(data => {
@@ -72,15 +76,17 @@ async function addProduct(product) {
         });
 }
 
-async function changeRole(role) {
+async function changeRole() {
     return fetch('/api/auth/prem', {
         method: 'PUT',
-        body: JSON.stringify(role),
         headers: {
             "Content-Type": "application/json"
         }
     })
         .then(response => {
+            if (!response.ok) {
+                throw new Error(response);
+            }
             return response.json();
         })
         .then(data => {
@@ -90,13 +96,3 @@ async function changeRole(role) {
             alert(error.message);
         });
 }
-
-signOutButton.addEventListener('click', async () => {
-    const response = await fetch('/api/auth/signout', {
-        method: 'POST'
-    })
-    if (!response.ok) return alert(response.message)
-    else {
-        window.location.href = '/'
-    }
-})

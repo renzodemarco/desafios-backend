@@ -1,4 +1,17 @@
-<div class="container">
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/products">Volver</a>
+        </button>
+        <button type="button" class="btn btn-warning" id="sign-out">
+            Cerrar sesión
+        </button>
+    </nav>
+</header>
+
+
+<main class="create-main">
 
     <h1>Crear nuevo producto</h1>
 
@@ -6,7 +19,7 @@
         <p class="error">Ha habido un error en la creación del producto, por favor intente de nuevo</p>
     {{/if}}
 
-    <form id="createProductForm"  user={{user}}>
+    <form id="createProductForm">
             <label for="title">Título:</label>
         <input type="text" name="title" id="title">
             <label for="description">Artista:</label>
@@ -28,14 +41,14 @@
             <option value="Pop">Pop</option>
         </select>
 
-        <input class='blue-button' type="submit" id="submit" value="Agregar">   
+        <input class='btn btn-warning' type="submit" id="submit" value="Crear producto">
     </form>
 
-    <button class='grey-button' onclick="redirect('/')">Volver</button>
-
-</div>
+</main>
 
 <script src="/js/createProduct.js"></script>
+
+<script src="/js/signout.js"></script>
 
 <script>
     function redirect(url) {

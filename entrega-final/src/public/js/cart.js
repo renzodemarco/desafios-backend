@@ -1,38 +1,48 @@
 const deleteButtons = document.querySelectorAll(".delete-product")
 const buyButton = document.getElementById("buy-cart")
 const deleteCartButton = document.getElementById("delete-cart")
-const currentCart = document.querySelector('.listContainer').getAttribute("cart-id")
 
 deleteButtons.forEach(button => {
-    button.addEventListener('click', event => {
+    button.addEventListener('click', async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea eliminar el producto ${productId}?`)) {
-            deleteProduct(productId);
+        if (confirm('¿Seguro que desea eliminar este producto de su carrito?')) {
+            const response = await deleteProduct(productId);
+            if (response) return location.reload()
         }
     })
 })
 
 async function deleteProduct(product) {
-    const response = await fetch(`/api/carts/${product}`, {
-            method: 'DELETE'
-        })
-    if (response.error) return alert(response.message)
-    console.log(response)
-    alert(`Se ha eliminado el producto ${product}`)
-    location.reload()
+    return await fetch(`/api/carts/${product}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response);
+        }
+        return response.json()
+    })
+    .then(data => data)
+    .catch(error => alert(error.message))
 }
 
-deleteCartButton.addEventListener("click", () => {
+deleteCartButton.addEventListener("click", async () => {
     if (confirm(`¿Seguro que desea eliminar todos los objetos del carrito?`)) {
-        deleteCart();
+        const response = await deleteCart();
+        if (response) return location.reload()
     }
 })
 
 async function deleteCart() {
-    const response = await fetch(`/api/carts`, {
-            method: 'DELETE'
-        })
-    if (response.error) return alert(response.message)
-    alert(`Se ha eliminado el carrito`)
-    location.reload()
+    return await fetch(`/api/carts`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response);
+        }
+        return response.json()
+    })
+    .then(data => data)
+    .catch(error => alert(error.message))
 }

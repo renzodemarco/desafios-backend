@@ -1,18 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
 
 * {
     margin: 0;
     padding: 0;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
-    background-color: rgb(182, 191, 207);
+    background-color: #222;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+    color: #111
+}
+
+a:hover {
+    color: #111;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    background-color: transparent;
+    color: #FFC300;
+    font-size: 30px;
+    font-weight: 300;
+    padding: 0 20px;
+}
+
+.logo:hover {
+    color: #FFC300;
+}
+
+.yellow {
+    color: #FFC300;
+}
+
+.dark {
+    background-color: #111;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar button {
+    margin: 0 20px;
+}
+
 h1 {
+    color: #FFC300;
     margin: 1rem;
     font-size: 2rem;
     font-weight: bold;
@@ -31,6 +81,7 @@ h3 {
 
 ul {
     margin: 1rem .2rem .2rem;
+    padding: 0;
     font-size: .9rem
 }
 
@@ -48,25 +99,106 @@ input {
     margin: .1rem 0 .4rem
 }
 
-.productContainer {
-    margin: .6rem;
-    padding: .6rem;
-    width: 24rem;
-    background-color: rgb(120, 131, 177);
+.index-container {
+    width: 100vw;
+    display: flex;
+} 
+
+.index-container h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 150%;
+    width: 40%;
+}
+
+.index-img {
+    width: 60%;
+    height: calc(100vh - 80px);
+    object-fit: cover
+}
+
+.login-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 400px;
+}
+
+.register-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 560px;
+    width: 400px;
+}
+
+.create-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 350px;
+    height: 500px;
+}
+
+form input[type="submit"] {
+    margin-top: 10px;
+}
+
+.btn-warning:hover {
+    font-weight: 500;
+}
+
+.products-main {
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-container {
+    color: #fff6d8 ;
+    margin: 10px;
+    padding: 10px;
+    width: 400px;
+    background-color: #111;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.container {
-    width: 26rem;
-    margin: 2rem;
-    padding: 2rem;
+.product-container h2 {
+    color: #FFC300;
+}
+
+.product-container button {
+    margin-top: 8px;
+}
+
+.cart-main {
+    width: 100%;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background-color: rgb(120, 131, 177);
+}
+
+.cart-price {
+    width: 320px;
+    height: 200px;
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.cart-price h2 {
+    font-size: 28px;
+    color: #FFC300;
 }
 
 .blue-button {
@@ -114,18 +246,17 @@ input {
 
 .github-button {
     display: flex;
-    align-items: center;
+    align-items: space;
+    justify-content: space-around;
     border: solid 1px #000;
-    width: 10rem;
-    margin: .6rem;
-    padding: .4rem .7rem;
     background-color: #000;
     color: #fff;
     cursor: pointer;
 }
 
 .github-button:hover {
-    background-color: #111;
+    color: #fff;
+    background-color: #0b0b0b;
 }
 
 .github-icon {
@@ -161,7 +292,10 @@ label {
     text-align: center;
 }
 
+label {
+    color: #FFC300;
+}
+
 .msg {
-    color: #fff;
-    text-align: center;
+    color: #FFC300;
 }

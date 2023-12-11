@@ -1,25 +1,22 @@
-const cartId = document.querySelector(".bienvenida").getAttribute("cart-id")
-const userId = document.querySelector(".bienvenida").getAttribute("user")
 const changeToPremium = document.getElementById("change-to-premium")
 const addButtons = document.querySelectorAll('.add-product')
-const signOutButton = document.getElementById("sign-out")
 
 addButtons.forEach(button => {
     button.addEventListener("click", async event => {
         const productId = event.target.getAttribute("product-id");
-        if (confirm(`¿Seguro que desea agregar el producto ${productId}?`)) {
+        if (confirm(`¿Seguro que desea agregar el producto al carrito?`)) {
             const response = await addProduct(productId);
-            if (response.error) return alert(response.message)
-            return alert(`Se ha agregado el producto ${productId}`)
+            if (response) return alert('Producto agregado al carrito')
         }
     })
 })
 
 changeToPremium.addEventListener('click', async () => {
     const response = await changeRole({ role: 'premium' })
-    if (response.error) return alert(response.message)
-    alert("Se ha cambiado el rol")
-    return window.location.href = '/'
+    if (response) {
+        alert("Se ha cambiado el rol")
+        return window.location.href = '/products'
+    }
 })
 
 async function addProduct(product) {
@@ -30,6 +27,9 @@ async function addProduct(product) {
         }
     })
         .then(response => {
+            if (!response.ok) {
+                throw new Error(response);
+            }
             return response.json();
         })
         .then(data => {
@@ -43,12 +43,14 @@ async function addProduct(product) {
 async function changeRole(role) {
     return fetch('/api/auth/prem', {
         method: 'PUT',
-        body: JSON.stringify(role),
         headers: {
             "Content-Type": "application/json"
         }
     })
         .then(response => {
+            if (!response.ok) {
+                throw new Error(response);
+            }
             return response.json();
         })
         .then(data => {
@@ -58,13 +60,3 @@ async function changeRole(role) {
             alert(error.message);
         });
 }
-
-signOutButton.addEventListener('click', async () => {
-    const response = await fetch('/api/auth/signout', {
-        method: 'POST'
-    })
-    if (!response.ok) return alert(response.message)
-    else {
-        window.location.href = '/'
-    }
-})

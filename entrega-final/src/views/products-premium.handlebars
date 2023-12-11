@@ -1,22 +1,24 @@
-<div class="bienvenida" cart-id="{{cart}}" user="{{user}}">
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning" id="change-to-user">
+            Date de baja a premium :(
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/products/create">Crear producto</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/carts">Ver carrito</a>
+        </button>
+        <button type="button" class="btn btn-warning" id="sign-out">
+            Cerrar sesión
+        </button>
+    </nav>
+</header>
 
-    <img class="role-img"
-        src="https://as2.ftcdn.net/v2/jpg/01/04/61/19/1000_F_104611977_L5IyO4lGDkJoohqybPCVKcrcm5huXXsi.jpg">
-    <button class="blue-button" id="change-to-user" >
-        CAMBIAR A USUARIO NORMAL
-    </button>
-
-    
-    <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
-    <button class="grey-button" id="sign-out"> Cerrar sesión </button>
-    <button class="blue-button" onclick="redirect('/carts')">Ver carrito</button>
-    <button class="blue-button" onclick="redirect('/products/create')">Crear producto</button>
-
-</div>
-
-<div class="listContainer">
+<main class="products-main">
     {{#each ownProducts}}
-    <div class="productContainer">
+    <div class="product-container">
         <ul>
             <li>
                 <h2>{{this.title}} ({{this.year}})</h2>
@@ -27,13 +29,17 @@
             <li><b>Stock: </b>{{this.stock}}</li>
             <li><b>Code: </b>{{this.code}}</li>
         </ul>
-        <button class="blue-button edit-product" product-id="{{this._id}}">Modificar producto</button>
-        <button class="grey-button delete-product" product-id="{{this._id}}">Eliminar producto</button>
+        <button type="button" class="edit-product btn btn-warning" product-id="{{this._id}}">
+            Modificar producto
+        </button>
+        <button type="button" class="delete-product btn btn-warning" product-id="{{this._id}}">
+            Eliminar producto
+        </button>
     </div>
     {{/each}}
 
     {{#each products}}
-    <div class="productContainer">
+    <div class="product-container">
         <ul>
             <li>
                 <h2>{{this.title}} ({{this.year}})</h2>
@@ -44,13 +50,17 @@
             <li><b>Stock: </b>{{this.stock}}</li>
             <li><b>Code: </b>{{this.code}}</li>
         </ul>
-        <button id="addToCart" class="blue-button add-product" product-id="{{this._id}}">Agregar al carrito</button>
+        <button id="addToCart" type="button" class="add-product btn btn-warning" product-id="{{this._id}}">
+            Agregar al carrito
+        </button>
     </div>
     {{/each}}
-</div>
+</main>
 
 
 <script src="/js/productsPremium.js"></script>
+
+<script src="/js/signout.js"></script>
 
 <script>
     function redirect(url) {

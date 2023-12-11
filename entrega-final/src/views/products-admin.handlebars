@@ -1,17 +1,18 @@
-<div class="bienvenida">
-    <img class="role-img" src="https://i.pinimg.com/736x/b1/92/c7/b192c70d750d0700becf81b1ccc9e2a6.jpg">
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/products/create">Crear producto</a>
+        </button>
+        <button type="button" class="btn btn-warning" id="sign-out">
+            Cerrar sesión
+        </button>
+    </nav>
+</header>
 
-    <h1>Bienvenido/a {{first_name}} {{last_name}}, aquí está la lista de productos</h1>
-    <div>
-        <button class="grey-button" id="sign-out"> Cerrar sesión </button>
-        <button class="blue-button" onclick="redirect('/products/create')">Crear producto</button>
-    </div>
-
-</div>
-
-<div class="listContainer">
+<main class="products-main">
     {{#each products}}
-    <div class="productContainer">
+    <div class="product-container">
         <ul>
             <li>
                 <h2>{{this.title}} ({{this.year}})</h2>
@@ -22,13 +23,19 @@
             <li><b>Stock: </b>{{this.stock}}</li>
             <li><b>Code: </b>{{this.code}}</li>
         </ul>
-        <button class="blue-button edit-product" product-id="{{this._id}}">Modificar producto</button>
-        <button class="grey-button delete-product" product-id="{{this._id}}">Eliminar producto</button>
+        <button type="button" class="edit-product btn btn-warning" product-id="{{this._id}}">
+            Modificar producto
+        </button>
+        <button type="button" class="delete-product btn btn-warning" product-id="{{this._id}}">
+            Eliminar producto
+        </button>
     </div>
     {{/each}}
-</div>
+</main>
 
 <script src="/js/productsAdmin.js"></script>
+
+<script src="/js/signout.js"></script>
 
 <script>
     function redirect(url) {

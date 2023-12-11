@@ -1,4 +1,16 @@
-<div class="container">
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/products">Productos</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/login">Ingresar</a>
+        </button>
+    </nav>
+</header>
+
+<main class="register-main">
 
     <h1>Registrar nuevo usuario</h1>
 
@@ -20,13 +32,13 @@
                 <label for="password2">Repita su contraseña:</label>
         <input type="password" name="password2" id="password2">
 
-        <input class='blue-button' type="submit" id="submit" value="Registrarse" disabled>   
+        <input class='btn btn-warning' type="submit" id="submit" value="Registrarse" disabled>   
     </form>
 
     <p class="error" id="msg"></p>
-    <button class='grey-button' onclick="redirect('/login')">Ya estoy registrado</button>
+    <button class='btn btn-secondary w-100' onclick="redirect('/login')">Ya estoy registrado</button>
 
-</div>
+</main>
 
 <script src="/js/registerForm.js"></script>
 

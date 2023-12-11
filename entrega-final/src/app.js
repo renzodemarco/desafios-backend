@@ -11,14 +11,13 @@ import cartViewsRouter from './routes/cart.views.routes.js';
 import userViewsRouter from './routes/user.views.routes.js';
 import ticketViewsRouter from './routes/ticket.views.routes.js';
 import ticketRouter from './routes/ticket.routes.js';
+import authRouter from './routes/user.routes.js';
 import passport from 'passport';
 import initPassportStrategy from './config/passport.config.js'
-import authRouter from './routes/auth.routes.js';
 import env from './config/env.config.js'
 import errorHandler from './middlewares/error.handler.js';
 import notFoundHandler from './middlewares/not.found.handler.js';
 import loggerMW from './middlewares/logger.middlewares.js'
-import loggerRouter from './routes/loggers.routes.js';
 import MongoConnection from './utils/db.connection.js'
 import swaggerJSDoc from 'swagger-jsdoc'
 import { serve, setup } from 'swagger-ui-express'
@@ -70,11 +69,9 @@ app.use('/carts', cartViewsRouter)
 
 app.use('/tickets', ticketViewsRouter)
 
-app.use('/', userViewsRouter)
-
-app.use('/api/loggers', loggerRouter)
-
 app.use('/docs', serve, setup(specs))
+
+app.use('/', userViewsRouter)
 
 app.use(errorHandler)
 

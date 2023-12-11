@@ -10,15 +10,11 @@ const submit = document.getElementById('submit')
 
 form.addEventListener('submit', async event => {
     event.preventDefault()
-    try {
-        const productId = event.target.getAttribute("product-id");
-        const response = await editProduct(productId)
-        if (response.error) return alert(response.message)
+    const productId = event.target.getAttribute("product-id");
+    const response = await editProduct(productId)
+    if (response) {
         alert("Producto actualizado exitosamente")
-        redirect('/')
-    }
-    catch(e) {
-        console.log(e)
+        redirect('/products')
     }
 })
 
@@ -38,15 +34,18 @@ async function editProduct(id) {
             "Content-Type": "application/json"
         }
     })
-    .then(response => {
-        return response.json();
-    })
-    .then(data => {
-        return data
-    })
-    .catch(error => {
-        console.error('Ocurrió un error:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response);
+            }
+            return response.json();
+        })
+        .then(data => {
+            return data
+        })
+        .catch(error => {
+            alert(error.message);
+        });
 }
 
 function redirect(url) {

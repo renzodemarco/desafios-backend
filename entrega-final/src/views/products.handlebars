@@ -1,0 +1,31 @@
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/login">Ingresar</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/register">Registrarse</a>
+        </button>
+    </nav>
+</header>
+
+<main class="products-main">
+    {{#each products}}
+        <div class="product-container">
+            <ul>
+                <li>
+                    <h2>{{this.title}} ({{this.year}})</h2>
+                </li>
+                <li><b>Artista: </b>{{this.description}}</li>
+                <li><b>Precio: </b>${{this.price}}</li>
+                <li><b>Categoría: </b>{{this.category}}</li>
+                <li><b>Stock: </b>{{this.stock}}</li>
+                <li><b>Code: </b>{{this.code}}</li>
+            </ul>
+            <button type="button" class="btn btn-warning">
+                <a href="/login?login=true">Comprar</a>
+            </button>
+        </div>
+    {{/each}}
+</main>

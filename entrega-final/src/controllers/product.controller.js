@@ -33,7 +33,8 @@ export const GETProductById = async (req, res, next) => {
 export const POSTProduct = async (req, res, next) => {
     try {
         const data = req.body;
-        const product = await productServices.createProduct({...data, price: toNumber(data.price), stock: toNumber(data.stock), year: toNumber(data.year)})
+        const owner = req.user.role !== 'admin' ? req.user.user._id : 'admin'
+        const product = await productServices.createProduct({...data, price: toNumber(data.price), stock: toNumber(data.stock), year: toNumber(data.year), owner})
         return res.status(201).json(product)
     }
     catch (error) {

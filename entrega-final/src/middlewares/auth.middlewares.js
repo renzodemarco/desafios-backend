@@ -9,8 +9,13 @@ export const isLogged = (req, res, next,) => {
 }
 
 export const userAuth = (req, res, next) => {
-    if (!req.user) return res.redirect('/login');
-    next()
+    try {
+        if (!req.user) return CustomError.new(dictionary.auth)
+        next()
+    }
+    catch(error) {
+        return next(error)
+    }
 }
 
 export const isAdmin = (req, res, next) => {
@@ -77,7 +82,9 @@ export const isCartOwner = async (req, res, next) => {
 
         if (req.user.role === 'admin') return next()
 
-        const cart = await cartServices.getCartById(req.params.cid, next)
+        const cartId = req.user.cart._id
+
+        const cart = await cartServices.getCartById(cartId, next)
 
         if (!req.user._id === cart.owner._id) return CustomError.new(dictionary.forbidden)
 

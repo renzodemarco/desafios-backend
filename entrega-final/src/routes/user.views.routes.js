@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import passportCall from '../middlewares/passport.call.js'
 import passport from 'passport'
-import { isLogged, userAuth } from '../middlewares/auth.middlewares.js'
+import { isLogged } from '../middlewares/auth.middlewares.js'
 import * as userController from '../controllers/user.views.controller.js'
 
 const userViewsRouter = Router()

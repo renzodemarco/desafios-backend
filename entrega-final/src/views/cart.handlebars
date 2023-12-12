@@ -35,7 +35,7 @@
     <div class="cart-price">
         <h2>Precio total: ${{cart.cartPrice}}</h2>
         {{#if cart.products}}
-            <button type="button" class="btn btn-warning" id="buy-cart" onclick="redirect('/tickets/{{cart._id}}/purchase')">
+            <button type="button" class="btn btn-warning" id="buy-cart" onclick="redirect('/tickets/purchase')">
                 <b>Finalizar compra</b>
             </button>
             <button type="button" id="delete-cart" class="btn btn-secondary">

@@ -8,14 +8,6 @@ import { generateToken } from '../utils/jwt.js'
 const userManager = new UserDAO()
 const cartManager = new CartDAO()
 
-export const getUsers = async () => {
-    try {
-        return await userManager.getUsers()
-    }
-    catch(error){
-        throw error
-    }
-}
 
 export const getUserByEmail = async (email) => {
     try {
@@ -104,7 +96,7 @@ export const updateUserById = async (id, data) => {
         }
     
         const updatedUser = await userManager.updateUser(user._id, data)
-    
+
         return updatedUser
     }
     catch(error) {

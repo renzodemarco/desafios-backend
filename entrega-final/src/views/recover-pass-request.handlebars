@@ -1,4 +1,19 @@
-<div class="container">
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/products">Productos</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/login">Ingresar</a>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <a href="/register">Registrarse</a>
+        </button>
+    </nav>
+</header>
+
+<main class="recover-main">
 
     {{#if expired}}
         <p class="error">El link expiró, por favor intente de nuevo</p>
@@ -10,12 +25,10 @@
             <label for="email">Correo electrónico:</label>
         <input type="text" name="email" id="email">
 
-        <input class='blue-button' type="submit" value="Recuperar">
+        <input class='btn btn-warning' type="submit" value="Recuperar">
     </form>
 
-    <button class='grey-button' onclick="redirect('/')">Volver</button>
-
-</div>
+</main>
 
 <script src="/js/recoverPassRequest.js"></script>
 

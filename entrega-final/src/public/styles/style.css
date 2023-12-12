@@ -112,6 +112,7 @@ input {
     width: 40%;
 }
 
+
 .index-img {
     width: 60%;
     height: calc(100vh - 80px);
@@ -129,7 +130,7 @@ input {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 560px;
+    height: 540px;
     width: 400px;
 }
 
@@ -199,6 +200,23 @@ form input[type="submit"] {
 .cart-price h2 {
     font-size: 28px;
     color: #FFC300;
+}
+
+.recover-main {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.purchase-main {
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .blue-button {
@@ -288,7 +306,7 @@ label {
 }
 
 .error {
-    color: #711;
+    color: rgb(253, 177, 147);
     text-align: center;
 }
 

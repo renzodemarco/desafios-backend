@@ -1,7 +1,9 @@
 import { UserDAO, CartDAO } from "../dao/index.js";
 import bcrypt from 'bcrypt'
+import transport from '../config/transport.config.js'
 import CustomError from '../utils/error.custom.js'
 import dictionary from '../utils/error.dictionary.js'
+import { generateToken } from '../utils/jwt.js'
 
 const userManager = new UserDAO()
 const cartManager = new CartDAO()
@@ -117,6 +119,29 @@ export const deleteUser = async (id) => {
         if (!user) return CustomError.new(dictionary.userNotFound)
     
         return await userManager.deleteUser(id)
+    }
+    catch(error) {
+        throw error
+    }
+}
+
+export const postRecoverPassRequest = async (email) => {
+    try {
+        const user = getUserByEmail(email)
+
+        if (!user) return CustomError.new(dictionary.userNotFound)
+
+        const token = generateToken({email})
+
+        const response = await transport.sendMail({
+            from: 'CODERHOUSE <coderhouse@mail.com>',
+            to: email,
+            subject: "Recuperación de contraseña",
+            html: `<h2>Recuperación de contraseña</h2>
+            <p>Para restablecer tu contraseña, haga clic <a href="http://localhost:8080/recover-password?token=${token}">aquí</a>.</p>
+        </body>`
+        }) 
+        if (response) return { success: true, message: "Correo enviado correctamente" }
     }
     catch(error) {
         throw error

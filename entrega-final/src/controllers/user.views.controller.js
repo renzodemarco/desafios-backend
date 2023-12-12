@@ -1,9 +1,11 @@
-import { generateToken } from "../utils/jwt.js"
+import CustomError from "../utils/error.custom.js"
+import dictionary from "../utils/error.dictionary.js"
+import { generateToken, verifyRecoverPasswordToken } from "../utils/jwt.js"
 
 export const GETIndexView = (req, res) => {
     if (req.user && req.user.role) {
         const name = `${req.user.first_name} ${req.user.last_name}`
-        return res.render('index-logged', {name})
+        return res.render('index-logged', { name })
     }
     else {
         return res.render('index', { notLogged: true })
@@ -38,7 +40,7 @@ export const GETGithubCallback = (req, res, next) => {
             httpOnly: true
         })
     
-        return res.redirect('/products')
+        return res.redirect('/')
     }
     catch(error) {
         return next(error)
@@ -56,11 +58,11 @@ export const GETRecoverPass = (req, res, next) => {
 
         const data = verifyRecoverPasswordToken(token)
 
-        if (!data) return res.redirect('/recover-password/request?expired=true') 
+        if (!data) return CustomError.new(dictionary.auth)
 
         const { email } = data
 
-        return res.status(200).render('recover-pass', { email })
+        return data.expired ? res.status(200).render('recover-pass-request', { expired: true }) : res.status(200).render('recover-pass', { email })
     }
     catch(error) {
         return next(error)

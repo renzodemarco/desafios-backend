@@ -7,10 +7,7 @@ form.addEventListener('submit', async event => {
     try {
     const response = await handleSubmit(email)
 
-    if (response.error) return alert(response.message)
-
-    return alert("Mensaje enviado, por favor revise su casilla de correo e ingrese al link")
-
+    if (response) return alert("Mensaje enviado, por favor revise su casilla de correo e ingrese al link")
     }
     catch(e) {
         console.log(e)
@@ -26,12 +23,15 @@ const handleSubmit = async (email) => {
         body: JSON.stringify({email}),
     })
         .then(response => {
+            if (!response.ok) {
+                throw new Error(response);
+            }
             return response.json();
         })
         .then(data => {
             return data
         })
         .catch(error => {
-            console.error(error);
+            alert(error.message);
         });
 }

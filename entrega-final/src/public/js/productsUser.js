@@ -12,7 +12,7 @@ addButtons.forEach(button => {
 })
 
 changeToPremium.addEventListener('click', async () => {
-    const response = await changeRole({ role: 'premium' })
+    const response = await changeRole()
     if (response) {
         alert("Se ha cambiado el rol")
         return window.location.href = '/products'
@@ -40,7 +40,7 @@ async function addProduct(product) {
         });
 }
 
-async function changeRole(role) {
+async function changeRole() {
     return fetch('/api/auth/prem', {
         method: 'PUT',
         headers: {

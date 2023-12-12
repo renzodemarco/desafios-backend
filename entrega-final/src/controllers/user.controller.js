@@ -1,5 +1,5 @@
 import * as userServices from '../services/user.services.js'
-import { generateToken } from '../utils/jwt.js'
+import { generateToken, verifyRecoverPasswordToken } from '../utils/jwt.js'
 import userDTO from '../dto/user.dto.js'
 import CustomError from '../utils/error.custom.js'
 import dictionary from '../utils/error.dictionary.js'
@@ -134,7 +134,7 @@ export const POSTLogout = (req, res, next) => {
 export const POSTRecoverPassRequest = async (req, res) => {
     try {
         const { email } = req.body
-        const response = await recoverPasswordServices.postRecoverPassRequest(email)
+        const response = await userServices.postRecoverPassRequest(email)
         return res.json(response)
     }
     catch(error) {

@@ -1,11 +1,25 @@
-<div class="container" cart-id="{{cart._id}}">
-    <h1>Finalizar compra</h1>
-    <h2>Precio final: ${{cart.cartPrice}}</h2>
-    <button class="blue-button" id="buyCart">COMPRAR</button>
-    <button class="grey-button" onclick="redirect('/carts/{{cart._id}}')">Volver al carrito</button>
-</div>
+<header class="w-100 dark">
+    <a class="logo" href="/">CD Commerce</a>
+    <nav class="navbar navbar-expand-lg">
+        <button type="button" class="btn btn-warning">
+            <a href="/products">Volver</a>
+        </button>
+        <button type="button" class="btn btn-warning" id="sign-out">
+            Cerrar sesión
+        </button>
+    </nav>
+</header>
+
+<main class="purchase-main" cart-id="{{cart._id}}">
+    <h1 class="yellow">Finalizar compra</h1>
+    <h2 class="yellow">Precio final: ${{cart.cartPrice}}</h2>
+    <button class="btn btn-warning" id="buyCart">COMPRAR</button>
+    <button class="btn btn-secondary" onclick="redirect('/carts')">Volver al carrito</button>
+</main>
 
 <script src="/js/purchase.js"></script>
+
+<script src="/js/signout.js"></script>
 
 <script>
     function redirect(url) {

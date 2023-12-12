@@ -15,9 +15,10 @@ addButtons.forEach(button => {
 
 changeToUser.addEventListener('click', async () => {
     const response = await changeRole()
-    if (response.error) return alert(response.message)
-    alert("Se ha cambiado el rol")
-    return window.location.href = '/'
+    if (response) {
+        alert("Se ha cambiado el rol")
+        return window.location.href = '/products'
+    }
 })
 
 
